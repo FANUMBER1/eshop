@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Checkbox List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .dropdown-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 10px;
+            z-index: 1;
+            border-radius: 4px;
+        }
+        
+        .dropdown-content label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .dropdown-content input {
+            margin-right: 10px;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="output"></div>
+
+    <div class="dropdown">
+        <button onclick="toggleDropdown()" class="dropdown-btn">Select Options</button>
+        <div id="dropdown-content" class="dropdown-content">
+            <label><input type="checkbox" name="option1" value="Option 1"> Option 1</label>
+            <label><input type="checkbox" name="option2" value="Option 2"> Option 2</label>
+            <label><input type="checkbox" name="option3" value="Option 3"> Option 3</label>
+            <label><input type="checkbox" name="option4" value="Option 4"> Option 4</label>
+            <label><input type="checkbox" name="option5" value="Option 5"> Option 5</label>
+        </div>
+    </div>
+    <button onclick="printSelectedOptions()">Print Selected</button>
+
+    <script src="./assets/js/js.js"></script>
+</body>
+</html>

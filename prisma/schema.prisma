@@ -1,0 +1,225 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:1@localhost:5432/project/mydb?schema=public"
+}
+
+model contact{
+  id Int  @id @default(autoincrement())
+  name String?
+  subject String?
+  email String?
+  phone String?
+  message String?
+}
+
+model role{
+  id Int  @id @default(autoincrement())
+  position String
+  user user[]
+}
+
+model comment{
+  id Int  @id @default(autoincrement())
+  content String?
+  user user @relation(fields: [userid], references: [id])
+  userid Int
+  blog blog @relation(fields: [blogid], references: [id])
+  blogid Int
+}
+
+model size{
+  id Int  @id @default(autoincrement())
+  size String?
+  product product_size[]
+}
+
+model product_size{
+  id Int  @id @default(autoincrement())
+  product product @relation(fields: [productid], references: [id])
+  productid Int
+  size size @relation(fields: [sizeid], references: [id])
+  sizeid Int
+}
+
+model color{
+  id Int  @id @default(autoincrement())
+  color String?
+  product product_color[]
+}
+
+model product_color{
+  id Int  @id @default(autoincrement())
+  product product @relation(fields: [productid], references: [id])
+  productid Int
+  color color @relation(fields: [colorid], references: [id])
+  colorid Int
+}
+
+model userclass{
+  id Int  @id @default(autoincrement())
+  name String?
+  product product[]
+}
+
+model discount{
+  id Int  @id @default(autoincrement())
+  name String?
+  product product[]
+
+}
+
+model classfy{
+  id Int  @id @default(autoincrement())
+  name String?
+  product product[]
+
+}
+
+model service{
+  id Int  @id @default(autoincrement())
+  img String?
+  name String?
+  content String?
+}
+
+model profile{
+    id Int  @id @default(autoincrement())
+    name String?
+    img String?
+    describe String?
+    email String?
+    phone String?
+    address String?
+}
+
+model user{
+    id Int  @id @default(autoincrement())
+    name String?
+    img String?
+    firstname String?
+    lastname String?
+    email String?
+    phone String?
+    country String?
+    state String?
+    address1 String?
+    address2 String?
+    code String?
+    company String?
+    pass String?
+    blog blog[]
+    oder oder[]
+    comment comment[]
+    review review[]
+    role role @relation(fields: [roleid], references: [id])
+    roleid Int
+}
+
+model blog{
+    id Int  @id @default(autoincrement())
+    img String?
+    name String?
+    describe String?
+    content String?
+    tag blog_tag[]
+    categori blog_categori[]
+    comment comment[]
+    user user @relation(fields: [userid], references: [id])
+    userid Int
+}
+
+model product{
+    id Int  @id @default(autoincrement())
+    name String?
+    price String?
+    describe String?
+    content String?
+    quantity String?
+    img img[]
+    classfy classfy @relation(fields: [classfyid], references: [id])
+    classfyid Int
+    userclass userclass @relation(fields: [userclassid], references: [id])
+    userclassid Int
+    discount discount @relation(fields: [discountid], references: [id])
+    discountid Int
+    countsale Int
+    countview Int
+    color product_color[]
+    size  product_size[]
+    oder oder_product[]
+    review review[]
+}
+
+model categori{
+  id Int  @id @default(autoincrement())
+  name String?
+  blogs blog_categori[]
+}
+
+model tags{
+    id Int  @id @default(autoincrement())
+    name String?
+    blog blog_tag[]
+}
+model soicial{
+  id Int  @id @default(autoincrement())
+  name String?
+  img String?
+  link String?
+}
+
+model oder{
+  id Int  @id @default(autoincrement())
+  user user @relation(fields: [userid], references: [id])
+  userid Int
+  product oder_product[]
+}
+
+model oder_product{
+  id Int  @id @default(autoincrement())
+  oder oder @relation(fields: [oderid], references: [id])
+  oderid Int
+  product product @relation(fields: [productid], references: [id])
+  productid Int
+  quantity String?
+}
+
+model blog_categori{
+  blog blog @relation(fields: [blogid], references: [id])
+  blogid Int
+  categori categori @relation(fields: [categorid], references: [id])
+  categorid Int
+  @@id([blogid, categorid])
+}
+
+model img{
+  id Int  @id @default(autoincrement())
+  product product @relation(fields: [productid], references: [id])
+  productid Int
+  img String?
+}
+
+model blog_tag{
+  blogs blog @relation(fields: [blogid], references: [id])
+  blogid Int
+  tag tags @relation(fields: [tagid], references: [id])
+  tagid Int
+  @@id([blogid, tagid])
+}
+
+model review{
+  id Int  @id @default(autoincrement())
+  content String?
+  user user @relation(fields: [userid], references: [id])
+  userid Int
+  product product @relation(fields: [productid], references: [id])
+  productid Int
+}
+
