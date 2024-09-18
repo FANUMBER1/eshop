@@ -53,7 +53,7 @@
                   <td><%= i %></td>
                   <td><%= data[i].id %></td>
                   <td><%= data[i].name %></td>
-                <td class="d-flex"><a class="nav-link text-dark" href="/admin/edit-categori/<%= data[i].id %>"> Chi tiết /<a class="nav-link text-dark" href="/admin/delete-categori/<%= data[i].id %>"> Xóa</a></a></td>
+                <td class="d-flex"><a class="nav-link text-dark" href="/admin/categori/edit/<%= data[i].id %>"> Chi tiết /<a class="nav-link text-dark" href="/admin/categori/delete/<%= data[i].id %>"> Xóa</a></a></td>
                 </tr>
                 <%}%>
               </tbody>
@@ -65,7 +65,7 @@
     <div class="row mt-5 justify-content-center">
         <div class="col-5">
       <h2>Create User Role</h2>
-    <form action="/admin/create-categori" method="post" >
+    <form action="/admin/categori/create" method="post" >
       <div class="form-group">
         <label for="email">Categori</label>
         <input type="text" class="form-control" id="email" name="name">

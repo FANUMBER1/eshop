@@ -26,6 +26,13 @@
           margin-left: 250px; /* Điều chỉnh theo chiều rộng của sidebar */
           padding: 20px;
       }
+      #colorBox {
+      width: 200px;
+      height: 200px;
+      background-color: #ffffff;
+      border: 1px solid #000000;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -53,7 +60,7 @@
                   <td><%= i %></td>
                   <td><%= data[i].id %></td>
                   <td><%= data[i].color %></td>
-                <td class="d-flex"><a class="nav-link text-dark" href="/admin/edit-color/<%= data[i].id %>"> Chi tiết /<a class="nav-link text-dark" href="/admin/delete-color/<%= data[i].id %>"> Xóa</a></a></td>
+                <td class="d-flex"><a class="nav-link text-dark" href="/admin/color/edit/<%= data[i].id %>"> Chi tiết /<a class="nav-link text-dark" href="/admin/color/delete/<%= data[i].id %>"> Xóa</a></a></td>
                 </tr>
                 <%}%>
               </tbody>
@@ -65,11 +72,9 @@
     <div class="row mt-5 justify-content-center">
         <div class="col-5">
       <h2>Create User Role</h2>
-    <form action="/admin/create-color" method="post" >
-      <div class="form-group">
+    <form action="/admin/color/create/" method="post" >
         <label for="email">Color</label>
-        <input type="text" class="form-control" id="email" name="color">
-      </div>
+        <input type="color" id="colorPicker" name="color">
       <button type="submit" class="mt-2 btn btn-default btn-dark">CREATE</button>
     </form>
       </div>

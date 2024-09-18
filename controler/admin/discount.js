@@ -5,7 +5,7 @@ const model=require('../../model/admin/discount')
 module.exports={
     create:async(req,res)=>{
         const name=req.body.name;
-        const create= await model.discount(name)
+        const create= await model.create(name)
         res.redirect('/admin/discount') 
     },
     delete:async(req,res)=>{

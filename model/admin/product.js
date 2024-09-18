@@ -80,9 +80,22 @@ product:async(req,res)=>{
                 }
             }
         }
+      },
+      review:{
+        select:{
+          content:true,
+          user:{
+            select:{
+              img:true,
+              id:true,
+              name:true
+            }
+          }
+        }
       }
     }
 })
+
 return data;
 },
 postedit:async(id,name,price,quantity,classf,userclass,discount,
@@ -134,11 +147,11 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
         })    
     },
     createproduct:async(name,price,quantity,classfy,userclass,discount,
-        describe,content,size,color)=>{
+        describe,content,size,color,img)=>{
         const cret=await prisma.product.create({data:{
         name:name, price:price,quantity:quantity,classfy:{connect:{id:classfy}},
         userclass:{connect:{id:userclass}},discount:{connect:{id:discount}},
-        describe:describe,content:content,countsale:"0",countview:"0"
+        describe:describe,content:content,countsale:0,countview:0,img:{set:img}
         }})
         const product = await prisma.product.findFirst({
            where: {

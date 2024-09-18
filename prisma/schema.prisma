@@ -142,7 +142,7 @@ model product{
     describe String?
     content String?
     quantity String?
-    img img[]
+    img String[]
     classfy classfy @relation(fields: [classfyid], references: [id])
     classfyid Int
     userclass userclass @relation(fields: [userclassid], references: [id])
@@ -199,13 +199,6 @@ model blog_categori{
   @@id([blogid, categorid])
 }
 
-model img{
-  id Int  @id @default(autoincrement())
-  product product @relation(fields: [productid], references: [id])
-  productid Int
-  img String?
-}
-
 model blog_tag{
   blogs blog @relation(fields: [blogid], references: [id])
   blogid Int
@@ -223,3 +216,37 @@ model review{
   productid Int
 }
 
+model active{
+  id Int  @id @default(autoincrement())
+  name String?
+  sale marketing_sale[]
+  blog marketing_blog[]
+  marketings marketing[]
+
+}
+model marketing_sale{
+  id Int  @id @default(autoincrement())
+  name String?
+  link String?
+  namesale String?
+  active active @relation(fields: [activeid], references: [id])
+  activeid Int
+}
+
+model marketing_blog{
+  id Int  @id @default(autoincrement())
+  name String?
+  link String?
+  img String?
+  active active @relation(fields: [activeid], references: [id])
+  activeid Int
+}
+
+model marketing{
+ id Int  @id @default(autoincrement())
+  name String?
+  link String?
+  nameshop String?
+  active active @relation(fields: [activeid], references: [id])
+  activeid Int
+}

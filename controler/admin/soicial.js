@@ -2,6 +2,7 @@ const express=require('express');
 const app = express();
 app.set('view engine', 'ejs');
 const model=require('../../model/admin/soicial')
+const create=require('../../model/admin/admin')
 module.exports={
     create:async(req,res)=>{
         const name=req.body.name;

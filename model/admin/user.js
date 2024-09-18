@@ -15,10 +15,10 @@ module.exports={
             select: {
               id: true,
               name: true,
-              avata: true,
+              img: true,
               email: true,
               pass: true,
-              roles: {
+              role: {
                 select: {
                   position: true, 
                 },
@@ -28,11 +28,11 @@ module.exports={
           
         return data;
     },
-    postedit:async(id,name,taikhoan,pass,img,role)=>{
+    postedit:async(id,role,img)=>{
         const creat= await prisma.user.update({
             where:{id:id},
             data:{
-                name:`${name}`,email:`${taikhoan}`,avata:`${img}`, pass:`${pass}`,roleid:role
+                img:`${img}`,roleid:role
             }
         })
 

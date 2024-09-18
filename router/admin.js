@@ -1,10 +1,5 @@
 const express=require('express');
 const router=express.Router();
-const page=require('../controler/admin/page')
-const create=require('../controler/admin/create')
-const deletec=require('../controler/admin/delete')
-const edit=require('../controler/admin/edit')
-const multer = require('multer');
 const product=require('./product')
 const profile=require('./profile')
 const blog=require('./blog')
@@ -18,10 +13,12 @@ const service=require('./service')
 const size=require('./size')
 const soicial=require('./soicial')
 const tag=require('./tag')
+const comment=require('./comment')
 const user=require('./user')
 const userclass=require('./userclass')
+const review=require('./review')
 const view=require('./view')
-
+const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './assets/upload/');
@@ -32,7 +29,7 @@ const storage = multer.diskStorage({
   });
  const upload = multer({ storage: storage }); 
 ////////profile
-router.use('/profile',profile)
+router.use('/',profile)
 /////////Soicial
 router.use('/soicial',soicial)
 /////////
@@ -59,7 +56,10 @@ router.use('/discount',discount)
 router.use('/classfy',classfy)
 /////product
 router.use('/product',product)
+router.use('/userclass',userclass)
 /////Blog
 router.use('/blog',blog)/////User
-router.use('/user',user)
+router.use('/inforuser',user)
+router.use('/comment',comment)
+router.use('/review',review)
 module.exports=router;

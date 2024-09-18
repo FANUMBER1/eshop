@@ -50,13 +50,21 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Your Email<span>*</span></label>
+										<% if(check==0){%>
+											<label style="color:red">Your Email Incorect<span>*</span></label>
+											<%}else{%>
+												<label>Your Email<span>*</span></label>
+												<%}%>
                                         <input type="email" name="email" placeholder="" required="required">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
+										<% if(check==0){%>
+											<label style="color:red">Your Password Incorect<span>*</span></label>
+											<%}else{%>
                                         <label>Your Password<span>*</span></label>
+										<%}%>
                                         <input type="password" name="password" placeholder="" required="required">
                                     </div>
                                 </div>

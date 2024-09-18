@@ -73,8 +73,8 @@
                       </div>
                     </td>
                     <td><a class="nav-link text-primary" href="<%= data[i].link %>">Link</a></td>
-                    <td class="d-flex"><a class="nav-link text-dark" href="/admin/edit-soicial/<%= data[i].id %>"> Edit
-                        /<a class="nav-link text-dark" href="/admin/delete-soicial/<%= data[i].id %>"> Xóa</a></a></td>
+                    <td class="d-flex"><a class="nav-link text-dark" href="/admin/soicial/edit/<%= data[i].id %>"> Edit
+                        /<a class="nav-link text-dark" href="/admin/soicial/delete/<%= data[i].id %>"> Xóa</a></a></td>
                   </tr>
                   <%}%>
               </tbody>
@@ -85,7 +85,7 @@
       <div class="row mt-5 justify-content-center">
         <div class="col-5">
           <h2>Create soicial</h2>
-          <form action="/admin/create-soicial" method="post" enctype="multipart/form-data">
+          <form action="/admin/soicial/create" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="email">Soicial name</label>
               <input type="text" class="form-control" id="email" name="name">

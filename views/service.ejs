@@ -44,7 +44,7 @@
             </div>
             <div class="row mb-2">
                 <div class="col-1">
-                    <a href="/admin/create-service" class="btn btn-primary"> Create</a>
+                    <a href="/admin/service/create" class="btn btn-primary"> Create</a>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-lg-4 g-2 g-lg-3  ">
@@ -59,8 +59,8 @@
                                 <p class="card-text">
                                     <%= data[i].content %>
                                 </p>
-                                <a href="/admin/edit-service/<%=data[i].id %>" class="btn btn-primary">Update</a>
-                                <a href="/admin/delete-service/<%=data[i].id %>" class="btn btn-primary">Delete</a>
+                                <a href="/admin/service/edit/<%=data[i].id %>" class="btn btn-primary">Update</a>
+                                <a href="/admin/service/delete/<%=data[i].id %>" class="btn btn-primary">Delete</a>
                             </div>
                         </div>
                     </div>

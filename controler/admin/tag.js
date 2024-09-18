@@ -2,7 +2,6 @@ const express=require('express');
 const app = express();
 app.set('view engine', 'ejs');
 const model=require('../../model/admin/tag')
-const page=require('../../model/admin/page')
 module.exports={
     create:async(req,res)=>{
         const name=req.body.name;

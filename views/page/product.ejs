@@ -189,51 +189,21 @@
                                                 <div class="col-12">
                                                     <div class="ratting-main">
                                                         <div class="avg-ratting">
-                                                            <h4>4.5 <span>(Overall)</span></h4>
-                                                            <span>Based on 1 Comments</span>
+                                                            <span>Based on <%=data.review.length %> Comments</span>
                                                         </div>
+                                                        <% for(var i=0; i< data.review.length ; i++){%>
                                                         <!-- Single Rating -->
                                                         <div class="single-rating">
                                                             <div class="rating-author">
-                                                                <img src="images/comments1.jpg" alt="#">
+                                                                <img src="<%= data.review[i].user.img %>" alt="#">
                                                             </div>
                                                             <div class="rating-des">
-                                                                <h6>Naimur Rahman</h6>
-                                                                <div class="ratings">
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star-half-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
-                                                                    <div class="rate-count">(<span>3.5</span>)</div>
-                                                                </div>
-                                                                <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
+                                                                <h6><%= data.review[i].user.name %></h6>
+                                                                <p><%= data.review[i].content %></p>
                                                             </div>
                                                         </div>
                                                         <!--/ End Single Rating -->
-                                                        <!-- Single Rating -->
-                                                        <div class="single-rating">
-                                                            <div class="rating-author">
-                                                                <img src="images/comments2.jpg" alt="#">
-                                                            </div>
-                                                            <div class="rating-des">
-                                                                <h6>Advin Geri</h6>
-                                                                <div class="ratings">
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                    </ul>
-                                                                    <div class="rate-count">(<span>5.0</span>)</div>
-                                                                </div>
-                                                                <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--/ End Single Rating -->
+                                                        <%}%>
                                                     </div>
                                                     <!-- Review -->
                                                     <div class="comment-review">
@@ -242,38 +212,15 @@
                                                             <p>Your email address will not be published. Required fields are marked</p>
                                                         </div>
                                                         <h4>Your Rating</h4>
-                                                        <div class="review-inner">
-                                                            <div class="ratings">
-                                                                <ul class="rating">
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     <!--/ End Review -->
                                                     <!-- Form -->
-                                                    <form class="form" method="post" action="/assets/mail/mail.php">
+                                                    <form class="form" method="post" action="/product/review/<%= data.id %>">
                                                         <div class="row">
-                                                            <div class="col-lg-6 col-12">
-                                                                <div class="form-group">
-                                                                    <label>Your Name<span>*</span></label>
-                                                                    <input type="text" name="name" required="required" placeholder="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-12">
-                                                                <div class="form-group">
-                                                                    <label>Your Email<span>*</span></label>
-                                                                    <input type="email" name="email" required="required" placeholder="">
-                                                                </div>
-                                                            </div>
                                                             <div class="col-lg-12 col-12">
                                                                 <div class="form-group">
                                                                     <label>Write a review<span>*</span></label>
-                                                                    <textarea name="message" rows="6" placeholder=""></textarea>
+                                                                    <textarea name="content" rows="6" placeholder=""></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12 col-12">

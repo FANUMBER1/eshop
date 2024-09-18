@@ -49,7 +49,7 @@
 						<div class="checkout-form">
 							<h2>Make Your Create Product Here</h2>
 							<!-- Form -->
-							<form class="form" method="post" action="/creat-product">
+							<form class="form" method="post" action="/creat-product" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
@@ -111,6 +111,12 @@
 											<textarea name="content" placeholder=""></textarea>
 										</div>
 									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<lable>Img</lable>
+											<input type="file" name="img" multiple>
+										  </div>
+										</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<label>Size<span>*</span></label>
 										<div class="row mb-2">

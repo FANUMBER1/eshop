@@ -2,7 +2,7 @@ const { PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient();
 
 module.exports={
-    taikhoan: async (tentaikhoan) => {
+    getuser: async (tentaikhoan) => {
       const data= await prisma.user.findMany({
         where:{
           email:tentaikhoan

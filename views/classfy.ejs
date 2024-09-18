@@ -36,36 +36,44 @@
       <h1> CLASSFY </h1> 
     </div>
     <div class="row justify-content-center">
-        <div class="col-10 border border-dark rounded p-3 ">
-           <div class="row">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% for(var i=0; i < data.length ; i++){%>   
-                <tr>
-                  <td><%= i %></td>
-                  <td><%= data[i].id %></td>
-                  <td><%= data[i].name %></td>
-                <td class="d-flex"><a class="nav-link text-dark" href="/admin/edit-classfy/<%= data[i].id %>"> Chi tiết /<a class="nav-link text-dark" href="/admin/delete-classfy/<%= data[i].id %>"> Xóa</a></a></td>
-                </tr>
-                <%}%>
-              </tbody>
-            </table>            
-          </div> 
-       </div> 
+      <div class="col-10 border border-dark rounded p-3">
+        <div class="row">
+          <aside>
+            <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+              <table class="table">
+                <thead class="thead-dark" style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                  <tr>
+                    <th>STT</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < data.length; i++) { %>
+                  <tr>
+                    <td><%= i %></td>
+                    <td><%= data[i].id %></td>
+                    <td><%= data[i].name %></td>
+                    <td class="d-flex">
+                      <a class="nav-link text-dark" href="/admin/classfy/edit/<%= data[i].id %>">Chi tiết</a> /
+                      <a class="nav-link text-dark" href="/admin/classy/delete/<%= data[i].id %>">Xóa</a>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </aside>
+        </div>
+      </div>
     </div>
+    
     </div>
     <div class="row mt-5 justify-content-center">
         <div class="col-5">
       <h2>Create Classfy</h2>
-    <form action="/admin/create-classfy" method="post" >
+    <form action="/admin/classfy/create" method="post" >
       <div class="form-group">
         <label for="email">NAME</label>
         <input type="text" class="form-control" id="email" name="name">

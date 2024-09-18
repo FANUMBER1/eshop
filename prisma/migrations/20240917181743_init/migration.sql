@@ -150,11 +150,12 @@ CREATE TABLE "product" (
     "describe" TEXT,
     "content" TEXT,
     "quantity" TEXT,
+    "img" TEXT[],
     "classfyid" INTEGER NOT NULL,
     "userclassid" INTEGER NOT NULL,
     "discountid" INTEGER NOT NULL,
-    "countsale" TEXT,
-    "countview" TEXT,
+    "countsale" INTEGER NOT NULL,
+    "countview" INTEGER NOT NULL,
 
     CONSTRAINT "product_pkey" PRIMARY KEY ("id")
 );
@@ -212,15 +213,6 @@ CREATE TABLE "blog_categori" (
 );
 
 -- CreateTable
-CREATE TABLE "img" (
-    "id" SERIAL NOT NULL,
-    "productid" INTEGER NOT NULL,
-    "img" TEXT,
-
-    CONSTRAINT "img_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "blog_tag" (
     "blogid" INTEGER NOT NULL,
     "tagid" INTEGER NOT NULL,
@@ -236,6 +228,47 @@ CREATE TABLE "review" (
     "productid" INTEGER NOT NULL,
 
     CONSTRAINT "review_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "active" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT,
+
+    CONSTRAINT "active_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "marketing_sale" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT,
+    "link" TEXT,
+    "namesale" TEXT,
+    "activeid" INTEGER NOT NULL,
+
+    CONSTRAINT "marketing_sale_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "marketing_blog" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT,
+    "link" TEXT,
+    "img" TEXT,
+    "activeid" INTEGER NOT NULL,
+
+    CONSTRAINT "marketing_blog_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "marketing" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT,
+    "link" TEXT,
+    "nameshop" TEXT,
+    "activeid" INTEGER NOT NULL,
+
+    CONSTRAINT "marketing_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
@@ -287,9 +320,6 @@ ALTER TABLE "blog_categori" ADD CONSTRAINT "blog_categori_blogid_fkey" FOREIGN K
 ALTER TABLE "blog_categori" ADD CONSTRAINT "blog_categori_categorid_fkey" FOREIGN KEY ("categorid") REFERENCES "categori"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "img" ADD CONSTRAINT "img_productid_fkey" FOREIGN KEY ("productid") REFERENCES "product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "blog_tag" ADD CONSTRAINT "blog_tag_blogid_fkey" FOREIGN KEY ("blogid") REFERENCES "blog"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -300,3 +330,12 @@ ALTER TABLE "review" ADD CONSTRAINT "review_userid_fkey" FOREIGN KEY ("userid") 
 
 -- AddForeignKey
 ALTER TABLE "review" ADD CONSTRAINT "review_productid_fkey" FOREIGN KEY ("productid") REFERENCES "product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "marketing_sale" ADD CONSTRAINT "marketing_sale_activeid_fkey" FOREIGN KEY ("activeid") REFERENCES "active"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "marketing_blog" ADD CONSTRAINT "marketing_blog_activeid_fkey" FOREIGN KEY ("activeid") REFERENCES "active"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "marketing" ADD CONSTRAINT "marketing_activeid_fkey" FOREIGN KEY ("activeid") REFERENCES "active"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

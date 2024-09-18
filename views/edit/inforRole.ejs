@@ -37,7 +37,7 @@
     <div class="row text-center">
       <h1>EDIT USER ROLE </h1> 
     </div>
-    <form action="/admin/edit-role/<%= data.id %>" method="post">
+    <form action="/admin/role/edit/<%= data.id %>" method="post">
     <div class="row justify-content-center">
         <div class="col-5 border border-dark rounded p-3 ">
            <div class="row mb-5 overflow-hidden ">
@@ -46,7 +46,7 @@
               <input type="text" class="form-control" id="email" value="<%= data.position %>" name="position">
             </div>  
                <button type="submit" class="btn btn-default btn-dark mt-2 mb-2 " >UPDATE</button>
-               <button type="button" class="btn btn-dark btn-default " ><a href="/admin/ROLE" class="nav-link text-white" >RETURN</a></button>
+               <button type="button" class="btn btn-dark btn-default " ><a href="/admin/role" class="nav-link text-white" >RETURN</a></button>
             </div>
        </div> 
     </div>

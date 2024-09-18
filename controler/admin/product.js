@@ -2,20 +2,34 @@ const express=require('express');
 const app = express();
 app.set('view engine', 'ejs');
 const model=require('../../model/admin/product')
-const page=require('../../model/admin/page')
+const adminModel=require('../../model/admin/admin')
+const profile=require('../../model/admin/profile')
+const blog=require('../../model/admin/blog')
+const categori=require('../../model/admin/categori')
+const classfy=require('../../model/admin/classfy')
+const color=require('../../model/admin/color')
+const contact=require('../../model/admin/contact')
+const discount=require('../../model/admin/discount')
+const role=require('../../model/admin/role')
+const service=require('../../model/admin/service')
+const size=require('../../model/admin/size')
+const soicial=require('../../model/admin/soicial')
+const tag=require('../../model/admin/tag')
+const user=require('../../model/admin/user')
+const userclass=require('../../model/admin/userclass')
 module.exports={
     product:async(req,res)=>{
-        const data= await page.product()
+        const data= await model.product()
         res.render('product',{data:data})
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
         const data= await model.getedit(id)
-        const datasize= await page.size();
-        const datacolor= await page.color();
-        const dataclassfy=await page.classfy()
-        const datauserclass=await page.userclass()
-        const datadiscount=await page.discount()
+        const datasize= await size.size();
+        const datacolor= await color.color();
+        const dataclassfy=await classfy.classfy()
+        const datauserclass=await userclass.userclass()
+        const datadiscount=await discount.discount()
         res.render('./edit/product',{data:data,size:datasize,color:datacolor,classfy:dataclassfy
             ,userclass:datauserclass,discount:datadiscount})
     },
