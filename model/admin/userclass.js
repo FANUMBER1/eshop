@@ -22,5 +22,30 @@ module.exports={
     userclass:async(req,res)=>{
         const data= await prisma.userclass.findMany()
         return data;
+      },
+      userclass6:async(req,res)=>{
+        const topUserclasses = await prisma.product.groupBy({
+            by: ['userclassid'],
+            _count: {
+              userclassid: true,
+            },
+            orderBy: {
+              _count: {
+                userclassid: 'desc',
+              },
+            },
+            take: 6,
+          });
+          const data = await prisma.userclass.findMany({
+            where: {
+              id: {
+                in: topUserclasses.map((u) => u.userclassid), 
+              },
+            },
+            include: {
+              product: true,  
+            },
+          });
+          return data
       }
 }

@@ -32,6 +32,7 @@ model comment{
   userid Int
   blog blog @relation(fields: [blogid], references: [id])
   blogid Int
+  time String?
 }
 
 model size{
@@ -51,6 +52,7 @@ model product_size{
 model color{
   id Int  @id @default(autoincrement())
   color String?
+  name String?
   product product_color[]
 }
 
@@ -72,6 +74,7 @@ model discount{
   id Int  @id @default(autoincrement())
   name String?
   product product[]
+  marketing_sale marketing_sale[]
 
 }
 
@@ -120,6 +123,7 @@ model user{
     review review[]
     role role @relation(fields: [roleid], references: [id])
     roleid Int
+    product user_product[]
 }
 
 model blog{
@@ -133,6 +137,7 @@ model blog{
     comment comment[]
     user user @relation(fields: [userid], references: [id])
     userid Int
+    time String?
 }
 
 model product{
@@ -155,6 +160,18 @@ model product{
     size  product_size[]
     oder oder_product[]
     review review[]
+    user user_product[]
+}
+
+model user_product{
+  id Int @id @default(autoincrement())
+  user user @relation(fields: [userid], references: [id])
+  userid Int
+  product product @relation(fields: [productid], references: [id])
+  productid Int
+  quantity String?
+  size String?
+  color String?
 }
 
 model categori{
@@ -179,6 +196,8 @@ model oder{
   id Int  @id @default(autoincrement())
   user user @relation(fields: [userid], references: [id])
   userid Int
+  active Int
+  time String?
   product oder_product[]
 }
 
@@ -189,6 +208,8 @@ model oder_product{
   product product @relation(fields: [productid], references: [id])
   productid Int
   quantity String?
+  size String?
+  color String?
 }
 
 model blog_categori{
@@ -228,7 +249,10 @@ model marketing_sale{
   id Int  @id @default(autoincrement())
   name String?
   link String?
+  img String?
   namesale String?
+  discount discount @relation(fields: [discountid], references: [id])
+  discountid Int
   active active @relation(fields: [activeid], references: [id])
   activeid Int
 }
@@ -246,6 +270,8 @@ model marketing{
  id Int  @id @default(autoincrement())
   name String?
   link String?
+  img String?
+  describe String?
   nameshop String?
   active active @relation(fields: [activeid], references: [id])
   activeid Int

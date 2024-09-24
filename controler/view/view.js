@@ -19,54 +19,143 @@ const user=require('../../model/admin/user')
 const userclass=require('../../model/admin/userclass')
 const comment=require('../../model/admin/comment')
 const review=require('../../model/admin/review')
+const oder=require('../../model/admin/oder')
+const cart=require('../../model/admin/cart')
+const marketingsale=require('../../model/admin/marketing-sale')
+const marketingblog=require('../../model/admin/marketing-blog')
+const marketings=require('../../model/admin/marketing')
 app.set('view engine', 'ejs');
 module.exports={
     index:async(req,res)=>{
-        res.render('page/index');
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }
+        const datamarketingsale=await marketingsale.marketing_sale()
+        const blogs=await marketingblog.marketing_blog()
+        const datamarketing=await marketings.marketing()
+        const profiles=await profile.profile()
+        const products= await product.product()
+        const topsale=await product.topsale()
+        const topview=await product.topview()
+        const userclas=await userclass.userclass()
+        const topdiscount= await product.topdiscount()
+        res.render('page/index',{carts:carts,marketingsale:datamarketingsale,blogs:blogs,
+            marketing:datamarketing,profile:profiles,product:products,
+            topsale:topsale,topview:topview,userclass:userclas});
     },
     contact:async(req,res)=>{
-        res.render('page/contact')
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }        res.render('page/contact',{carts:carts})
     },
     checkout:async(req,res)=>{
-        res.render('page/checkout')
+        const iduser=parseInt(req.session.userId)
+        var carts
+        var idoder
+        const quantity=[]
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+            for(var i=0; i < carts.length;i++){
+                quantity.push(req.body[`quant${carts[i].product.id}`])    
+            }
+            console.log(quantity)
+            const cre= await oder.create(carts,quantity,iduser)
+            idoder= await oder.getoder(iduser)
+
+    }
+
+        res.render('page/checkout',{carts:carts,idoder:idoder})
     },
     /////blog
     blogSingle:async(req,res)=>{
-        const  idblog=parseInt(req.params.ID);
-        const data = await blog.getedit(idblog)
-        res.render('page/blog-single-sidebar',{data:data})
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }        const  idblog=parseInt(req.params.ID);
+        const datablog = await blog.getedit(idblog)
+        res.render('page/blog-single-sidebar',{data:datablog,carts:carts})
     },
     myblog:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }
         const data=await blog.blog()
-       res.render('page/my-blog',{data:data})
+       res.render('page/my-blog',{data:data,carts:carts})
     },
     ////cart
     cart:async(req,res)=>{
-        res.render('page/cart')
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }        // const iduser=parseInt(req.session.userId)
+        // console.log(iduser)
+        // var data
+        // if(iduser >= 0){
+        //  data= await oder.getoder(iduser)
+        // }
+        // console.log(data)
+        res.render('page/cart',{carts:carts})
+    },
+    creat_cart:async(req,res)=>{
+       const idproduct=parseInt(req.params.ID);
+       const iduser=parseInt(req.session.userId)
+       const quantity=req.body.quantity||'1';
+       const color=req.body.color
+       const size=req.body.size
+       if(iduser>=0){
+        const cre=await cart.creat_cart(idproduct,iduser,quantity)
+        }
+        const dis=await product.reduce(idproduct)
+       res.redirect(`/product/${idproduct}`)     
     },
     product:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }        
         const idproduct=parseInt(req.params.ID);
         const dataproduct= await product.getedit(idproduct)
-        res.render('page/product',{data:dataproduct})
+        const dis=await product.increase(idproduct)
+        res.render('page/product',{data:dataproduct,carts:carts})
     },
     product_shop:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }
         const dataproduct=await product.product();
-        res.render('page/product-shop',{data:dataproduct})
+        res.render('page/product-shop',{data:dataproduct,carts:carts})
     },
     pagecreate_product:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }        
         const datasize= await size.size();
         const datacolor= await color.color();
         const dataclassfy=await classfy.classfy()
         const datauserclass=await userclass.userclass()
         const datadiscount=await discount.discount()
         res.render('page/create-product',{size:datasize,color:datacolor,classfy:dataclassfy
-            ,userclass:datauserclass,discount:datadiscount})
+            ,userclass:datauserclass,discount:datadiscount,carts:carts})
     },
     review:async(req,res)=>{
         const idproduct=parseInt(req.params.ID);
         const iduser=parseInt(req.session.userId);
         const content=req.body.content
         const crea= await review.create(idproduct,iduser,content)
+        const dis=await product.reduce(idproduct)
         res.redirect(`/product/${idproduct}`)     
     },
     creat_product:async(req,res)=>{
@@ -82,10 +171,8 @@ module.exports={
         const anh=req.files;
         const img=[]
         for(var i=0; i< anh.length ; i++){
-            console.log(anh[i].filename)
             img.push(await adminModel.checkImg(anh[i],data))
         }
-        console.log(img)
         const size=req.body.size;
         const color=req.body.color;
         const crea=await product.createproduct(name,price,quantity,classfy,userclass,discount,
@@ -94,9 +181,14 @@ module.exports={
     },  
     ////
     pagecreat_blog:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }      
         const datatag= await tag.tag();
         const datacategori= await categoris.categori();
-        res.render('page/create-blog',{tag:datatag,categori:datacategori})
+        res.render('page/create-blog',{tag:datatag,categori:datacategori,carts:carts})
     }, 
     creat_blog:async(req,res)=>{
         const iduser=parseInt(req.session.userId);
@@ -112,15 +204,25 @@ module.exports={
         res.redirect('/creat-blog')
     },
     login:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }
         var check=1;
-        res.render('page/login',{check})
+        res.render('page/login',{check,carts:carts})
     },
     checklogin:async(req,res)=>{
 
     },
     register:async(req,res)=>{
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }
         var check=1;
-        res.render('page/register',{check})
+        res.render('page/register',{check,carts:carts})
     },
     postregister:async(req,res)=>{
         const name= req.body.name;
@@ -144,11 +246,25 @@ module.exports={
             address1,address2,code,company,role);
         res.redirect('/login')
     },
-    comment:async(req,res)=>{
-        const idblog=parseInt(req.params.ID);
+    
+    oder:async(req,res)=>{
         const iduser=parseInt(req.session.userId);
-        const content=req.body.message
-        const crea= await comment.create(idblog,iduser,content)
-        res.redirect(`/blog/${idblog}`)     
-    }
+        const idproduct=parseInt(req.params.ID);
+        const crea= await oder.oder(iduser);
+        res.redirect('/cart')
+    },
+    search:async(req,res)=>{
+        const value= req.query.timkiem;
+        const productt= await product.product()
+        var result = productt.filter( (productt) => {
+            return productt.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        })
+        const iduser=parseInt(req.session.userId)
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }      
+        res.render('page/product-shop',{data:result,carts:carts})
+    },
+    
 }

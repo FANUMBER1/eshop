@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 module.exports={
     create:async(name,email,pass,img,firstname,lastname,phone,country,state,
       address1,address2,code,company,roleid)=>{
-      const create= await prisma.user.create({data:{name:`${name}`,email:`${email}`,pass:`${pass}`,roleid:roleid,
+      const cree= await prisma.user.create({data:{name:`${name}`,email:`${email}`,pass:`${pass}`,roleid:roleid,
        img:`${img}`, firstname:`${firstname}`, lastname:`${lastname}`, phone:`${phone}`, country:`${country}`, state:`${state}`, 
        address1:`${address1}`,address2:`${address2}`, code:`${code}`, company:`${company}`}})
      } ,
@@ -53,5 +53,9 @@ module.exports={
             },
           });     
          return data;
+    },
+    delete:async(id)=>{
+      const del1= await prisma.user_product.deleteMany({where:{userid:id}})
+      const del= await prisma.user.deleteMany({where:{id:id}})
     }
 }

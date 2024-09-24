@@ -6,6 +6,7 @@ product:async(req,res)=>{
     const data= await prisma.product.findMany({
       select:{
         id:true,
+        img:true,
         name:true,
         quantity:true,
         price:true,
@@ -39,6 +40,7 @@ product:async(req,res)=>{
         name:true,
         quantity:true,
         price:true,
+        img:true,
         describe:true,
         content:true,
         countsale:true,
@@ -95,7 +97,6 @@ product:async(req,res)=>{
       }
     }
 })
-
 return data;
 },
 postedit:async(id,name,price,quantity,classf,userclass,discount,
@@ -134,6 +135,37 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
                      })
             }}
     },
+    reduce:async(id)=>{
+      const data= await prisma.product.findUnique({
+        where:{id:id},
+        select:{
+          countsale:true,
+          countview:true,
+        }
+      });
+      const updat= await prisma.product.update({
+        where:{id:id},
+        data:{
+          countsale:0,countview:data.countview - 1,
+        }
+    });
+    },
+    increase:async(id)=>{
+      const data= await prisma.product.findUnique({
+        where:{id:id},
+        select:{
+          countsale:true,
+          countview:true,
+        }
+      });
+      const updat= await prisma.product.update({
+        where:{id:id},
+        data:{
+        countview:data.countview + 1,
+        }
+    });
+    },
+    
     ////product
     delete:async(id)=>{
         const del1= await prisma.product_size.deleteMany({
@@ -188,4 +220,75 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
                  })
         }}
      },
+     topview:async()=>{
+        const data= await prisma.product.findMany({
+          orderBy:{
+            countview:'desc'
+          },
+          take:3
+        })
+        return data
+     },
+     topsale:async()=>{
+      const data= await prisma.product.findMany({
+        orderBy:{
+          countsale:'desc'
+        },
+        take:3
+      })
+      return data
+     },
+     topdiscount:async()=>{
+     },
+     incresale:async(id)=>{
+      const data=await prisma.oder_product.findMany({where:{
+        oderid:id
+      },
+    include:{
+      product:{}
+    }
+  });
+    for(var i=0; i< data.length; i++){
+      const updat= await prisma.product.update({
+        where:{id:data[i].productid},
+        data:{
+        countsale:data[i].product.countsale + 1,
+        quantity:String(parseInt(data[i].product.quantity) - parseInt(data[i].quantity)) 
+        }
+    });    
+  }
+  },
+  pageproduct:async(page)=>{
+    const data= await prisma.product.findMany({
+      skip:page,
+      take:9,
+      select:{
+        id:true,
+        img:true,
+        name:true,
+        quantity:true,
+        price:true,
+        classfy:{
+          select:{
+             id:true,
+             name:true
+          }
+        },
+        userclass:{
+          select:{
+             id:true,
+             name:true
+          }
+        },
+        discount:{
+          select:{
+             id:true,
+             name:true
+          }
+        }
+      }
+    })
+    return data;
+    }
+    
 }

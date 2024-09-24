@@ -9,8 +9,8 @@ module.exports={
         const link=req.body.link;
         const anh=req.file;
         const data=[];
-        const img= await creat.checkImg(anh,data)
-        const create= await model.create(name,link,img)
+        const img= await create.checkImg(anh,data)
+        const creat= await model.create(name,link,img)
         res.redirect('/admin/soicial') 
     },
     delete:async(req,res)=>{

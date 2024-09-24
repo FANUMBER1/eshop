@@ -4,8 +4,8 @@ module.exports={
     delete:async(id)=>{
         const del= await prisma.comment.deleteMany({where:{id:id}})
     },
-    create:async(blogid,userid,content)=>{
-        const create= await prisma.comment.create({data:{blogid:blogid,userid:userid,content:`${content}`}})
+    create:async(blogid,userid,content,time)=>{
+        const create= await prisma.comment.create({data:{blogid:blogid,userid:userid,content:`${content}`,time:time}})
     },
     getedit:async(id)=>{
         const data= await prisma.comment.findUnique({
@@ -13,6 +13,7 @@ module.exports={
             select:{
                 id:true,
                 content:true,
+                time:true,
                 user:{
                     select:{
                         name:true,

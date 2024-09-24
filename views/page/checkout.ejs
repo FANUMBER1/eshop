@@ -390,9 +390,17 @@
 								<h2>CART  TOTALS</h2>
 								<div class="content">
 									<ul>
-										<li>Sub Total<span>$330.00</span></li>
+										<li>Sub Total<span>
+											$<% if(carts != undefined ){%>
+												<% var sum=0 %>
+												<% for(var i=0; i< carts.length ; i++){%>
+													  <% sum=sum + parseInt(carts[i].quantity)*parseInt(carts[i].product.price)%>
+												<%}%>
+												<%=sum%>.00
+											<%}%>
+										</span></li>
 										<li>(+) Shipping<span>$10.00</span></li>
-										<li class="last">Total<span>$340.00</span></li>
+										<li class="last">Total<span>$<%=sum%>.00</span></li>
 									</ul>
 								</div>
 							</div>
@@ -420,7 +428,9 @@
 							<div class="single-widget get-button">
 								<div class="content">
 									<div class="button">
-										<a href="#" class="btn">proceed to checkout</a>
+										<a href="<% if (idoder != undefined) { %>
+											/oder/<%= idoder[0].id %>
+										  <% } %>" class="btn">proceed to checkout</a>
 									</div>
 								</div>
 							</div>

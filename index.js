@@ -8,8 +8,9 @@ const { PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient();
 var cookieParser = require('cookie-parser');
 const session = require('express-session');
-const viewRouter=require('./router/view')
-const adminRouter=require('./router/admin')
+const viewRouter=require('./router/view/view')
+const adminRouter=require('./router/admin/admin')
+const middlewea=require('./middlewea/middlewea')
 //router
 const storage = multer.diskStorage({
    destination: function (req, file, cb) {

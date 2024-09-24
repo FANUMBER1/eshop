@@ -9,14 +9,7 @@
 <body class="js">
 	
 	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
+
 	<!-- End Preloader -->
 		
 		<!-- Header -->
@@ -49,7 +42,7 @@
 							<h2>Make Your Checkout Here</h2>
 							<p>Please register in order to checkout more quickly</p>
 							<!-- Form -->
-							<form class="form" method="post" action="#">
+							<form class="form" method="post" action="/register"  enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
@@ -392,19 +385,23 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Your Password<span>*</span></label>
-											<input type="password" name="pass" placeholder="" required="required">
+											<input type="password" name="password" placeholder="" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Confirm Password<span>*</span></label>
-											<input type="password" name="confirmpass" placeholder="" required="required">
+											<% if(check==3){%>
+												<label style="color:red">Not Match The Password<span>*</span></label>
+												<%}else{%>
+													<label>Comfirm Password<span>*</span></label>
+													<%}%>
+											<input type="password" name="comfirmpass" placeholder="" required="required">
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group login-btn">
 											<button class="btn" type="submit">Register</button>
-											<button class="btn" type="submit"><a href="/login">Login</a></button>
+											<button class="btn" type="button"><a href="/login">Login</a></button>
 										</div>
 										<div class="checkbox">
 											<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Sign Up for Newsletter</label>

@@ -12,6 +12,7 @@ module.exports={
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
+        console.log(id)
         const role= await modelrole.role()
         const data= await model.getedit(id)
         res.render('edit/inforUser',{data:data,datarole:role})
@@ -24,5 +25,9 @@ module.exports={
         const position=parseInt(req.body.position);
         const up= await model.postedit(id,position,img)
         res.redirect('/admin/inforuser')
+    },
+    delete:async(req,res)=>{
+        const id=parseInt(req.params.ID);
+        const del= await model.delete(id)
     }
 }

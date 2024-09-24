@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const users=require('../model/admin/user')
 const modellogin=require('../model/login/login')
+const cart=require('../model/admin/cart')
 module.exports = {
   requireLogin: (req, res, next) => {
     if (!req.session.userId) {
@@ -45,23 +46,52 @@ module.exports = {
         }
       }
     }
+    const iduser=parseInt(req.session.userId)
+    var carts
+    if(iduser>=0){
+        carts= await cart.getcart(iduser)
+    }
     if (check == 1) {
       req.session.userId = id;
       res.redirect('/')
     } else {
-      res.render('page/login', { check });
+      res.render('page/login', { check,carts:carts });
     }
   },
   checkregister:async(req,res,next)=>{
     const email = req.body.email;
     const data = await modellogin.getuser(email);
-    console.log(data.length)
+    console.log(email)
+    const iduser=parseInt(req.session.userId)
+    var carts
+    if(iduser>=0){
+        carts= await cart.getcart(iduser)
+    }
     var check=1;
     if(data.length > 0){
        check=0;
-       res.render('page/register',{check})
+       console.log(check)
+       res.render('page/register',{check,carts:carts})
     }else{
       next();
     }
+  },
+  checkcomfirm:async(req,res,next)=>{
+    const iduser=parseInt(req.session.userId)
+    var carts
+    if(iduser>=0){
+        carts= await cart.getcart(iduser)
+    }
+    console.log(2)
+    const pass = req.body.password;
+    const comfirmpass = req.body.comfirmpass;
+    console.log(pass,comfirmpass)
+    var check=3
+    if(pass !== comfirmpass){
+      res.render('page/register',{check,carts:carts})
+    }else{
+      next();
+    }
+
   }
 }

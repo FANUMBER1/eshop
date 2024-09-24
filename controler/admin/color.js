@@ -5,7 +5,8 @@ const model=require('../../model/admin/color')
 module.exports={
     create:async(req,res)=>{
         const color=req.body.color;
-        const create= await model.create(color)
+        const name=req.body.name;
+        const create= await model.create(color,name)
         res.redirect('/admin/color') 
     },
     delete:async(req,res)=>{
@@ -21,7 +22,8 @@ module.exports={
     postedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
         const color=req.body.color;
-        const create= await model.postedit(id,color)
+        const name=req.body.name
+        const create= await model.postedit(id,color,name)
         res.redirect('/admin/color') 
 
     },

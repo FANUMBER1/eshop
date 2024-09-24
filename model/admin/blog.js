@@ -2,13 +2,17 @@ const { PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient();
 module.exports={
     blog:async()=>{
-        const data= await prisma.blog.findMany()
+        const data= await prisma.blog.findMany({
+          include:{
+            comment:{}
+          }
+        })
         return data;
       },
-      create:async(name,describe,content,img,tag,categori,iduser)=>{
+      create:async(name,describe,content,img,tag,categori,iduser,time)=>{
         var user=0;
         const cret=await prisma.blog.create({data:{
-        name:name,describe:describe,img:img,content:content,userid:iduser
+        name:name,describe:describe,img:img,content:content,userid:iduser,time:time
         }})
         const blog = await prisma.blog.findFirst({
            where: {
@@ -54,6 +58,7 @@ module.exports={
              name:true,
              describe:true,
              content:true,
+             time:true,
              tag:{
                  select:{
                        tag:{
@@ -133,7 +138,38 @@ module.exports={
     const de1= await prisma.blog_categori.deleteMany({where:{blogid:id}})
     const de2= await prisma.blog_tag.deleteMany({where:{blogid:id}})
     const de3= await prisma.blog.deleteMany({where:{id:id}})
-  }
+  },
+  blogcategori:async(id)=>{
+    const data= await prisma.blog.findMany({
+      where:{
+        categori:{
+          some:{
+            categorid:id
+          }
+        }
+    }
+    })
+    return data
+  },
+  blogtag:async(id)=>{
+    const data= await prisma.blog.findMany({
+      where:{
+        tag:{
+          some:{
+            tagid:id
+          }
+        }
+    }
+    })
+    return data
+  },
+  pageblog:async(page)=>{
+    const data= await prisma.blog.findMany({
+      skip:page,
+      take:4
+    })
+    return data;
+    }
 
 }
 

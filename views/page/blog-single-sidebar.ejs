@@ -8,14 +8,7 @@
 <body class="js">
 	
 	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
+	
 	<!-- End Preloader -->
 		
 		<!-- Header -->
@@ -53,7 +46,7 @@
 									<div class="blog-detail">
 										<h2 class="blog-title"><%=data.name %></h2>
 										<div class="blog-meta">
-											<span class="author"><a href="#"><i class="fa fa-user"></i>by <%=data.user.name %></a><a href="#"><i class="fa fa-calendar"></i>Dec 24, 2018</a><a href="#"><i class="fa fa-comments"></i>Comment (15)</a></span>
+											<span class="author"><a href="#"><i class="fa fa-user"></i>by <%=data.user.name %></a><a href="#"><i class="fa fa-calendar"></i><%= data.time %></a><a href="#"><i class="fa fa-comments"></i>Comment (<%= data.comment.length %>)</a></span>
 										</div>
 										<div class="content">
 											<%=data.content %>										
@@ -66,7 +59,7 @@
 													<h4>Tags:</h4>
 													<ul class="tag-inner">
 														<% for(var i=0; i< data.tag.length;i++){%>
-														<li><a href="#"><%= data.tag[i].tag.name %></a></li>
+														<li><a href="/search/tag/<%= data.tag[i].tag.id %>"><%= data.tag[i].tag.name %></a></li>
 														<%}%>
 														
 													</ul>
@@ -83,11 +76,9 @@
 										<div class="single-comment">
 											<img src="<%= data.comment[i].user.img %>" alt="#">
 											<div class="content">
-												<h4><%= data.comment[i].user.name %> <span>At 8:59 pm On Feb 28, 2018</span></h4>
+												<h4><%= data.comment[i].user.name %> <span><%= data.comment[i].time %></span></h4>
 												<p><%= data.comment[i].content %></p>
-												<div class="button">
-													<a href="#" class="btn"><i class="fa fa-reply" aria-hidden="true"></i>Reply</a>
-												</div>
+												
 											</div>
 										</div>
 										<%}%>
@@ -126,10 +117,12 @@
 						<div class="main-sidebar">
 							<!-- Single Widget -->
 							<div class="single-widget search">
+								<form action="/search/blog" autocomplete="off" data-submitfalse="q" method="GET">
 								<div class="form">
-									<input type="email" placeholder="Search Here...">
-									<a class="button" href="#"><i class="fa fa-search"></i></a>
+									<input id="search-input" class="form-control" name="timkiem" type="text" placeholder="Search Here...">
+									<button class="button" type="submit"><i class="ti-search"></i></button>
 								</div>
+							</form>
 							</div>
 							<!--/ End Single Widget -->
 							<!-- Single Widget -->
@@ -137,7 +130,7 @@
 								<h3 class="title">Blog Categories</h3>
 								<ul class="categor-list">
 									<% for(var i=0; i< data.categori.length;i++){%>
-										<li><a href="#"><%= data.categori[i].categori.name %></a></li>
+										<li><a href="/search/<%= data.categori[i].categori.id %>"><%= data.categori[i].categori.name %></a></li>
 										<%}%>
 								</ul>
 							</div>
@@ -146,47 +139,21 @@
 							<div class="single-widget recent-post">
 								<h3 class="title">Recent post</h3>
 								<!-- Single Post -->
+								 <% for(var i=0; i < 3; i++){%>
 								<div class="single-post">
 									<div class="image">
-										<img src="https://via.placeholder.com/100x100" alt="#">
+										<img src="<%= datas[i].img %>" alt="#">
 									</div>
 									<div class="content">
-										<h5><a href="#">Top 10 Beautyful Women Dress in the world</a></h5>
+										<h5><a href="#">T<%= datas[i].name %></a></h5>
 										<ul class="comment">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
-											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+											<li><i class="fa fa-calendar" aria-hidden="true"></i><%= datas[i].time %></li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i><%= datas[i].comment.length %></li>
 										</ul>
 									</div>
 								</div>
-								<!-- End Single Post -->
-								<!-- Single Post -->
-								<div class="single-post">
-									<div class="image">
-										<img src="https://via.placeholder.com/100x100" alt="#">
-									</div>
-									<div class="content">
-										<h5><a href="#">Top 10 Beautyful Women Dress in the world</a></h5>
-										<ul class="comment">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>Mar 05, 2019</li>
-											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>59</li>
-										</ul>
-									</div>
-								</div>
-								<!-- End Single Post -->
-								<!-- Single Post -->
-								<div class="single-post">
-									<div class="image">
-										<img src="https://via.placeholder.com/100x100" alt="#">
-									</div>
-									<div class="content">
-										<h5><a href="#">Top 10 Beautyful Women Dress in the world</a></h5>
-										<ul class="comment">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>June 09, 2019</li>
-											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>44</li>
-										</ul>
-									</div>
-								</div>
-								<!-- End Single Post -->
+								<%}%>
+								
 							</div>
 							<!--/ End Single Widget -->
 							<!-- Single Widget -->
@@ -195,13 +162,18 @@
 							<div class="single-widget side-tags">
 								<h3 class="title">Tags</h3>
 								<ul class="tag">
-									<li><a href="#">business</a></li>
-									<li><a href="#">wordpress</a></li>
-									<li><a href="#">html</a></li>
-									<li><a href="#">multipurpose</a></li>
-									<li><a href="#">education</a></li>
-									<li><a href="#">template</a></li>
-									<li><a href="#">Ecommerce</a></li>
+									<% for(var i=0; i< tag.length;i++){%>
+										<% var check=0 %>
+										<% for(var j=0; j< data.tag.length;j++){%>
+                                       <% if(tag[i].id == data.tag[j].tag.id){%>
+										<% check=1 %>
+										<%}%>
+									    <%}%>
+										<% if(check==0){%>
+											<li><a href="/search/tag/<%= tag[i].id %>"><%= tag[i].name %></a></li>
+									<%}%>
+									<%}%>
+
 								</ul>
 							</div>
 							<!--/ End Single Widget -->

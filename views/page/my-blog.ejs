@@ -3,19 +3,20 @@
 <head>
 	<%- include('../common/header.ejs') %>
 	<%- include('../common/css.ejs') %>
-
+	<style>
+		a.btn {
+		  color: white; /* Màu chữ trước khi hover */
+		}
+	  
+		a.btn:hover {
+		  color: white; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+	  </style>
 </head>
 <body class="js">
 	
 	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
+	
 	<!-- End Preloader -->
 		
 		<!-- Header -->
@@ -75,6 +76,17 @@
 				</div>
 			</div>
 		</section>
+		<% if(number >=0 ){%>
+		<input type="hidden" id="page" value="<%= number %>">
+	<div class="row mb-5">
+		<div class="col-2 mx-auto">
+		<div class="d-flex justify-content-between">
+			<a href="/blog/page/1"  class="btn btn-primary" onclick="prev()">Prev</a>
+			<a href="/blog/page/2" class="btn btn-primary" onclick="next()">Next</a>
+		</div>
+	</div>
+	<%}%>
+	</div>
 		<!--/ End Blog Single -->
 			
 		<!-- Start Footer Area -->

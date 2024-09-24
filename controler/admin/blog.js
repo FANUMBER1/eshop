@@ -5,6 +5,16 @@ const model=require('../../model/admin/blog')
 const modelcategori=require('../../model/admin/categori')
 const modeltag=require('../../model/admin/tag')
 const adminModel=require('../../model/admin/admin')
+const now = new Date();
+const day = now.getDate();
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const month = monthNames[now.getMonth()];
+const year = now.getFullYear();
+const hours = now.getHours(); 
+const minutes = now.getMinutes(); 
+const seconds = now.getSeconds(); 
+let period = hours >= 12 ? 'PM' : 'AM';
+let hour12 = hours % 12 || 12; 
 module.exports={
      /////blog
      blog:async(req,res)=>{
@@ -34,6 +44,25 @@ module.exports={
     delete:async(req,res)=>{
         const id=parseInt(req.params.ID)
         const del=await model.delete(id)
+        res.redirect('/admin/blog')
+    },
+    getcreate:async(req,res)=>{    
+        const datatag= await modeltag.tag();
+        const datacategori= await modelcategori.categori();
+        res.render('create/blog',{tag:datatag,categori:datacategori})
+    },
+    postcreate:async(req,res)=>{
+        const iduser=parseInt(req.session.userId);
+        const name=req.body.name;
+        const describe=req.body.describe;
+        const content=req.body.content;
+        const tag=req.body.tag;
+        const categor=req.body.catego;
+        const anh=req.file;
+        const data=[];
+        const img= await adminModel.checkImg(anh,data)
+        const time=`${month} ${day},${year}`; 
+        const crea=await model.create(name,describe,content,img,tag,categor,iduser,time)
         res.redirect('/admin/blog')
     }
 

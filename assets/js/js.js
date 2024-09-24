@@ -98,3 +98,56 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSelectedOptions();     
     updateSelectedOptionscolor(); 
 });
+
+$(document).ready(function() {
+    // Khi chọn màu
+    $('.color-option').on('click', function(e) {
+        e.preventDefault();
+        var selectedColorId = $(this).data('color-id'); // Lấy id của màu được chọn
+        $('#selected-color').val(selectedColorId); // Lưu vào input ẩn
+        $('.color-option').removeClass('selected'); // Xóa class 'selected' khỏi các màu khác
+        $(this).addClass('selected'); // Đánh dấu màu được chọn
+    });
+
+    // Khi chọn kích thước
+    $('.size-option').on('click', function(e) {
+        e.preventDefault();
+        var selectedSizeId = $(this).data('size-id'); // Lấy id của size được chọn
+        $('#selected-size').val(selectedSizeId); // Lưu vào input ẩn
+        $('.size-option').removeClass('selected'); // Xóa class 'selected' khỏi các kích thước khác
+        $(this).addClass('selected'); // Đánh dấu kích thước được chọn
+    });
+});
+
+var pathParts = window.location.pathname.split('/'); 
+const numberPage=document.querySelector('#page')
+const number=numberPage.value;
+function prev() {
+        if(parseInt(pathParts[3])==1){
+            var link = document.getElementById('prev'); 
+            link.href = '/product/page/1'; 
+            var link1 = document.getElementById('next'); 
+            link1.href = '/product/page/'+ (parseInt(pathParts[3])+1); 
+                }else{
+                var link = document.getElementById('prev'); 
+                link.href = '/product/page/'+ (parseInt(pathParts[3])-1); 
+                var link1 = document.getElementById('next'); 
+                link1.href = '/product/page/'+ (parseInt(pathParts[3])+1);   
+                }
+        return 0;
+};
+
+function next() {
+        if(parseInt(pathParts[3])==number){
+            var link = document.getElementById('prev'); 
+            link.href = '/product/page/'+ (parseInt(pathParts[3])-1); 
+            var link1 = document.getElementById('next'); 
+            link1.href = '/page/'+ number; 
+        }else{
+            var link = document.getElementById('prev'); 
+            link.href = '/product/page/'+ (parseInt(pathParts[3])-1); 
+            var link1 = document.getElementById('next'); 
+            link1.href = '/product/page/'+ (parseInt(pathParts[3])+1);   
+        }
+        return 0;
+};
