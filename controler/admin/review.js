@@ -31,6 +31,6 @@ console.log(`Phút: ${minutes}`);
 console.log(`Giây: ${seconds}`);
 
         const data= await model.review();
-        res.render('review',{data:data})
+        res.render('pageadmin/review',{data:data})
     },
 }

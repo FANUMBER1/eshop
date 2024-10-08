@@ -1,6 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const controler=require('../../controler/view/oder')
+const middlewea=require('../../middlewea/checkaddress')
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -12,5 +13,5 @@ const storage = multer.diskStorage({
   });
  const upload = multer({ storage: storage }); 
  router.get('/',controler.getoder)
- router.get('/:ID',controler.oder)
+ router.get('/:ID',middlewea.check,controler.oder)
  module.exports=router;

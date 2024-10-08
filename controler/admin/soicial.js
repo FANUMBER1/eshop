@@ -35,6 +35,6 @@ module.exports={
     },
     soicial:async(req,res)=>{
         const data= await model.soicial();
-        res.render('soicial',{data:data})
+        res.render('pageadmin/soicial',{data:data})
     },
 }

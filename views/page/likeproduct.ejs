@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
+	<style>
+		a.btn {
+		  color: white;
+		  border-color: white;
+		  border:2px; /* Màu chữ trước khi hover */
+		}
+	  
+		a.btn:hover {
+		  color: white; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+		a.btn.active {
+         background-color:#fd7e14;
+         color: white; /* Màu chữ khi được chọn */
+}
+	  </style>
+	  </head>
+<body class="js">
+	
+		<!-- Header -->
+		<%-include('../common/view/siderbar.ejs')%>
+		<!--/ End Header -->
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="/product/like">Product Like</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+  
+	<!-- Start Contact -->
+	
+	<%if(data.length > 0){%>
+		<section class="shop-home-list section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h2>Product Like</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row d-flex justify-content-center mx-auto">
+                <% for(var i=0; i< data.length; i++){%>
+				<div class="col-lg-5 col-md-6 col-12">
+					<!-- Start Single List  -->
+					<div class="single-list">
+						<div class="row ">
+							<div class="col-lg-6 col-md-6 col-6">
+								<div class="list-image overlay">
+									<img src="<%= data[i].product.img[0] %>" style="width:154px ; height:187px" alt="#">
+									<a href="/product/<%=data[i].product.id %>" class="buy"><i class="fa fa-shopping-bag"></i></a>
+								</div>
+							</div>
+							<div class="col-lg-5 col-md-5 col-5 no-padding">
+								<div class="content">
+									<h4 class="title"><a href="#"><%=data[i].product.name %></a></h4>
+									<p class="price with-discount">$<%=data[i].product.price %></p>
+								</div>
+							</div>
+							<div class="col-lg-1 col-md-1 col-1 no-padding  ">
+								<a href="/product/like/delete/<%= data[i].product.id %>"><i class="ti-trash remove-icon"></i></a>
+							</div>
+						</div>
+					</div>
+                </div>
+                <%}%>
+			</div>
+		</div>
+	</section>
+	<%}else{%>
+		<div class="product-area most-popular related-product section">
+			<div class="product-area most-popular section">
+				<div class="container">
+					<div class="row d-flex justify-content-center mx-auto">
+							<div class="col-5">
+							<img src="/assets/images/no-products.png">
+							</div>
+					</div>
+					<div class="row  justify-content-center ">
+							<a href="/product" class="btn">Continue shopping</a>
+				</div>
+				</div>
+			</div>
+		</div>					
+	 <%}%>	
+	<!-- Start Footer Area -->
+	<footer class="footer">
+		<!-- Footer Top -->
+		<div class="footer-top section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer about">
+							<div class="logo">
+								<a href="index.html"><img src="/assets/images/logo2.png" alt="#"></a>
+							</div>
+							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Information</h4>
+							<ul>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Faq</a></li>
+								<li><a href="#">Terms & Conditions</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Help</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Customer Service</h4>
+							<ul>
+								<li><a href="#">Payment Methods</a></li>
+								<li><a href="#">Money-back</a></li>
+								<li><a href="#">Returns</a></li>
+								<li><a href="#">Shipping</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer social">
+							<h4>Get In Tuch</h4>
+							<!-- Single Widget -->
+							<div class="contact">
+								<ul>
+									<li>NO. 342 - London Oxford Street.</li>
+									<li>012 United Kingdom.</li>
+									<li>info@eshop.com</li>
+									<li>+032 3456 7890</li>
+								</ul>
+							</div>
+							<!-- End Single Widget -->
+							<ul>
+								<li><a href="#"><i class="ti-facebook"></i></a></li>
+								<li><a href="#"><i class="ti-twitter"></i></a></li>
+								<li><a href="#"><i class="ti-flickr"></i></a></li>
+								<li><a href="#"><i class="ti-instagram"></i></a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Footer Top -->
+		<div class="copyright">
+			<div class="container">
+				<div class="inner">
+					<div class="row">
+						<div class="col-lg-6 col-12">
+							<div class="left">
+								<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
+							</div>
+						</div>
+						<div class="col-lg-6 col-12">
+							<div class="right">
+								<img src="/assets/images/payments.png" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- /End Footer Area -->
+	
+	<%- include('../common/view/js.ejs') %>
+
+</body>
+</html>

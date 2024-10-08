@@ -27,6 +27,6 @@ module.exports={
     },
     comment:async(req,res)=>{
         const data= await model.comment();
-        res.render('comment',{data:data})
+        res.render('pageadmin/comment',{data:data})
     },
 }

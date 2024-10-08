@@ -25,5 +25,11 @@ module.exports={
     categori:async(req,res)=>{
         const data= await prisma.categori.findMany()
         return data;
+      },
+      checkname:async(name)=>{
+        const data= await prisma.categori.findMany({
+            where:{name:name}
+        })
+        return data
       }
  }

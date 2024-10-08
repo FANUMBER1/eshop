@@ -27,6 +27,7 @@ module.exports={
     },
     categori:async(req,res)=>{
         const data= await model.categori();
-        res.render('categori',{data:data})
+        var faless
+        res.render('pageadmin/categori',{data:data,errorMessage:faless})
     }
 }

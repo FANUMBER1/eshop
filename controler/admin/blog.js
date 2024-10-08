@@ -19,13 +19,14 @@ module.exports={
      /////blog
      blog:async(req,res)=>{
         const data= await model.blog();
-        res.render('blog',{data})
+        res.render('pageadmin/blog',{data})
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID)
         const datacategori=await modelcategori.categori()
         const datatag=await modeltag.tag()
         const data= await model.getedit(id);
+        console.log(data.id)
         res.render('edit/blog',{data:data,categori:datacategori,tag:datatag})
     },
     postedit:async(req,res)=>{

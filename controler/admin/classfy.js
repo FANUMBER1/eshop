@@ -27,6 +27,7 @@ module.exports={
     },
     classfy:async(req,res)=>{
         const data= await model.classfy();
-        res.render('classfy',{data:data})
+        var faless
+        res.render('pageadmin/classfy',{data:data,errorMessage:faless})
     }
 }

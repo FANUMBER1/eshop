@@ -8,7 +8,7 @@ module.exports={
 
     user:async(req,res)=>{
         const data= await model.user();
-        res.render('inforUser',{data:data})
+        res.render('pageadmin/inforUser',{data:data})
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
@@ -29,5 +29,6 @@ module.exports={
     delete:async(req,res)=>{
         const id=parseInt(req.params.ID);
         const del= await model.delete(id)
+        res.redirect('/admin/inforuser')
     }
 }

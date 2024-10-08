@@ -33,13 +33,13 @@ module.exports={
         const name=req.body.name;
         const link=req.body.link
         const active=parseInt(req.body.active);       
-        const up= await model.postedit(name,link,img,active)
+        const up= await model.postedit(id,name,link,img,active)
         res.redirect('/admin/marketing-blog')
     },
     marketing_blog:async(req,res)=>{
         const active= await modelactive.active()
         const data= await model.marketing_blog();
-        res.render('marketing-blog',{data:data,active:active})
+        res.render('pageadmin/marketing-blog',{data:data,active:active})
     },
     postactive:async(req,res)=>{
         const id=parseInt(req.params.ID)

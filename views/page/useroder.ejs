@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<%- include('../common/header.ejs') %>
-	<%- include('../common/css.ejs') %>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
 <style>
 	.table-wrapper {
     max-height: 400px; /* Chiều cao cố định của vùng chứa bảng */
@@ -31,24 +31,22 @@ th, td {
 tbody tr:nth-child(even) {
     background-color: #f9f9f9; /* Màu nền xen kẽ cho các hàng trong tbody */
 }
-
+		a.nav-link {
+		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
+		}
+	  
+		a.nav-link:hover {
+		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
 </style>
 </head>
 <body class="js">
 	
-	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
+	
 	<!-- End Preloader -->
 		
 		<!-- Header -->
-		<%-include('../common/siderbar.ejs')%>
+		<%-include('../common/view/siderbar.ejs')%>
 		<!--/ End Header -->
 	
 	<!-- Breadcrumbs -->
@@ -59,7 +57,7 @@ tbody tr:nth-child(even) {
 					<div class="bread-inner">
 						<ul class="bread-list">
 							<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="blog-single.html">Cart</a></li>
+							<li class="active"><a href="/oder">Oder</a></li>
 						</ul>
 					</div>
 				</div>
@@ -69,44 +67,61 @@ tbody tr:nth-child(even) {
 	<!-- End Breadcrumbs -->
 			
 	<!-- Shopping Cart -->
-	<div class="shopping-cart section">
+	<section class="blog-single section">
 		<div class="container">
 			<div class="row">
-				<div class="col-12">
-					<!-- Shopping Summery -->
-					<div class="table-wrapper">
-						<table class="table shopping-summery">
-							<thead>
-								<tr class="main-hading">
-									<th>PRODUCT</th>
-									<th>NAME</th>
-									<th class="text-center">UNIT PRICE</th>
-									<th class="text-center">QUANTITY</th>
-									<th class="text-center">TOTAL</th>
-								</tr>
-							</thead>
-							<tbody>
-								<% if(data != undefined ){%>
-									<% for(var i=0; i< data.length ; i++){%>
-								<tr>
-									<td class="image" data-title="No"><img src="<%= data[i].product.img[0] %>" alt="#"></td>
-									<td class="product-des" data-title="Description">
-										<p class="product-name"><a href="#"><%= data[i].product.name %></a></p>
-									</td>
-									<td class="price" data-title="Price"><span>$<%= data[i].product.price %>.00 </span></td>
-									<td class="price" data-title="Price"><span><%= data[i].quantity %> </span></td>
-									<td class="total-amount" data-title="Total"><span>$<%= parseInt(data[i].quantity) * parseInt(data[i].product.price) %>.00</span></td>
-								</tr>
-									<%}%>
-								<%}%>
-							</tbody>
-						</table>
+				<div class="col-lg-2 col-2">
+					<div class="content">
+					<a class="nav-link" href="/my-account">My account</a>
+					<a class="nav-link" href="/my-account">Lich su don hang</a>							
+					<a class="nav-link" href="/my-account">Dia chi giao hang</a>
+					  </div>
+				</div>
+				<div class="col-10">
+					<div class="shopping-cart section">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<!-- Shopping Summery -->
+									<div class="table-wrapper">
+										<table class="table shopping-summery">
+											<thead>
+												<tr class="main-hading">
+													<th>PRODUCT</th>
+													<th>NAME</th>
+													<th class="text-center">UNIT PRICE</th>
+													<th class="text-center">QUANTITY</th>
+													<th class="text-center">TOTAL</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% if(data != undefined ){%>
+													<% for(var i=0; i< data.length ; i++){%>
+												<tr>
+													<td  data-title="No"><img src="<%= data[i].product.img[0] %>" alt="#"></td>
+													<td class="product-des" data-title="Description">
+														<p class="product-name"><a href="#"><%= data[i].product.name %></a></p>
+													</td>
+													<td class="price" data-title="Price"><span>$<%= data[i].product.price %>.00 </span></td>
+													<td class="price" data-title="Price"><span><%= data[i].quantity %> </span></td>
+													<td class="total-amount" data-title="Total"><span>$<%= parseInt(data[i].quantity) * parseInt(data[i].product.price) %>.00</span></td>
+												</tr>
+													<%}%>
+												<%}%>
+											</tbody>
+										</table>
+									</div>
+									<!--/ End Shopping Summery -->
+								</div>
+							</div>
+						</div>
 					</div>
-					<!--/ End Shopping Summery -->
+					
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
+	
 	
 	
 	<!--/ End Shopping Cart -->
@@ -387,7 +402,7 @@ tbody tr:nth-child(even) {
 	</footer>
 	<!-- /End Footer Area -->
 	
-	<%- include('../common/js.ejs') %>
+	<%- include('../common/view/js.ejs') %>
 
 </body>
 </html>

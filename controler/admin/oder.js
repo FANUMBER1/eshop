@@ -7,7 +7,7 @@ module.exports={
       oder:async(req,res)=>{
         const data= await model.odered();
         const dataproduct= await product.product();
-        res.render('oder',{data:data,product:dataproduct})
+        res.render('pageadmin/oder',{data:data,product:dataproduct})
       },
       getdit:async(req,res)=>{
         const id=parseInt(req.params.ID)

@@ -22,6 +22,6 @@ module.exports={
     },
     profile:async(req,res)=>{
         const data=await model.profile()
-        res.render('profile',{data:data});
+        res.render('pageadmin/profile',{data:data});
     }
 }

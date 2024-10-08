@@ -39,6 +39,6 @@ module.exports={
     },
     service:async(req,res)=>{
         const data= await model.service();
-        res.render('service',{data:data})
+        res.render('pageadmin/service',{data:data})
     }
 }

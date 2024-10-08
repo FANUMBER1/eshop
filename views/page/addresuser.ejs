@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
+	<style>
+		a.nav-link {
+		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
+		}
+	  
+		a.nav-link:hover {
+		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+	.table-wrapper {
+    max-height: 100px; /* Chiều cao cố định của vùng chứa bảng */
+    overflow-y: auto; /* Thanh cuộn dọc cho tbody */
+    position: relative;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Đảm bảo không có khoảng cách giữa các ô */
+}
+
+thead {
+    position: sticky; /* Giữ cố định phần đầu bảng */
+    top: 0; /* Đặt nó ở vị trí trên cùng */
+    background-color: #fff; /* Màu nền của phần đầu để nhìn rõ */
+    z-index: 1; /* Đảm bảo phần thead nằm trên tbody */
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các ô */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu nền xen kẽ cho các hàng trong tbody */
+}
+		a.nav-link {
+		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
+		}
+	  
+		a.nav-link:hover {
+		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+		#hiddenForm {
+        display: block; /* Hiển thị form */
+        position: absolute; /* Hoặc fixed nếu muốn form cố định khi cuộn trang */
+        top: -150%; /* Định vị trí form ở giữa theo chiều dọc */
+        left: 50%; /* Định vị trí form ở giữa theo chiều ngang */
+        transform: translate(-50%, -50%); /* Canh giữa form */
+        z-index: 9999; /* Z-index cao để đặt form trên tất cả các phần tử khác */
+        background-color: white; /* Đặt màu nền nếu cần */
+        padding: 20px; /* Khoảng cách bên trong form */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng để làm nổi bật form */
+    }
+	  </style>
+</head>
+<body class="js">
+	
+	<!-- Preloader -->
+	
+	<!-- End Preloader -->
+		
+		<!-- Header -->
+		<%-include('../common/view/siderbar.ejs')%>
+		<!--/ End Header -->
+		
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="/my-account">My account</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+
+		<section class="blog-single section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 col-2">
+						<div class="content">
+						<a class="nav-link"  href="/my-account">My account</a>
+						<a class="nav-link"  href="/oder">Lich su don hang</a>							
+						<a class="nav-link"  href="/address-user">Dia chi giao hang</a>
+						  </div>
+					</div>
+					<div class="col-10">
+						<% if(data != undefined ){%>
+						<div class="shopping-cart section">
+							<div class="container">
+								<div class="row">
+									<div class="col-12">
+										<form action="/my-account/address/save" method="post">
+										<!-- Shopping Summery -->
+										<div class="table-wrapper">
+											<table class="table shopping-summery">
+												<tbody>
+													<% for(var i=0; i< data.length ; i++){%>
+													<tr>
+														<td>
+														<label>
+															<% if( data[i].active == 1){%>
+																<input type="radio" name="select" value="<%= data[i].id %>" checked >
+																<%}else{%>
+																	<input type="radio" name="select" value="<%= data[i].id %>" >
+																	<%}%>
+														</label>
+													</td>
+													
+														<td class="product-des" data-title="Description">
+															<p class="product-name"><a href="#"><%= data[i].name %> | <%= data[i].phone %></a></p>
+															<p class="product-des"><%= data[i].address %></p>
+														</td>
+														<td>
+															<% if( data[i].active == 1){%>
+															<p class="product-name"><a href="#">Mặc định </a></p>
+															<%}%>
+														</td>
+														<td class="action" data-title="Remove"><a href="/my-account/address/delete/<%= data[i].id %>"><i class="ti-trash remove-icon"></i></a></td>
+													</tr>
+													<%}%>
+												</tbody>
+											</table>
+										</div>
+										<!--/ End Shopping Summery -->
+									</div>
+								</div>
+								<div class="row">
+									<button class="btn" type="submit ">Save Change</button>
+								</div>
+							</div>
+						 </form>
+						</div>
+						<%}%>
+						<section class="shop checkout section" style="margin-top: -40px;">
+							<button class="btn btn-primary" id="showFormBtn">Add Address</button>
+						<div class="checkout-form">
+						<form class="form" method="post" action="/my-account/address" id="hiddenForm" style="display: none;">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label>Name<span>*</span></label>
+										<input type="text" name="name" placeholder=""  required="required">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label>Phone Number<span>*</span></label>
+										<input type="number" name="phone" placeholder=""   required="required">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Delivery address<span>*</span></label>
+											<input type="text" name="address1"   placeholder="" >
+										</div>
+									</div>
+									
+									<div class="col-lg-6 col-md-6 col-12">
+										<label><span></span></label>
+										<div class="form-group">
+											<button class="btn" type="submit">Save</button>
+										</div>
+									</div>
+							</div>
+						</form>
+						</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<script>
+			document.getElementById('showFormBtn').addEventListener('click', function() {
+             var form = document.getElementById('hiddenForm');
+            if (form.style.display === 'none' || form.style.display === '') {
+                  form.style.display = 'block'; // Mở form
+                  } else {
+                       form.style.display = 'none'; // Đóng form
+                        }
+                           });
+  		  </script>
+		<!-- Start Footer Area -->
+		<%- include('../common/view/footer.ejs') %>
+
+	<!-- /End Footer Area -->
+	<%- include('../common/view/js.ejs') %>
+
+</body>
+</html>

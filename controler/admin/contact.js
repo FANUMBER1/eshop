@@ -10,6 +10,6 @@ module.exports={
     },
     contact:async(req,res)=>{
         const data=await model.contact()
-        res.render('contactadmin',{data:data})
+        res.render('pageadmin/contactadmin',{data:data})
     }
 }

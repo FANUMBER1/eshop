@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
+	<style>
+		a.nav-link {
+		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
+		}
+	  
+		a.nav-link:hover {
+		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+	  </style>
+</head>
+<body class="js">
+	
+	<!-- Preloader -->
+	
+	<!-- End Preloader -->
+		
+		<!-- Header -->
+		<%-include('../common/view/siderbar.ejs')%>
+		<!--/ End Header -->
+		
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="/my-account">My account</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+		
+		<section class="blog-single section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 col-2">
+						<div class="content">
+						<a class="nav-link"  href="/my-account">Thong tin đat don</a>
+						<a class="nav-link"  href="/oder">Lich su don hang</a>							
+						<a class="nav-link"  href="/my-account/address">Dia chi giao hang</a>
+						  </div>
+					</div>
+					<div class="col-lg-10 col-10">
+						<section class="shop checkout section" style="margin-top: -40px;">
+						<div class="checkout-form">
+						<form class="form" method="post" action="/my-account" >
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label>Name<span>*</span></label>
+										<input type="text" name="name" placeholder="" value="<%= users.name %>" required="required">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+											<!-- <label style="color:red">Email Address Registered<span>*</span></label> -->
+												<label>Email Address<span>*</span></label>
+										<input type="email" name="email" placeholder="" value="<%= users.email %>"  required="required">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<label>Phone Number<span>*</span></label>
+										<input type="number" name="phone" placeholder="" value="<%= users.phone %>"  required="required">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Delivery address<span>*</span></label>
+											<input type="text" name="address1" value="<%= users.address1 %>"  placeholder="" >
+										</div>
+									</div>
+									
+									<div class="col-lg-6 col-md-6 col-12">
+										<label><span></span></label>
+										<div class="form-group">
+											<button class="btn" type="submit">Lưu thay đổi</button>
+										</div>
+									</div>
+							</div>
+						</form>
+						</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+			
+		<!-- Start Footer Area -->
+	<footer class="footer">
+		<!-- Footer Top -->
+		<div class="footer-top section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer about">
+							<div class="logo">
+								<a href="index.html"><img src="images/logo2.png" alt="#"></a>
+							</div>
+							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Information</h4>
+							<ul>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Faq</a></li>
+								<li><a href="#">Terms & Conditions</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Help</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Customer Service</h4>
+							<ul>
+								<li><a href="#">Payment Methods</a></li>
+								<li><a href="#">Money-back</a></li>
+								<li><a href="#">Returns</a></li>
+								<li><a href="#">Shipping</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer social">
+							<h4>Get In Tuch</h4>
+							<!-- Single Widget -->
+							<div class="contact">
+								<ul>
+									<li>NO. 342 - London Oxford Street.</li>
+									<li>012 United Kingdom.</li>
+									<li>info@eshop.com</li>
+									<li>+032 3456 7890</li>
+								</ul>
+							</div>
+							<!-- End Single Widget -->
+							<ul>
+								<li><a href="#"><i class="ti-facebook"></i></a></li>
+								<li><a href="#"><i class="ti-twitter"></i></a></li>
+								<li><a href="#"><i class="ti-flickr"></i></a></li>
+								<li><a href="#"><i class="ti-instagram"></i></a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Footer Top -->
+		<div class="copyright">
+			<div class="container">
+				<div class="inner">
+					<div class="row">
+						<div class="col-lg-6 col-12">
+							<div class="left">
+								<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
+							</div>
+						</div>
+						<div class="col-lg-6 col-12">
+							<div class="right">
+								<img src="images/payments.png" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- /End Footer Area -->
+	<%- include('../common/view/js.ejs') %>
+
+</body>
+</html>

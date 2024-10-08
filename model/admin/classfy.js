@@ -22,5 +22,9 @@ module.exports={
     classfy:async(req,res)=>{
         const data= await prisma.classfy.findMany()
         return data;
+      },
+      checkclassfy:async(name)=>{
+        const data= await prisma.classfy.findMany({where:{name:name}})
+        return data
       }
 }

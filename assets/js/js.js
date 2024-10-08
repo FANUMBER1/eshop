@@ -142,7 +142,7 @@ function next() {
             var link = document.getElementById('prev'); 
             link.href = '/product/page/'+ (parseInt(pathParts[3])-1); 
             var link1 = document.getElementById('next'); 
-            link1.href = '/page/'+ number; 
+            link1.href = '/product/page/'+ number; 
         }else{
             var link = document.getElementById('prev'); 
             link.href = '/product/page/'+ (parseInt(pathParts[3])-1); 
@@ -150,4 +150,45 @@ function next() {
             link1.href = '/product/page/'+ (parseInt(pathParts[3])+1);   
         }
         return 0;
+};
+
+function redirectToLink() {
+    const selectElement = document.getElementById('select');
+    const selectedValue = selectElement.value;
+    if (selectedValue !== "Chọn danh mục") {
+        window.location.href = selectedValue;
+    }
+}
+
+
+const numberPage1=document.querySelector('#page1')
+const number1=numberPage.value;
+function prev1() {
+    if(parseInt(pathParts[3])==1){
+        var link = document.getElementById('prev'); 
+        link.href = '/blog/page/1'; 
+        var link1 = document.getElementById('next'); 
+        link1.href = '/blog/page/'+ (parseInt(pathParts[3])+1); 
+            }else{
+            var link = document.getElementById('prev'); 
+            link.href = '/blog/page/'+ (parseInt(pathParts[3])-1); 
+            var link1 = document.getElementById('next'); 
+            link1.href = '/blog/page/'+ (parseInt(pathParts[3])+1);   
+            }
+    return 0;
+};
+
+function next1() {
+    if(parseInt(pathParts[3])==number1){
+        var link = document.getElementById('prev'); 
+        link.href = '/blog/page/'+ (parseInt(pathParts[3])-1); 
+        var link1 = document.getElementById('next'); 
+        link1.href = '/blog/page/'+ number1; 
+    }else{
+        var link = document.getElementById('prev'); 
+        link.href = '/blog/page/'+ (parseInt(pathParts[3])-1); 
+        var link1 = document.getElementById('next'); 
+        link1.href = '/blog/page/'+ (parseInt(pathParts[3])+1);   
+    }
+    return 0;
 };

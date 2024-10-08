@@ -1,6 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const controler=require('../../controler/view/checkout')
+const checkoder=require('../../middlewea/checkproduct')
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -13,5 +14,5 @@ const storage = multer.diskStorage({
  const upload = multer({ storage: storage }); 
 
  router.get('/',controler.checkout)
- router.post('/',controler.checkout)
+ router.post('/',checkoder.checkoder,controler.checkout)
  module.exports=router;

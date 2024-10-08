@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<%- include('../common/header.ejs') %>
-	<%- include('../common/css.ejs') %>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
 
 	
 </head>
@@ -13,7 +13,7 @@
 	<!-- End Preloader -->
 		
 		<!-- Header -->
-		<%-include('../common/siderbar.ejs')%>
+		<%-include('../common/view/siderbar.ejs')%>
 		<!--/ End Header -->
 	
 		<!-- Breadcrumbs -->
@@ -24,7 +24,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Checkout</a></li>
+								<li class="active"><a href="/register">Register</a></li>
 							</ul>
 						</div>
 					</div>
@@ -39,8 +39,7 @@
 				<div class="row"> 
 					<div class="col-lg-12 col-12">
 						<div class="checkout-form">
-							<h2>Make Your Checkout Here</h2>
-							<p>Please register in order to checkout more quickly</p>
+							<h2>Make Your Register Here</h2>
 							<!-- Form -->
 							<form class="form" method="post" action="/register"  enctype="multipart/form-data">
 								<div class="row">
@@ -412,7 +411,9 @@
 							<!--/ End Form -->
 						</div>
 					</div>
-					
+				</div>
+			</div>
+		</section>	
 		<!--/ End Checkout -->
 		
 		<!-- Start Shop Services Area  -->
@@ -575,7 +576,7 @@
 			</div>
 		</footer>
 		<!-- /End Footer Area -->
-		<%- include('../common/js.ejs') %>
+		<%- include('../common/view/js.ejs') %>
 
 </body>
 </html>

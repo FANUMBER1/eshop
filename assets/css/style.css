@@ -197,6 +197,10 @@ Version:1.0
 	color:#fff;
 	background:#F7941D;
 }
+.btn:after{
+	color:#fff;
+	background:#F7941D;
+}
 #scrollUp {
 	right: 10px;
 	z-index: 33;
@@ -1587,7 +1591,7 @@ Version:1.0
    Start Mid Banner CSS
 ========================================*/ 
 .midium-banner{
-	padding:0;
+	padding:50px 0 50px 0;
 }
 .midium-banner .single-banner{
 	position:relative;
@@ -2794,8 +2798,8 @@ Version:1.0
    Start Shop Home List CSS
 ========================================*/
 .shop-home-list{
-	padding:0;
-	padding-bottom:100px;
+	border: 1px solid #eee;
+	padding:100px 0 100px 0;
 }
 .shop-home-list .shop-section-title{
 	margin-bottom:20px;
@@ -3732,11 +3736,12 @@ Version:1.0
    Start Shop Services CSS
 ========================================*/
 .shop-services.section {
-	padding: 80px 0 0px 0;
+	border: 1px solid #eee;
+	padding: 200px 0 200px 0;
 	background: #fff;
 }
 .shop-services.home{
-	padding:60px 0;
+	padding: 200px 0 200px 0;
 	background:#F6F7FB;
 }
 .shop-services .single-service {
@@ -4981,3 +4986,64 @@ Version:1.0
 	End Footer CSS
 ===============================*/
 
+* Hiển thị danh sách khi hover vào phần tiêu đề hoặc vào danh sách */
+.cat-heading:hover + .main-category,
+.main-category:hover {
+	display: block;
+}
+
+/* Tùy chỉnh hiển thị của danh sách */
+.main-category li {
+	padding: 10px 15px;
+}
+
+.main-category li a {
+	text-decoration: none;
+	color: #333;
+	display: block;
+}
+
+.main-category li a:hover {
+	background-color: #e0e0e0;
+}
+
+/* Đảm bảo rằng phần tử cha giữ được vị trí tương đối */
+.cat-heading {
+	position: relative;
+	cursor: pointer;
+}
+.dropdown-menu {
+	display: none;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	background-color: #f8f8f8;
+	border: 1px solid #ccc;
+	position: absolute;
+	z-index: 100;
+	width: 150px;
+}
+
+.dropdown-menu li {
+	padding: 8px 15px;
+}
+
+.dropdown-menu li a {
+	text-decoration: none;
+	color: #333;
+	display: block;
+}
+
+.dropdown-menu li a:hover {
+	background-color: #e0e0e0;
+}
+
+.account-menu {
+	position: relative;
+	display: inline-block;
+}
+
+/* Hiển thị dropdown khi hover vào li.account-menu */
+.account-menu:hover .dropdown-menu {
+	display: block;
+}

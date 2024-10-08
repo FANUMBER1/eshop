@@ -46,7 +46,7 @@ module.exports={
     marketing_sale:async(req,res)=>{
         const active= await modelactive.active()
         const data= await model.marketing_sale();
-        res.render('marketing-sale',{data:data,active:active})
+        res.render('pageadmin/marketing-sale',{data:data,active:active})
     },
     postactive:async(req,res)=>{
         const id=parseInt(req.params.ID)

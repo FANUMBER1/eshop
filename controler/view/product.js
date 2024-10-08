@@ -1,29 +1,12 @@
 const express=require('express');
 const app = express();
 const bcrypt = require('bcrypt');
-const adminModel=require('../../model/admin/admin')
 const product=require('../../model/admin/product')
 const profile=require('../../model/admin/profile')
-const blog=require('../../model/admin/blog')
-const categoris=require('../../model/admin/categori')
 const classfy=require('../../model/admin/classfy')
-const color=require('../../model/admin/color')
-const contact=require('../../model/admin/contact')
-const discount=require('../../model/admin/discount')
-const role=require('../../model/admin/role')
-const service=require('../../model/admin/service')
-const size=require('../../model/admin/size')
-const soicial=require('../../model/admin/soicial')
-const tag=require('../../model/admin/tag')
 const user=require('../../model/admin/user')
-const userclass=require('../../model/admin/userclass')
-const comment=require('../../model/admin/comment')
 const review=require('../../model/admin/review')
-const oder=require('../../model/admin/oder')
 const cart=require('../../model/admin/cart')
-const marketingsale=require('../../model/admin/marketing-sale')
-const marketingblog=require('../../model/admin/marketing-blog')
-const marketings=require('../../model/admin/marketing')
 app.set('view engine', 'ejs');
 module.exports={
     product:async(req,res)=>{
@@ -38,7 +21,8 @@ module.exports={
         const idproduct=parseInt(req.params.ID);
         const dataproduct= await product.getedit(idproduct)
         const dis=await product.increase(idproduct)
-        res.render('page/product',{data:dataproduct,carts:carts,products:products,topsale:topsale,topview:topview})
+        const classfys=await classfy.classfy()
+        res.render('page/product',{data:dataproduct,carts:carts,products:products,topsale:topsale,topview:topview,classfys:classfys})
     },
     product_shop:async(req,res)=>{
         const iduser=parseInt(req.session.userId)
@@ -52,14 +36,15 @@ module.exports={
         const dataproduct=await product.product();
         const idpage=parseInt(req.params.ID)||1;
         var numberpage='';
-        if(dataproduct.length> Math.round(dataproduct.length/9)*9){
-            numberpage= Math.round(dataproduct.length/9)+1;
+        if(dataproduct.length> Math.round(dataproduct.length/6)*6){
+            numberpage= Math.round(dataproduct.length/6)+1;
            }else{
-               numberpage= Math.round(dataproduct.length/9);
+               numberpage= Math.round(dataproduct.length/6);
            }
-           const page=(idpage-1)*9
+           const page=(idpage-1)*6
         const data= await product.pageproduct(page);
-        res.render('page/product-shop',{data:data,carts:carts,products:products,topsale:topsale,topview:topview,number:numberpage})
+        const classfys=await classfy.classfy()
+        res.render('page/product-shop',{data:data,carts:carts,products:products,topsale:topsale,topview:topview,number:numberpage,page:idpage,classfys:classfys})
     },
     review:async(req,res)=>{
         const idproduct=parseInt(req.params.ID);
@@ -68,5 +53,27 @@ module.exports={
         const crea= await review.create(idproduct,iduser,content)
         const dis=await product.reduce(idproduct)
         res.redirect(`/product/${idproduct}`)     
-    }
+    },
+    likeProduct:async(req,res)=>{
+        const idproduct=parseInt(req.params.ID);
+        const iduser=parseInt(req.session.userId);
+        const likes=await user.likeProduct(iduser,idproduct)
+        res.redirect(`/product/${idproduct}`)     
+    },
+    getLikeProduct:async(req,res)=>{
+        const iduser=parseInt(req.session.userId);
+        var carts
+        if(iduser>=0){
+            carts= await cart.getcart(iduser)
+        }
+        const data=await user.getLikeProduct(iduser)
+        const classfys=await classfy.classfy()
+        res.render('page/likeproduct',{data:data,carts:carts,classfys:classfys})
+    },
+    deleteLikeProduct:async(req,res)=>{
+        const idproduct=parseInt(req.params.ID);
+        const iduser=parseInt(req.session.userId);
+        const likes=await user.deleteLikeProduct(iduser,idproduct)
+        res.redirect(`/product/like`)     
+    },
 }

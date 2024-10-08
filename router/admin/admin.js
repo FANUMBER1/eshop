@@ -65,7 +65,7 @@ router.use('/classfy',classfy)
 router.use('/product',product)
 router.use('/userclass',userclass)
 /////Blog
-router.use('/blog',blog)/////User
+router.use('/blog',blog)
 router.use('/inforuser',user)
 router.use('/comment',comment)
 router.use('/active',active)
@@ -74,5 +74,4 @@ router.use('/marketing-blog',marketing_blog)
 router.use('/marketing',marketing)
 router.use('/review',review)
 router.use('/oder',oder)
-router.use('/search',search)
 module.exports=router;

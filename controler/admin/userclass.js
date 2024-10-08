@@ -27,6 +27,7 @@ module.exports={
     },
     userclass:async(req,res)=>{
         const data= await model.userclass();
-        res.render('userclass',{data:data})
+        var faless
+        res.render('pageadmin/userclass',{data:data,errorMessage:faless})
     },
 }

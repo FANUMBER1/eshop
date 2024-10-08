@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<%- include('../common/header.ejs') %>
-	<%- include('../common/css.ejs') %>
-
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
+	<style>
+		a.btn {
+		  color: white;
+		  border-color: white;
+		  border:2px; /* Màu chữ trước khi hover */
+		}
+	  
+		a.btn:hover {
+		  color: white; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+		a.btn.active {
+         background-color:#fd7e14;
+         color: white; /* Màu chữ khi được chọn */
+}
+	  </style>
+	  <script>
+        // Kiểm tra nếu có thông báo lỗi và hiển thị alert
+        <%if (errorMessage != undefined) { %>
+            alert('<%= errorMessage %>');
+        <% } %>
+    </script>
 </head>
 <body class="js">
 	
@@ -12,7 +32,7 @@
 	<!-- End Preloader -->
 		
 		<!-- Header -->
-		<%-include('../common/siderbar.ejs')%>
+		<%-include('../common/view/siderbar.ejs')%>
 		<!--/ End Header -->
 	
 	<!-- Breadcrumbs -->
@@ -23,7 +43,7 @@
 					<div class="bread-inner">
 						<ul class="bread-list">
 							<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="blog-single.html">Cart</a></li>
+							<li class="active"><a href="/cart">Cart</a></li>
 						</ul>
 					</div>
 				</div>
@@ -31,8 +51,9 @@
 		</div>
 	</div>
 	<!-- End Breadcrumbs -->
-			
+   		
 	<!-- Shopping Cart -->
+	<% if(carts != undefined ){%>
 	<form action="/checkout" method="post">
 	<div class="shopping-cart section">
 		<div class="container">
@@ -42,6 +63,7 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
+								<th>OPTIONS</th>
 								<th>PRODUCT</th>
 								<th>NAME</th>
 								<th class="text-center">UNIT PRICE</th>
@@ -54,6 +76,7 @@
 							<% if(carts != undefined ){%>
 								<% for(var i=0; i< carts.length ; i++){%>
 							<tr>
+								<td> <input name="products" id="<%= carts[i].product.id%>" type="checkbox" value="<%= carts[i].product.id%>"></option></td>
 								<td class="image" data-title="No"><img src="<%= carts[i].product.img[0] %>" alt="#"></td>
 								<td class="product-des" data-title="Description">
 									<p class="product-name"><a href="#"><%= carts[i].product.name %></a></p>
@@ -81,7 +104,6 @@
 							</tr>
 							    <%}%>
 							<%}%>
-							
 						</tbody>
 					</table>
 					<!--/ End Shopping Summery -->
@@ -92,7 +114,7 @@
 					<!-- Total Amount -->
 					<div class="total-amount">
 						<div class="row">
-							<div class="col-lg-8 col-md-5 col-12">
+							<div class="col-lg-7 col-md-5 col-12">
 								<div class="left">
 									<div class="coupon">
 										<form action="#" target="_blank">
@@ -105,23 +127,27 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-7 col-12">
+							<div class="col-lg-5 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>$<% if(carts != undefined ){%>
+										<% if(carts.length > 0 ){%>
+										<li>Cart Subtotal<span>$
 											<% var sum=0 %>
+											<% var address %>
 											<% for(var i=0; i< carts.length ; i++){%>
 												  <% sum=sum + parseInt(carts[i].quantity)*parseInt(carts[i].product.price)%>
+												  <% address=carts[i].user.address1 %>
 											<%}%>
 											<%=sum%>.00
-										<%}%></span></li>
+										</span></li>
 										<li>Shipping<span>Free</span></li>
 										<li>You Save<span>$20.00</span></li>
 										<li class="last">You Pay<span>$<%= sum %>.00</span></li>
 									</ul>
+									<%}%>
 									<div class="button5">
 										<button class="btn" type="submit">CHECKOUT</button>
-										<a href="#" class="btn">Continue shopping</a>
+										<a href="/product" class="btn">Continue shopping</a>
 									</div>
 								</div>
 							</div>
@@ -133,6 +159,22 @@
 		</div>
 	</div>
 </form>
+<%}else{%>
+	<div class="product-area most-popular related-product section">
+		<div class="product-area most-popular section">
+			<div class="container">
+				<div class="row d-flex justify-content-center mx-auto">
+						<div class="col-5">
+						<img src="/assets/images/no-products.png">
+						</div>
+				</div>
+				<div class="row  justify-content-center ">
+						<a href="/product" class="btn">Continue shopping</a>
+			</div>
+			</div>
+		</div>
+	</div>					
+ <%}%>
 	<!--/ End Shopping Cart -->
 			
 	<!-- Start Shop Services Area  -->
@@ -411,7 +453,7 @@
 	</footer>
 	<!-- /End Footer Area -->
 	
-	<%- include('../common/js.ejs') %>
+	<%- include('../common/view/js.ejs') %>
 
 </body>
 </html>

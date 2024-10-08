@@ -29,6 +29,6 @@ module.exports={
     },
     color:async(req,res)=>{
         const data= await model.color();
-        res.render('color',{data:data})
+        res.render('pageadmin/color',{data:data})
     }
 }

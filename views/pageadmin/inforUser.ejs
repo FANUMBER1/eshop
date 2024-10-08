@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../common/admin/header.ejs') %>
+
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .container-fluid {
+      height: 100%;
+    }
+
+    .row {
+      height: 100%;
+    }
+
+    .position-fixed {
+      height: 100vh;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      /* Điều chỉnh theo chiều rộng của sidebar */
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('../common/admin/siderbaadmin.ejs') %>
+
+    <div class="main-content ml-2 col-10">
+      <div class="row text-center">
+        <h1> INFORMATION USER </h1>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-10 border border-dark rounded p-3 ">
+          <div class="row">
+            <aside>
+              <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                <table class="table">
+                  <thead class="thead-dark" style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                  <tr>
+                  <th>STT</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Avata</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for( var i=0; i< data.length ; i++){%>
+                  <tr>
+                    <td>
+                      <%= i %>
+                    </td>
+                    <td>
+                      <%= data[i].name %>
+                    </td>
+                    <td>
+                      <%= data[i].email %>
+                    </td>
+                    <td class="col-3">
+                      <div class="col-sm-offset-1 col-sm-4">
+                        <div class="single-about-img">
+                          <img src="<%= data[i].img %>" class="card-img-top img-fluid" alt="profile_image">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <%= data[i].role.position %>
+                    </td>
+                    <td class="d-flex"><a class="nav-link text-dark" href="/admin/inforuser/edit/<%=data[i].id %>"> Chi
+                        tiết </a></td>
+                  </tr>
+                  <%}%>
+              </tbody>
+            </table>
+          </div>
+        </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -22,5 +22,9 @@ module.exports={
     discount:async(req,res)=>{
         const data= await prisma.discount.findMany()
         return data;
+    },
+    checkname:async(name)=>{
+        const data=await prisma.discount.findMany({where:{name:name}})
+        return data
     }
 }

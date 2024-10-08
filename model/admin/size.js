@@ -22,5 +22,9 @@ module.exports={
     size:async(req,res)=>{
         const data= await prisma.size.findMany()
         return data;
+    },
+    checksize:async(size)=>{
+       const data=await prisma.size.findMany({where:{size:size}})
+       return data
     }
 }

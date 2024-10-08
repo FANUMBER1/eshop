@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<%- include('../common/header.ejs') %>
-	<%- include('../common/css.ejs') %>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
 	<style>
 		a.btn {
 		  color: white; /* Màu chữ trước khi hover */
@@ -20,7 +20,7 @@
 	<!-- End Preloader -->
 		
 		<!-- Header -->
-		<%-include('../common/siderbar.ejs')%>
+		<%-include('../common/view/siderbar.ejs')%>
 		<!--/ End Header -->
 		
 		<!-- Breadcrumbs -->
@@ -31,7 +31,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Blog Single Sidebar</a></li>
+								<li class="active"><a href="/blog">Blog Shop</a></li>
 							</ul>
 						</div>
 					</div>
@@ -39,8 +39,19 @@
 			</div>
 		</div>
 		<!-- End Breadcrumbs -->
-			
+		<%if(data.length <= 0){%>
+			<section class="blog-single section">
+				<div class="container">
+			<div class="row d-flex justify-content-center mx-auto">
+				<div class="col-7">
+					<h4>Không thấy blogs nào có thông tin cần tìm kiếm</h4>
+				</div>
+			</div>
+				</div>
+			</section>
+		<%}%>
 		<!-- Start Blog Single -->
+		 <%if(data.length > 0){%>
 		<section class="blog-single section">
 			<div class="container">
 				<div class="row">
@@ -54,13 +65,14 @@
                                 <div class="col-lg-6 col-md-6 col-12">
 								<div class="single-post">
 									<div class="image">
+										<a href="/blog/<%= data[i].id %>">
 										<img src="<%= data[i].img %>" alt="#" style="width: 100px; height: 100px;">
+									</a>
 									</div>
 									<div class="content">
 										<h5><a href="/blog/<%= data[i].id %>"><%= data[i].describe %></a></h5>
 										<ul class="comment">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
-											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+											<li><i class="fa fa-calendar" aria-hidden="true"></i><%= data[i].time %></li>
 										</ul>
 									</div>
                                 </div>
@@ -76,17 +88,32 @@
 				</div>
 			</div>
 		</section>
+		<%}%>
 		<% if(number >=0 ){%>
-		<input type="hidden" id="page" value="<%= number %>">
-	<div class="row mb-5">
-		<div class="col-2 mx-auto">
-		<div class="d-flex justify-content-between">
-			<a href="/blog/page/1"  class="btn btn-primary" onclick="prev()">Prev</a>
-			<a href="/blog/page/2" class="btn btn-primary" onclick="next()">Next</a>
+			<input type="hidden" id="page1" value="<%= number %>">
+			<div class="row d-flex justify-content-center mx-auto mb-5">
+				<div class="d-flex justify-content-between">
+					<a href="/blog/page/1"  id="prev" class="btn btn-primary" onclick="prev1()">Prev</a>
+					<% if(number-3 >= page){%>
+					<% for (var i=page ; i < page+3 ; i++){%>
+					<a href="/blog/page/<%=i%>" class="btn btn-primary" onclick="prev1();next1()"><%= i %></a>
+					<%}%>	
+					<a href="" class="btn btn-primary">...</a>
+					<% for (var j=number-3 ; j < number+1 ; j++){%>
+						<% if(j > page+2){%>
+						<a href="/blog/page/<%=j %>" class="btn btn-primary" onclick="prev1(); next1();"><%= j %></a>
+						<%}%>	
+						<%}%>	
+					<%}else{%>
+						<% for (i=page ; i < number+1 ; i++){%>
+							<a href="/blog/page/<%=i%>" class="btn btn-primary"onclick="prev1(); next1();"><%= i %></a>		
+							<%}%>
+						<%}%>	
+					<a href="/blog/page/2" id="next" class="btn btn-primary" onclick="next1()">Next</a>
+				</div>
 		</div>
-	</div>
-	<%}%>
-	</div>
+		
+		<%}%>
 		<!--/ End Blog Single -->
 			
 		<!-- Start Footer Area -->
@@ -181,7 +208,7 @@
 		</div>
 	</footer>
 	<!-- /End Footer Area -->
-	<%- include('../common/js.ejs') %>
+	<%- include('../common/view/js.ejs') %>
 
 </body>
 </html>

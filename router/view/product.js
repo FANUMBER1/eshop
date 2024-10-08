@@ -14,6 +14,9 @@ const storage = multer.diskStorage({
  const upload = multer({ storage: storage }); 
  router.get('/',controler.product_shop)
  router.get('/page/:ID',controler.product_shop)
+ router.get('/like/:ID',middlewea.requireLogin,controler.likeProduct)
+ router.get('/like',middlewea.requireLogin,controler.getLikeProduct)
+ router.get('/like/delete/:ID',middlewea.requireLogin,controler.deleteLikeProduct)
  router.get('/:ID',controler.product)
  router.post('/review/:ID',middlewea.requireLogin,controler.review)
  module.exports=router;

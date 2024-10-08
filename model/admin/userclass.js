@@ -47,5 +47,9 @@ module.exports={
             },
           });
           return data
+      },
+      checkname:async(name)=>{
+        const data= await prisma.userclass.findMany({where:{name:name}})
+        return data
       }
 }

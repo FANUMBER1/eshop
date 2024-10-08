@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<%- include('../common/header.ejs') %>
-	<%- include('../common/css.ejs') %>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
 
 </head>
 <body class="js">
@@ -11,7 +11,7 @@
 	
 	<!-- End Preloader -->
 		<!-- Header -->
-		<%-include('../common/siderbar.ejs')%>
+		<%-include('../common/view/siderbar.ejs')%>
 		<!--/ End Header -->
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">
@@ -21,7 +21,8 @@
 					<div class="bread-inner">
 						<ul class="bread-list">
 							<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="blog-single.html">Contact</a></li>
+							<li ><a href="/product">Product Shop<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="/product/<%=data.id %>"><%= data.name %></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -61,13 +62,6 @@
                                 <div class="short">
                                     <h4><%= data.name%></h4>
                                     <div class="rating-main">
-                                        <ul class="rating">
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                            <li class="dark"><i class="fa fa-star-o"></i></li>
-                                        </ul>
                                         <a href="#" class="total-review">(<%= data.review.length %>) Review %></a>
                                     </div>
                                     <p class="price"><span class="discount">$<%= data.price %>.00
@@ -78,6 +72,7 @@
                                 <!--/ End Description -->
                                 <form action="/cart/<%= data.id %>" method="POST">
                                     <!-- Color Section -->
+                                    <% if(data.color.length > 0){%>
                                     <div class="color">
                                         <h4>Available Options <span>Color</span></h4>
                                         <ul>
@@ -92,11 +87,12 @@
                                         <% } %>
                                         </ul>
                                     </div>
-                                
+                                    <% } %>
                                     <!-- Hidden input for selected color -->
                                     <input type="hidden" name="color" id="selected-color">
                                 
                                     <!-- Size Section -->
+                                     <% if(data.size.length > 0){%>
                                     <div class="size">
                                         <h4>Size</h4>
                                         <ul>
@@ -109,9 +105,11 @@
                                         <% } %>
                                         </ul>
                                     </div>
-                                
+                                    <%}%>
                                     <!-- Hidden input for selected size -->
                                     <input type="hidden" name="size" id="selected-size">
+                                    <p class="cat">REMAINING: <%= data.quantity %></p>
+                                    <p class="availability">SOLD :<%= data.countsale %></p>
                                     <!-- Product Buy Section -->
                                     <div class="product-buy">
                                         <div class="quantity">
@@ -122,7 +120,7 @@
                                                         <i class="ti-minus"></i>
                                                     </button>
                                                 </div>
-                                                <input type="text" name="quantity" class="input-number" data-min="1" data-max="1000" value="1">
+                                                <input type="text" name="quantity" class="input-number" data-min="1" data-max="<%= data.quantity %>" value="1">
                                                 <div class="button plus">
                                                     <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quantity">
                                                         <i class="ti-plus"></i>
@@ -401,7 +399,7 @@
 	</footer>
 	<!-- /End Footer Area -->
 	
-	<%- include('../common/js.ejs') %>
+	<%- include('../common/view/js.ejs') %>
 
 </body>
 </html>

@@ -11,6 +11,7 @@ module.exports={
         const data= await prisma.marketing_blog.findUnique({
             where:{id:id},
             select:{
+                id:true,
                 name:true,
                 link:true,
                 img:true,
@@ -28,7 +29,7 @@ module.exports={
         const upda=await prisma.marketing_blog.update({
             where:{id:id},
             data:{
-                name:`${name}`,link:`${link}`,img:`${img}`,active:active
+                name:`${name}`,link:`${link}`,img:`${img}`
             }
         })
     },

@@ -146,7 +146,7 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
       const updat= await prisma.product.update({
         where:{id:id},
         data:{
-          countsale:0,countview:data.countview - 1,
+        countview:data.countview - 1,
         }
     });
     },
@@ -252,7 +252,7 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
       const updat= await prisma.product.update({
         where:{id:data[i].productid},
         data:{
-        countsale:data[i].product.countsale + 1,
+        countsale:data[i].product.countsale + parseInt(data[i].quantity),
         quantity:String(parseInt(data[i].product.quantity) - parseInt(data[i].quantity)) 
         }
     });    
@@ -261,7 +261,7 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
   pageproduct:async(page)=>{
     const data= await prisma.product.findMany({
       skip:page,
-      take:9,
+      take:6,
       select:{
         id:true,
         img:true,
@@ -289,6 +289,77 @@ postedit:async(id,name,price,quantity,classf,userclass,discount,
       }
     })
     return data;
+    },
+    productclassfy:async(id)=>{
+      const data=await prisma.product.findMany({
+        where:{
+           classfyid:id
+        },
+        select:{
+          id:true,
+          img:true,
+          name:true,
+          quantity:true,
+          price:true,
+          classfy:{
+            select:{
+               id:true,
+               name:true
+            }
+          },
+          userclass:{
+            select:{
+               id:true,
+               name:true
+            }
+          },
+          discount:{
+            select:{
+               id:true,
+               name:true
+            }
+          }
+        }
+      })
+      return data
+    },
+    productUserclass:async(id)=>{
+      const data=await prisma.product.findMany({
+        where:{
+           userclassid:id
+        },
+        select:{
+          id:true,
+          img:true,
+          name:true,
+          quantity:true,
+          price:true,
+          classfy:{
+            select:{
+               id:true,
+               name:true
+            }
+          },
+          userclass:{
+            select:{
+               id:true,
+               name:true
+            }
+          },
+          discount:{
+            select:{
+               id:true,
+               name:true
+            }
+          }
+        }
+
+      })
+      return data
+    },
+    checkname:async(name)=>{
+      const data= await prisma.product.findMany({where:{name:name}})
+      return data
     }
     
 }

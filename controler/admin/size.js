@@ -11,7 +11,7 @@ module.exports={
     delete:async(req,res)=>{
         const id=parseInt(req.params.ID);
         const del= await model.delete(id)
-        res.redirect('/admin/aize')
+        res.redirect('/admin/size')
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
@@ -27,6 +27,7 @@ module.exports={
     },
     size:async(req,res)=>{
         const data= await model.size();
-        res.render('size',{data:data})
+        var faless
+        res.render('pageadmin/size',{data:data,errorMessage:faless})
     },
 }

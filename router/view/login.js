@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const controler=require('../../controler/view/login')
-const middlewea=require('../../middlewea/middlewea')
+const middlewea=require('../../middlewea/login')
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

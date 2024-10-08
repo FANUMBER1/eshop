@@ -22,5 +22,9 @@ module.exports={
     tag:async(req,res)=>{
         const data= await prisma.tags.findMany()
         return data;
+  },
+  checkname:async(name)=>{
+    const data= await prisma.tags.findMany({where:{name:name}})
+    return data
   }
 }

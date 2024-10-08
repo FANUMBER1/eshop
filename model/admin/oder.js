@@ -13,7 +13,8 @@ module.exports={
         });
         ////kiểm tra nếu chưa có oder 
         if(oder.length <= 0){
-        const cre1=await prisma.oder.create({data:{userid:iduser,active: 0}})
+        const address=await prisma.user_address.findMany({where:{userid:iduser,active:1}})
+        const cre1=await prisma.oder.create({data:{user:{connect:{id:iduser}},active:0,address:{connect:{id:address[0].id}}}})
         const oderid = await prisma.oder.findMany({
             where: {
                 userid: iduser,
@@ -26,21 +27,38 @@ module.exports={
                 id:true,
             }
         });
-        for(var i=0; i < carts.length; i++){
-            const crea=await prisma.oder_product.create({data:{
-                oderid:oderid[0].id,
-                productid:carts[i].product.id,
-                quantity:`${quantity[i]}`,
-            }})
+        if(carts >0){
+          const crea=await prisma.oder_product.create({data:{
+            oderid:oderid[0].id,
+            productid:parseInt(carts),
+            quantity:`${quantity[0]}`,
+        }})
+        }else{
+          for(var i=0; i < carts.length; i++){
+              const crea=await prisma.oder_product.create({data:{
+                  oderid:oderid[0].id,
+                  productid:parseInt(carts[i]),
+                  quantity:`${quantity[i]}`,
+              }})
+          }        
         }
+        
         }else{
             const dele= await prisma.oder_product.deleteMany({where:{oderid:oder[0].id}})
-            for(var i=0; i < carts.length; i++){
-                const crea=await prisma.oder_product.create({data:{
-                    oderid:oder[0].id,
-                    productid:carts[i].product.id,
-                    quantity:`${quantity[i]}`,
-                }})
+            if(carts >0){
+              const crea=await prisma.oder_product.create({data:{
+                oderid:oder[0].id,
+                productid:parseInt(carts),
+                quantity:`${quantity[0]}`,
+            }})
+            }else{
+              for(var i=0; i < carts.length; i++){
+                  const crea=await prisma.oder_product.create({data:{
+                      oderid:oder[0].id,
+                      productid:parseInt(carts[i]),
+                      quantity:`${quantity[i]}`,
+                  }})
+              }        
             }
         }
         
@@ -54,11 +72,12 @@ module.exports={
            })
         return data;
     },
-    oder:async(iduser,idoder)=>{
+    oder:async(iduser,idoder,address)=>{
         const up=await prisma.oder.updateMany({
             where:{userid:iduser,active:0,id:idoder},
             data:{
                 active:1,
+                addressid:address,
             }
         });
         const productoder=await prisma.oder_product.findMany({
@@ -89,6 +108,7 @@ module.exports={
                             oder: {
                               include: {
                                 user: true, 
+                                address:true,
                               }
                             }
                           }
@@ -122,6 +142,7 @@ module.exports={
                   oder: {
                     include: {
                       user: true, 
+                      address:true
                     }
                   }
                 }
@@ -134,6 +155,21 @@ module.exports={
           oder: {
             userid: iduser,  // Điều kiện theo userid
             active:1,        // Trạng thái đơn hàng đã được gửi 
+          }
+        },
+        include: {
+          oder: true,  // Lấy thông tin của bảng 'oder'
+          product: true  // Lấy thông tin của bảng 'product'
+        }
+      });
+      return data
+    },
+    checkoutOder:async(iduser)=>{
+      const data= await prisma.oder_product.findMany({
+        where: {
+          oder: {
+            userid: iduser,  
+            active:0,         
           }
         },
         include: {

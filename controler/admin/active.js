@@ -27,6 +27,6 @@ module.exports={
     },
     active:async(req,res)=>{
         const data= await model.active();
-        res.render('active',{data:data})
+        res.render('pageadmin/active',{data:data})
     }
 }

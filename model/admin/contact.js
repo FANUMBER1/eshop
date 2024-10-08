@@ -8,7 +8,7 @@ module.exports={
         const crea= await prisma.contact.create({
             data:{
                 name:`${name}`,subject:`${subject}`,email:`${email}`,
-                phoen:`${phone}`,message:`${message}`
+                phone:`${phone}`,message:`${message}`
                 }
         })
     },

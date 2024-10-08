@@ -12,8 +12,10 @@ const storage = multer.diskStorage({
     }
   });
  const upload = multer({ storage: storage }); 
- router.get('/',controler.search)
+ router.post('/',controler.search)
+//  router.get('/classfy/:ID',controler.searchclassfy)
+ router.get('/userclass/:ID',controler.searchuserclass)
  router.get('/blog',controler.searchh)
- router.get('/:ID',controler.searchblog)
+ router.get('/categori/:ID',controler.searchblog)
  router.get('/tag/:ID',controler.searchtag)
  module.exports=router;

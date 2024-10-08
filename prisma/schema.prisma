@@ -124,6 +124,19 @@ model user{
     role role @relation(fields: [roleid], references: [id])
     roleid Int
     product user_product[]
+    like like_product[]
+    addressOder user_address[]
+}
+
+model user_address{
+    id Int  @id @default(autoincrement())
+    user user @relation(fields: [userid], references: [id])
+    userid Int
+    address String?
+    active Int
+    name String?
+    phone String?
+    oder oder[]
 }
 
 model blog{
@@ -161,6 +174,7 @@ model product{
     oder oder_product[]
     review review[]
     user user_product[]
+    like like_product[]
 }
 
 model user_product{
@@ -198,6 +212,8 @@ model oder{
   userid Int
   active Int
   time String?
+  address user_address @relation(fields: [addressid], references: [id])
+  addressid Int
   product oder_product[]
 }
 
@@ -275,4 +291,19 @@ model marketing{
   nameshop String?
   active active @relation(fields: [activeid], references: [id])
   activeid Int
+}
+
+model discount_code{
+ id Int  @id @default(autoincrement())
+ code String?
+ amount String?
+ discount String
+}
+
+model like_product{
+ id Int  @id @default(autoincrement())
+product product @relation(fields: [productid], references: [id])
+productid Int
+user user @relation(fields: [userid], references: [id])
+userid Int
 }

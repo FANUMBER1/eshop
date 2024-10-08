@@ -3,19 +3,10 @@ const app = express();
 app.set('view engine', 'ejs');
 const model=require('../../model/admin/product')
 const adminModel=require('../../model/admin/admin')
-const profile=require('../../model/admin/profile')
-const blog=require('../../model/admin/blog')
-const categori=require('../../model/admin/categori')
 const classfy=require('../../model/admin/classfy')
 const color=require('../../model/admin/color')
-const contact=require('../../model/admin/contact')
 const discount=require('../../model/admin/discount')
-const role=require('../../model/admin/role')
-const service=require('../../model/admin/service')
 const size=require('../../model/admin/size')
-const soicial=require('../../model/admin/soicial')
-const tag=require('../../model/admin/tag')
-const user=require('../../model/admin/user')
 const userclass=require('../../model/admin/userclass')
 const product=require('../../model/admin/product')
 module.exports={
@@ -42,7 +33,7 @@ module.exports={
     },
     product:async(req,res)=>{
         const data= await model.product()
-        res.render('product',{data:data})
+        res.render('pageadmin/product',{data:data})
     },
     getcreate:async(req,res)=>{
         const datasize= await size.size();
@@ -50,8 +41,9 @@ module.exports={
         const dataclassfy=await classfy.classfy()
         const datauserclass=await userclass.userclass()
         const datadiscount=await discount.discount()
+        var check=0;
         res.render('create/product',{size:datasize,color:datacolor,classfy:dataclassfy
-            ,userclass:datauserclass,discount:datadiscount})
+            ,userclass:datauserclass,discount:datadiscount,check:check})
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID);

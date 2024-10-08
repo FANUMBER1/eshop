@@ -27,6 +27,6 @@ module.exports={
     },
     role:async(req,res)=>{
         const data= await model.role();
-        res.render('inforRole',{data:data})
+        res.render('pageadmin/inforRole',{data:data})
     }
 }

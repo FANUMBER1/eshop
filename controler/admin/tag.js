@@ -27,6 +27,7 @@ module.exports={
     },
     tag:async(req,res)=>{
         const data= await model.tag();
-        res.render('tag',{data:data})
+        var faless
+        res.render('pageadmin/tag',{data:data,errorMessage:faless})
     },
 }

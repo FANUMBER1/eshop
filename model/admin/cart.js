@@ -43,9 +43,25 @@ module.exports={
                             }
                         }
                     }
+                },
+                user:{
+                    select:{
+                        id:true,
+                        name:true,
+                        email:true,
+                        address1:true,
+                        address2:true,
+                        phone:true,
+                        addressOder:{
+                           select:{
+                            address:true,
+                           },
+                           where:{active:1}
+                        }
+                    }
                 }
             }
-        })
+        });
         return data;
     },
     remove:async(iduser,idproduct)=>{

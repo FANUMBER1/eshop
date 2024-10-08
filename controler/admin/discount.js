@@ -27,6 +27,7 @@ module.exports={
     },
     discount:async(req,res)=>{
         const data= await model.discount();
-        res.render('discount',{data:data})
+        var faless
+        res.render('pageadmin/discount',{data:data,errorMessage:faless})
     },
 }
