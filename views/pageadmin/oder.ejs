@@ -50,6 +50,7 @@
                   <th>Name Account</th>
                   <th>Product quantity</th>
                   <th>Total value</th>
+                  <th>Comfirm</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -63,13 +64,11 @@
                       <%= data.user[i].name %>
                     </td>
                     <td>
-                      <% var sl=0 %>
                       <%for(var j=0; j< data.data1.length; j++){%>
-                             <% if(data.data1[j].oderid == data.oderids[i].id){%>
-                             <% sl=sl+1 %>
-                              <%}%>
-                        <%}%>
-                        <%= sl%>
+                        <% if(data.data1[j].oderid == data.oderids[i].id){%>
+                         <p> <%=data.data1[j].product.name%>,SL:<%=data.data1[j].quantity%> </p>
+                         <%}%>
+                   <%}%>
                     </td>
                     <td>
                       <% var sum=0 %>
@@ -80,9 +79,12 @@
                         <%}%>
                         <%= sum%>
                     </td>
-                    <td class="d-flex"><a class="nav-link text-dark" href="/admin/oder/edit/<%=data.oderids[i].id %>"> Chi
-                        tiết /<a class="nav-link text-dark" href="/admin/oder/delete/<%=data.oderids[i].id %> ">
-                          Xóa</a></a></td>
+                    <td>
+                      <a href="/admin/oder/comfirm/<%=data.oderids[i].id %>"
+                        class="nav-link text-dark">Comfirm</a>
+                    </td>
+                    <td ><a class="nav-link text-dark" href="/admin/oder/edit/<%=data.oderids[i].id %>"> Chi
+                        tiết </a></td>
                   </tr>
                   <%}%>
               </tbody>

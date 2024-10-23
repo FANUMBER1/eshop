@@ -37,6 +37,11 @@ module.exports={
                         name:true,
                         price:true,
                         img:true,
+                        discount:{
+                            select:{
+                                name:true,
+                            }
+                        },
                         userclass:{
                             select:{
                                 name:true,

@@ -71,8 +71,10 @@
                             <% sum =sum + parseInt(data.data[i].quantity)*parseInt(data.data[i].product.price) %>
                             <%}%>
                             $<%= sum%>.00</h6>
-                        <button type="submit" class="btn btn-dark btn-ms mt-2"><a href="/admin/oder"
-                                class="nav-link text-white">Return</a></button>
+                            <button type="submit" class="col-6 btn btn-dark btn-ms mt-2 "><a href="/admin/oder/comfirm/<%= data.data[0].oder.id %>"
+                                class="nav-link text-white">Comfirm</a></button>
+                            <button type="submit" class="col-6 btn btn-dark btn-ms mt-2"><a href="/admin/oder"
+                            class="nav-link text-white">Return</a></button>
                     </div>
                 </div>
             </div>

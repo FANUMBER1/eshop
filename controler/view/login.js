@@ -14,6 +14,7 @@ module.exports={
         }
         var check=1;
         const classfys=await classfy.classfy()
-        res.render('page/login',{check,carts:carts,classfys:classfys})
+        res.render('page/login',{check,carts:carts,classfys:classfys,k1:'',k2:'',k3:'',k4:'',k5:''
+        })
     },
 }

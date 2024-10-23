@@ -13,5 +13,10 @@ module.exports={
         const id=parseInt(req.params.ID)
         const data= await model.odered(id);
         res.render('edit/oder',{data:data})
+      },
+      comfirmOder:async(req,res)=>{
+        const id=parseInt(req.params.ID)
+        const up=await model.comfirmOder(id)
+        res.redirect('/admin/oder')
       }
 }

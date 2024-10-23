@@ -8,11 +8,11 @@ module.exports={
 
     user:async(req,res)=>{
         const data= await model.user();
+        console.log(data[2].img[0])
         res.render('pageadmin/inforUser',{data:data})
     },
     getedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
-        console.log(id)
         const role= await modelrole.role()
         const data= await model.getedit(id)
         res.render('edit/inforUser',{data:data,datarole:role})

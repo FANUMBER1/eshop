@@ -22,7 +22,7 @@ const active=require('./active')
 const marketing_sale=require('./marketing-sale')
 const marketing_blog=require('./marketing-blog')
 const marketing=require('./marketing')
-
+const coupon=require('../admin/coupon')
 const search=require('./search')
 const view=require('../view/view')
 const multer = require('multer');
@@ -74,4 +74,5 @@ router.use('/marketing-blog',marketing_blog)
 router.use('/marketing',marketing)
 router.use('/review',review)
 router.use('/oder',oder)
+router.use('/coupon',coupon)
 module.exports=router;

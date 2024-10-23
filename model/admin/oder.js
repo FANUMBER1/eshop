@@ -139,7 +139,7 @@ module.exports={
                 include: {
                   product: {
                   },
-                  oder: {
+                  oder: { 
                     include: {
                       user: true, 
                       address:true
@@ -149,16 +149,20 @@ module.exports={
               });
             return {data1,user,oderids,data}
     },
-    useroder:async(iduser)=>{
+    useroder:async(iduser,id)=>{
       const data= await prisma.oder_product.findMany({
         where: {
           oder: {
             userid: iduser,  // Điều kiện theo userid
-            active:1,        // Trạng thái đơn hàng đã được gửi 
+            active:id,        // Trạng thái đơn hàng đã được gửi 
           }
         },
         include: {
-          oder: true,  // Lấy thông tin của bảng 'oder'
+          oder:{
+            include:{
+              address:true,
+            }
+          },  // Lấy thông tin của bảng 'oder'
           product: true  // Lấy thông tin của bảng 'product'
         }
       });
@@ -174,10 +178,58 @@ module.exports={
         },
         include: {
           oder: true,  // Lấy thông tin của bảng 'oder'
-          product: true  // Lấy thông tin của bảng 'product'
+          product:{
+            include:{
+              discount:true,
+            }
+          }  // Lấy thông tin của bảng 'product'
         }
       });
       return data
+    },
+    comfirmOder:async(id)=>{
+      console.log(id)
+      const up=await prisma.oder.updateMany({
+        where:{id:id},
+        data:{
+            active:2,
+        }
+    });
+    },
+    /////lấy oder cho cousier
+    cousierOder:async(id)=>{
+      const data=await prisma.oder.findMany({
+        where:{
+          active:id
+        },
+        include:{
+              product:{
+                  include:{
+                    product:true,
+                  }
+              },
+              user:true,
+              address:true,
+        }
+      })
+      return data;
+    },
+    ////cập nhật active cho oder cousier đã xác nhận
+    comfirmCounsierOder:async(id)=>{
+      const up=await prisma.oder.updateMany({
+        where:{id:id},
+        data:{
+            active:3,
+        }
+    });
+    },
+    ////cập nhật active oder sau khi giao hàng thành công
+    compelteOder:async(id)=>{
+      const up=await prisma.oder.updateMany({
+        where:{id:id},
+        data:{
+            active:4,
+        }
+    });
     }
-
 }

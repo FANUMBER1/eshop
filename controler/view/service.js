@@ -13,7 +13,8 @@ service:async(req,res)=>{
         carts= await cart.getcart(iduser)
     }       
     const classfys=await classfy.classfy()
-     res.render('page/service',{carts:carts,classfys:classfys})
+     res.render('page/service',{carts:carts,classfys:classfys,k1:'',k2:'active',k3:'',k4:'',k5:''
+     })
    },
 
 }

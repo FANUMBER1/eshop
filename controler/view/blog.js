@@ -33,7 +33,8 @@ module.exports={
         const datas=await blog.blog()
         const classfys=await classfy.classfy()
 
-        res.render('page/blog-single-sidebar',{datas:datas,data:datablog,carts:carts,tag:datatag,classfys:classfys})
+        res.render('page/blog-single-sidebar',{datas:datas,data:datablog,carts:carts,tag:datatag,classfys:classfys,k1:'',k2:'',k3:'',k4:'active',k5:''
+        })
     },
     myblog:async(req,res)=>{
         const iduser=parseInt(req.session.userId)
@@ -52,7 +53,7 @@ module.exports={
         const page=(idpage-1)*4
         const datablog= await blog.pageblog(page);
         const classfys=await classfy.classfy()
-       res.render('page/my-blog',{data:datablog,carts:carts,number:numberpage,page:idpage,classfys:classfys})
+       res.render('page/my-blog',{data:datablog,carts:carts,number:numberpage,page:idpage,classfys:classfys,k1:'',k2:'',k3:'',k4:'active',k5:''})
     },
     comment:async(req,res)=>{
         const idblog=parseInt(req.params.ID);

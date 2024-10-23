@@ -30,6 +30,8 @@ module.exports={
         const classfys=await classfy.classfy()
         const topdiscount= await product.topdiscount()
         const social=await soicial.soicial()
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        const numbers = '0123456789';
         res.render('page/index',{carts:carts,marketingsale:datamarketingsale,blogs:blogs,
             marketing:datamarketing,profile:profiles,product:products,
             topsale:topsale,topview:topview,userclass:userclas,social:social,classfys:classfys});

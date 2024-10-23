@@ -5,6 +5,7 @@ const profile=require('../../model/admin/profile')
 const classfy=require('../../model/admin/classfy')
 const user=require('../../model/admin/user')
 const cart=require('../../model/admin/cart')
+const coupons=require('../../model/admin/coupon')
 app.set('view engine', 'ejs');
 module.exports={
     account:async(req,res)=>{
@@ -16,7 +17,7 @@ module.exports={
             users=await user.getedit(iduser)
         }
        const classfys= await classfy.classfy()
-       res.render('page/my-account',{carts:carts,users:users,classfys:classfys}) 
+       res.render('page/my-account',{carts:carts,users:users,classfys:classfys,k1:'',k2:'',k3:'',k4:'',k5:''}) 
     },
     changeAccount: async(req,res)=>{
         const iduser=parseInt(req.session.userId)
@@ -41,9 +42,10 @@ module.exports={
             carts= await cart.getcart(iduser)
             users=await user.getedit(iduser)
         }
+        var falsess
        const classfys= await classfy.classfy()
        const data= await user.useraddress(iduser)
-    res.render('page/addresuser',{carts:carts,users:users,classfys:classfys,data:data})
+    res.render('page/addresuser',{carts:carts,users:users,classfys:classfys,data:data,k1:'',k2:'',k3:'',k4:'',k5:'',errorMessage:falsess})
     },
     postaddress:async(req,res)=>{
         const link=req.originalUrl
@@ -65,5 +67,17 @@ module.exports={
         const address=parseInt(req.params.ID)
         const crea= await user.deleteAddress(address)
         res.redirect('/my-account/address')
-        }
+        },
+        coupon:async(req,res)=>{
+            const iduser=parseInt(req.session.userId)
+            var carts
+            var users
+            if(iduser>=0){
+                carts= await cart.getcart(iduser)
+                users=await user.getedit(iduser)
+            }
+            var falsess
+           const classfys= await classfy.classfy()
+           const data= await coupons.usercoupon(iduser)
+        res.render('page/coupon',{carts:carts,users:users,classfys:classfys,data:data,k1:'',k2:'',k3:'',k4:'',k5:'',errorMessage:falsess})        }
 }

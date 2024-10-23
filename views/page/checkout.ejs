@@ -1,69 +1,94 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
 	<%- include('../common/view/header.ejs') %>
-	<%- include('../common/view/css.ejs') %>
-	<style>
-		a.nav-link {
-		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
-		}
-	  
-		a.nav-link:hover {
-		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
-		}
-	.table-wrapper {
-    max-height: 150px; /* Chiều cao cố định của vùng chứa bảng */
-    overflow-y: auto; /* Thanh cuộn dọc cho tbody */
-    position: relative;
-}
+		<%- include('../common/view/css.ejs') %>
+			<style>
+				a.nav-link {
+					color: rgb(0, 0, 0);
+					/* Màu chữ trước khi hover */
+				}
 
-table {
-    width: 100%;
-    border-collapse: collapse; /* Đảm bảo không có khoảng cách giữa các ô */
-}
+				a.nav-link:hover {
+					color: #F7941D;
+					/* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+				}
 
-thead {
-    position: sticky; /* Giữ cố định phần đầu bảng */
-    top: 0; /* Đặt nó ở vị trí trên cùng */
-    background-color: #fff; /* Màu nền của phần đầu để nhìn rõ */
-    z-index: 1; /* Đảm bảo phần thead nằm trên tbody */
-}
+				.table-wrapper {
+					max-height: 150px;
+					/* Chiều cao cố định của vùng chứa bảng */
+					overflow-y: auto;
+					/* Thanh cuộn dọc cho tbody */
+					position: relative;
+				}
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd; /* Đường viền giữa các ô */
-}
+				table {
+					width: 100%;
+					border-collapse: collapse;
+					/* Đảm bảo không có khoảng cách giữa các ô */
+				}
 
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Màu nền xen kẽ cho các hàng trong tbody */
-}
-		a.nav-link {
-		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
-		}
-	  
-		a.nav-link:hover {
-		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
-		}
-	  </style>
-	
+				thead {
+					position: sticky;
+					/* Giữ cố định phần đầu bảng */
+					top: 0;
+					/* Đặt nó ở vị trí trên cùng */
+					background-color: #fff;
+					/* Màu nền của phần đầu để nhìn rõ */
+					z-index: 1;
+					/* Đảm bảo phần thead nằm trên tbody */
+				}
+
+				th,
+				td {
+					padding: 10px;
+					border-bottom: 1px solid #ddd;
+					/* Đường viền giữa các ô */
+				}
+
+				tbody tr:nth-child(even) {
+					background-color: #f9f9f9;
+					/* Màu nền xen kẽ cho các hàng trong tbody */
+				}
+
+				a.nav-link {
+					color: rgb(0, 0, 0);
+					/* Màu chữ trước khi hover */
+				}
+
+				a.nav-link:hover {
+					color: #F7941D;
+					/* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+				}
+
+				#hiddenForm1 {
+					display: block;
+					position: relative;
+					width: fit-content;
+					max-height: 200px;
+					overflow-y: scroll;
+					top: -58px;
+                    left: 140px;
+					transform: translate(-50%, -50%);
+					z-index: 9999;
+					background-color: white;
+					padding: 20px;
+					box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+				}
+				
+			</style>
+
 </head>
+
 <body class="js">
-	
-	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
-	<!-- End Preloader -->
-		
-		<!-- Header -->
-		<%-include('../common/view/siderbar.ejs')%>
+
+
+
+	<!-- Header -->
+	<%-include('../common/view/siderbar.ejs')%>
 		<!--/ End Header -->
-	
+
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs">
 			<div class="container">
@@ -80,149 +105,206 @@ tbody tr:nth-child(even) {
 			</div>
 		</div>
 		<!-- End Breadcrumbs -->
-		 <form  action="/oder/<%=idoder[0].id %>" method="get">
-			<% if(datas != undefined){%>
-		<div class="shopping-cart section" style="margin-bottom: -70px ; margin-top: -24px;">
-			<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="table-wrapper">
-					<table class="table shopping-summery">
-						<tbody>
-							<% for(var i=0; i< datas.length ; i++){%>
-								<% if( datas[i].active == 1){%>
-							          <tr>
-										<td>
-											<label>
-												<input type="radio" name="select" value="<%= datas[i].id %>" checked>
-											</label>
-										</td>
-										<td class="product-des" data-title="Description">
-											<p class="product-name"><a href="#"><%= datas[i].name %> | <%= datas[i].phone %></a></p>
-											<p class="product-des"><%= datas[i].address %></p>
-										</td>
-										<td>
-											<% if( datas[i].active == 1){%>
-											<p class="product-name"><a href="#">Mặc định </a></p>
-											<%}%>
-										</td>
-									</tr>
-										<%}%>
-										<%}%>
-                                        <% for(var i=0; i< datas.length ; i++){%>
-											<% if( datas[i].active == 0){%>
-											<tr>
-												<td>
-												<label>
-													<input type="radio" name="select" value="<%= datas[i].id %>" >
-												</label>
-											</td>
-											
-												<td class="product-des" data-title="Description">
-													<p class="product-name"><a href="#"><%= datas[i].name %> | <%= datas[i].phone %></a></p>
-													<p class="product-des"><%= datas[i].address %></p>
-												</td>
-												<td>
-												</td>
-											</tr>
-												<%}%>
-											<%}%>
-											<tr>
-												<td>
-													<a href="/my-account/address">Create Address</a>
-												</td>
-											</tr>
-						</tbody>
-					</table>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		<%}%>
-		<!-- Start Checkout -->
-		<div class="shopping-cart section">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<!-- Shopping Summery -->
-						<table class="table shopping-summery">
-							<thead>
-								<tr class="main-hading">
-									<th>PRODUCT</th>
-									<th>NAME</th>
-									<th class="text-center">UNIT PRICE</th>
-									<th class="text-center">QUANTITY</th>
-									<th class="text-center">TOTAL</th> 
-								</tr>
-							</thead>
-							<tbody>
-								<% for(var i=0; i< data.length ; i++){%>
-								<tr>
-									<td class="image" data-title="No"><img src="<%= data[i].product.img[0]%>" alt="#"></td>
-									<td class="product-des" data-title="Description">
-										<p class="product-name"><a href="#"><%= data[i].product.name%></a></p>
-										<p class="product-des"><%= data[i].size%>,<%= data[i].color%></p>
-									</td>
-									<td class="total-amount" data-title="Total"><span>$<%= data[i].product.price%></span></td>
-									<td class="price" data-title="Price"><span><%= data[i].quantity%></span></td>
-									<td class="total-amount" data-title="Total"><span>$<%= parseInt(data[i].quantity)*parseInt(data[i].product.price) %></span></td>
-								</tr>
-								<%}%>
-							</tbody>
-						</table>
-						<!--/ End Shopping Summery -->
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<!-- Total Amount -->
-						<div class="total-amount">
-							<div class="row">
-								<div class="col-lg-8 col-md-5 col-12">
-									<div class="left">
-										<div class="coupon">
-											<form action="#" target="_blank">
-												<input name="Coupon" placeholder="Enter Your Coupon">
-												<button class="btn">Apply</button>
-											</form>
-										</div>
-										<div class="checkbox">
-											<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-7 col-12">
-									<div class="right">
-										<ul>
-											<li>Cart Subtotal<span>$<% if(data != undefined ){%>
-												<% var sum=0 %>
-												<% for(var i=0; i< data.length ; i++){%>
-													  <% sum=sum + parseInt(data[i].quantity)*parseInt(data[i].product.price)%>
-												<%}%>
-												<%=sum%>.00
-											<%}%></span></li>
-											<li>Shipping<span>Free</span></li>
-											<li>You Save<span>$20.00</span></li>
-											<li class="last">You Pay<span>$<%=sum%>.00</span></li>
-										</ul>
-										<div class="button5">
-											<div class="content">
-										<button type="submit" class="btn">proceed to checkout</button>
-							          	</div>
-										</div>
-									</div>
+		<form action="/oder/<%=idoder[0].id %>" method="get">
+			<% if(datas !=undefined){%>
+				<div class="shopping-cart section" style="margin-bottom: -70px ; margin-top: -24px;">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="table-wrapper">
+									<table class="table shopping-summery">
+										<tbody>
+											<% for(var i=0; i< datas.length ; i++){%>
+												<% if( datas[i].active==1){%>
+													<tr>
+														<td>
+															<label>
+																<input type="radio" name="select"
+																	value="<%= datas[i].id %>" checked>
+															</label>
+														</td>
+														<td class="product-des" data-title="Description">
+															<p class="product-name"><a href="#">
+																	<%= datas[i].name %> | <%= datas[i].phone %>
+																</a></p>
+															<p class="product-des">
+																<%= datas[i].address %>
+															</p>
+														</td>
+														<td>
+															<% if( datas[i].active==1){%>
+																<p class="product-name"><a href="#">Mặc định </a></p>
+																<%}%>
+														</td>
+													</tr>
+													<%}%>
+														<%}%>
+															<% for(var i=0; i< datas.length ; i++){%>
+																<% if( datas[i].active==0){%>
+																	<tr>
+																		<td>
+																			<label>
+																				<input type="radio" name="select"
+																					value="<%= datas[i].id %>">
+																			</label>
+																		</td>
+
+																		<td class="product-des"
+																			data-title="Description">
+																			<p class="product-name"><a href="#">
+																					<%= datas[i].name %> | <%=
+																							datas[i].phone %>
+																				</a></p>
+																			<p class="product-des">
+																				<%= datas[i].address %>
+																			</p>
+																		</td>
+																		<td>
+																		</td>
+																	</tr>
+																	<%}%>
+																		<%}%>
+
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
-						<!--/ End Total Amount -->
 					</div>
 				</div>
-			</div>
+				<%}%>
+					<!-- Start Checkout -->
+					<div class="shopping-cart section">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<!-- Shopping Summery -->
+									<table class="table shopping-summery">
+										<thead>
+											<tr class="main-hading">
+												<th>PRODUCT</th>
+												<th>NAME</th>
+												<th class="text-center">UNIT PRICE</th>
+												<th class="text-center">QUANTITY</th>
+												<th class="text-center">TOTAL</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% if(data !=undefined ){%>
+												<% for(var i=0; i< data.length ; i++){%>
+													<tr>
+														<td class="image" data-title="No"><img
+																src="<%= data[i].product.img[0]%>" alt="#"></td>
+														<td class="product-des" data-title="Description">
+															<p class="product-name"><a href="#">
+																	<%= data[i].product.name%>
+																</a></p>
+															<p class="product-des">
+																<%= data[i].size%>,<%= data[i].color%>
+															</p>
+														</td>
+														<td class="price" data-title="Price">$
+															<%if(parseInt(data[i].product.discount.name)!=0){%>
+																<span>
+																	<%=data[i].product.price-
+																		parseInt(data[i].product.discount.name)*data[i].product.price/100
+																		%></span> / $ <s>
+																	<%=data[i].product.price%>
+																</s>
+																<%}else{%>
+																	<span>
+																		<%=data[i].product.price%>
+																	</span>
+																	<%}%>
+														</td>
+														<td class="price" data-title="Price"><span>
+																<%= data[i].quantity%>
+															</span></td>
+														<td class="total-amount" data-title="Total"><span>$<%=
+																sum%>
+															</span></td>
+													</tr>
+													<%}%>
+										</tbody>
+									</table>
+									<!--/ End Shopping Summery -->
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<!-- Total Amount -->
+									<div class="total-amount">
+										<div class="row">
+											<div class="col-lg-8 col-md-5 col-12">
+												<div class="left">
+													<a class="btn btn-primary" id="showFormBtn1" style="color:white">Add
+														Coupon</a>
+
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-7 col-12">
+												<div class="right">
+													<ul>
+														<li>Cart Subtotal<span>$
+																<% var sum=0 %>
+																	<% for(var i=0; i< data.length ; i++){%>
+																		<% sum=sum +
+																			(parseInt(data[i].quantity)*parseInt(data[i].product.price)
+																			-parseInt(data[i].quantity)*(parseInt(data[i].product.price)*parseInt(data[i].product.discount.name)/100)
+																			)%>
+																			<%}%>
+																				<%=sum%>.00
+																					<%}%>
+															</span></li>
+															<% var sumlast=sum %>
+															<% if(couponoder.length > 0){%>
+																<li>Coupon<span><%=couponoder[0].coupon.name %></span></li>
+														<li>You Save<span>
+															<% if(parseInt(couponoder[0].coupon.discountprice)>0){%>
+																 <%= parseInt(couponoder[0].coupon.discountprice)%>
+																 <%sumlast=sum-parseInt(couponoder[0].coupon.discountprice)%>
+																<%}%>
+														</span></li>
+														<%}%>
+														<li class="last">You Pay<span>$<%=sumlast%>.00</span></li>
+													</ul>
+													<div class="button5">
+														<div class="content">
+															<button type="submit" class="btn">proceed to
+																checkout</button>
+														</div>
+													</div>
+		                              </form>
 		</div>
-	</form>
+		</div>
+		</div>
+		</div>
+		<!--/ End Total Amount -->
+		</div>
+		<div class="checkout-form" id="hiddenForm1" style="display: none;">
+			<form class="form" method="post" action="/checkout/coupon/<%=idoder[0].id %>">
+				<table>
+					<tbody>
+						<%for(var i=0; i< coupon.length;i++){%>
+							<tr>
+								<td style="padding:10px"><input type="radio" name="coupon" value="<%= coupon[i].coupon.id %>">
+								</td>
+								<td style="padding:10px">
+									<%= coupon[i].coupon.name %>
+								</td>
+							</tr>
+							<%}%>
+					</tbody>
+				</table>
+				<button style="position: sticky; z-index: 1;" type="submit" class="btn">Access</button>
+			</form>
+		</div>
+		</div>
+		</div>
+		</div>
+
 		<!--/ End Checkout -->
-		
+
 		<!-- Start Shop Services Area  -->
 		<section class="shop-services section home">
 			<div class="container">
@@ -267,7 +349,7 @@ tbody tr:nth-child(even) {
 			</div>
 		</section>
 		<!-- End Shop Services -->
-		
+
 		<!-- Start Shop Newsletter  -->
 		<section class="shop-newsletter section">
 			<div class="container">
@@ -278,7 +360,8 @@ tbody tr:nth-child(even) {
 							<div class="inner">
 								<h4>Newsletter</h4>
 								<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-								<form action="/assets/mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+								<form action="/assets/mail/mail.php" method="get" target="_blank"
+									class="newsletter-inner">
 									<input name="EMAIL" placeholder="Your email address" required="" type="email">
 									<button class="btn">Subscribe</button>
 								</form>
@@ -290,100 +373,114 @@ tbody tr:nth-child(even) {
 			</div>
 		</section>
 		<!-- End Shop Newsletter -->
-			
+
 		<!-- Start Footer Area -->
-		<footer class="footer">
-			<!-- Footer Top -->
-			<div class="footer-top section">
-				<div class="container">
+		<!-- Footer Top -->
+		<div class="footer-top section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer about">
+							<div class="logo">
+								<a href="/"><img src="/assets/images/logo2.png" alt="#"></a>
+							</div>
+							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna
+								eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,
+								facilisis luctus, metus.</p>
+							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456
+										789</a></span></p>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Information</h4>
+							<ul>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Faq</a></li>
+								<li><a href="#">Terms & Conditions</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Help</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Customer Service</h4>
+							<ul>
+								<li><a href="#">Payment Methods</a></li>
+								<li><a href="#">Money-back</a></li>
+								<li><a href="#">Returns</a></li>
+								<li><a href="#">Shipping</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer social">
+							<h4>Get In Tuch</h4>
+							<!-- Single Widget -->
+							<div class="contact">
+								<ul>
+									<li>NO. 342 - London Oxford Street.</li>
+									<li>012 United Kingdom.</li>
+									<li>info@eshop.com</li>
+									<li>+032 3456 7890</li>
+								</ul>
+							</div>
+							<!-- End Single Widget -->
+							<ul>
+								<li><a href="#"><i class="ti-facebook"></i></a></li>
+								<li><a href="#"><i class="ti-twitter"></i></a></li>
+								<li><a href="#"><i class="ti-flickr"></i></a></li>
+								<li><a href="#"><i class="ti-instagram"></i></a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Footer Top -->
+		<div class="copyright">
+			<div class="container">
+				<div class="inner">
 					<div class="row">
-						<div class="col-lg-5 col-md-6 col-12">
-							<!-- Single Widget -->
-							<div class="single-footer about">
-								<div class="logo">
-									<a href="/"><img src="/assets/images/logo2.png" alt="#"></a>
-								</div>
-								<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-								<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+						<div class="col-lg-6 col-12">
+							<div class="left">
+								<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com"
+										target="_blank">Wpthemesgrid</a> - All Rights Reserved.</p>
 							</div>
-							<!-- End Single Widget -->
 						</div>
-						<div class="col-lg-2 col-md-6 col-12">
-							<!-- Single Widget -->
-							<div class="single-footer links">
-								<h4>Information</h4>
-								<ul>
-									<li><a href="#">About Us</a></li>
-									<li><a href="#">Faq</a></li>
-									<li><a href="#">Terms & Conditions</a></li>
-									<li><a href="#">Contact Us</a></li>
-									<li><a href="#">Help</a></li>
-								</ul>
-							</div>
-							<!-- End Single Widget -->
-						</div>
-						<div class="col-lg-2 col-md-6 col-12">
-							<!-- Single Widget -->
-							<div class="single-footer links">
-								<h4>Customer Service</h4>
-								<ul>
-									<li><a href="#">Payment Methods</a></li>
-									<li><a href="#">Money-back</a></li>
-									<li><a href="#">Returns</a></li>
-									<li><a href="#">Shipping</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-								</ul>
-							</div>
-							<!-- End Single Widget -->
-						</div>
-						<div class="col-lg-3 col-md-6 col-12">
-							<!-- Single Widget -->
-							<div class="single-footer social">
-								<h4>Get In Tuch</h4>
-								<!-- Single Widget -->
-								<div class="contact">
-									<ul>
-										<li>NO. 342 - London Oxford Street.</li>
-										<li>012 United Kingdom.</li>
-										<li>info@eshop.com</li>
-										<li>+032 3456 7890</li>
-									</ul>
-								</div>
-								<!-- End Single Widget -->
-								<ul>
-									<li><a href="#"><i class="ti-facebook"></i></a></li>
-									<li><a href="#"><i class="ti-twitter"></i></a></li>
-									<li><a href="#"><i class="ti-flickr"></i></a></li>
-									<li><a href="#"><i class="ti-instagram"></i></a></li>
-								</ul>
-							</div>
-							<!-- End Single Widget -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Footer Top -->
-			<div class="copyright">
-				<div class="container">
-					<div class="inner">
-						<div class="row">
-							<div class="col-lg-6 col-12">
-								<div class="left">
-									<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
-								</div>
-							</div>
-							<div class="col-lg-6 col-12">
-								<div class="right">
-									<img src="/assets/images/payments.png" alt="#">
-								</div>
+						<div class="col-lg-6 col-12">
+							<div class="right">
+								<img src="/assets/images/payments.png" alt="#">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</footer>
-		<!-- /End Footer Area -->
-		<%- include('../common/view/js.ejs') %>
+		</div>
+		<script>
+			document.getElementById('showFormBtn1').addEventListener('click', function () {
+				var form = document.getElementById('hiddenForm1');
+				if (form.style.display === 'none' || form.style.display === '') {
+					form.style.display = 'block'; // Mở form
+				} else {
+					form.style.display = 'none'; // Đóng form
+				}
+			});
+		</script>
+		<%- include('../common/view/footer.ejs') %>
+			<!-- /End Footer Area -->
+			<%- include('../common/view/js.ejs') %>
 
 </body>
+
 </html>

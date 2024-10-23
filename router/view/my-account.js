@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
  const upload = multer({ storage: storage }); 
  router.get('/',controler.account)
  router.post('/',controler.changeAccount)
+ router.get('/coupon',controler.coupon)
  router.get('/address',controler.address)
  router.post('/address',controler.postaddress)
  router.post('/address/save',controler.saveaddress)

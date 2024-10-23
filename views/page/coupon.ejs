@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<%- include('../common/view/header.ejs') %>
+	<%- include('../common/view/css.ejs') %>
+<style>
+	.table-wrapper {
+    max-height: 400px; /* Chiều cao cố định của vùng chứa bảng */
+    overflow-y: auto; /* Thanh cuộn dọc cho tbody */
+    position: relative;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Đảm bảo không có khoảng cách giữa các ô */
+}
+
+thead {
+    position: sticky; /* Giữ cố định phần đầu bảng */
+    top: 0; /* Đặt nó ở vị trí trên cùng */
+    background-color: #fff; /* Màu nền của phần đầu để nhìn rõ */
+    z-index: 1; /* Đảm bảo phần thead nằm trên tbody */
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các ô */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu nền xen kẽ cho các hàng trong tbody */
+}
+		a.nav-link {
+		  color: rgb(0, 0, 0); /* Màu chữ trước khi hover */
+		}
+	  
+		a.nav-link:hover {
+		  color: #F7941D; /* Màu chữ khi hover, có thể chỉnh thành màu khác nếu muốn */
+		}
+</style>
+</head>
+<body class="js">
+	
+	
+	<!-- End Preloader -->
+		
+		<!-- Header -->
+		<%-include('../common/view/siderbar.ejs')%>
+		<!--/ End Header -->
+	
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="/oder">Oder</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+			
+	<!-- Shopping Cart -->
+	<section class="blog-single section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-2">
+					<div class="content">
+					<a class="nav-link" href="/my-account">My account</a>
+					<a class="nav-link" href="/oder">Lich su don hang</a>							
+					<a class="nav-link" href="/my-account/address">Dia chi giao hang</a>
+					<a class="nav-link" href="/my-account/coupon">Ma giam gia</a>
+					  </div>
+				</div>
+				<div class="col-10">
+					<div class="shopping-cart section">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<!-- Shopping Summery -->
+									<div class="table-wrapper">
+										<table class="table shopping-summery">
+											<thead>
+												<tr class="main-hading">
+													<th>Name</th>
+													<th>Condition</th>
+													<th class="text-center">Coupon</th>
+													<th class="text-center">Discount</th>
+													<th class="text-center">Quantity</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% if(data != undefined ){%>
+													<% for(var i=0; i< data.length ; i++){%>
+														<% if(data[i].coupon.action !=0 ){%>
+												<tr>
+													<td>
+														<p class=""><a href="#"><%= data[i].coupon.name %></a></p>
+													</td>
+													<td class="product-des" data-title="Description">
+														<p class="product-des">Giam gia cho don tu <%= data[i].coupon.buymin%> </p>
+													</td>
+													<td class="price" data-title="Price"><span><%= data[i].coupon.coupon %></span></td>
+													<td class="price" data-title="Price"><%if(parseInt(data[i].coupon.discountpercent) > 0){%>
+													</span><%= data[i].coupon.discountpercent %> % </span></td>
+													<%}else{%>
+													<span>$<%= data[i].coupon.discountprice %> </span></td>
+														<%}%>
+													<td class="price" data-title="Price"><span><%= data[i].quantity %> </span></td>
+												</tr>
+												<%}%>
+													<%}%>
+												<%}%>
+											</tbody>
+										</table>
+									</div>
+									<!--/ End Shopping Summery -->
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+									
+	
+	<!-- Start Footer Area -->
+	<%- include('../common/view/footer.ejs') %>
+
+	<!-- /End Footer Area -->
+	
+	<%- include('../common/view/js.ejs') %>
+
+</body>
+</html>

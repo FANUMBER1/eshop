@@ -15,7 +15,7 @@ module.exports={
         const idoder=parseInt(req.params.ID);
         const crea= await oder.oder(iduser,idoder,idaddress);
         const increa=await product.incresale(idoder)
-        res.redirect('/cart')
+        res.redirect('/cart/oder-comfirm')
     },
     getoder:async(req,res)=>{
         const iduser=parseInt(req.session.userId);
@@ -23,9 +23,9 @@ module.exports={
         var data
         if(iduser>=0){
             carts= await cart.getcart(iduser)
-            data=await oder.useroder(iduser)
+            data=await oder.useroder(iduser,4)
         }
         const classfys=await classfy.classfy()
-        res.render('page/useroder',{carts:carts,data:data,classfys:classfys})
+        res.render('page/useroder',{carts:carts,data:data,classfys:classfys,k1:'',k2:'',k3:'',k4:'',k5:''})
     }
 }

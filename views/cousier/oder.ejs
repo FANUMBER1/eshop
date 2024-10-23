@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../common/admin/header.ejs') %>
+
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .container-fluid {
+      height: 100%;
+    }
+
+    .row {
+      height: 100%;
+    }
+
+    .position-fixed {
+      height: 500vh;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      /* Điều chỉnh theo chiều rộng của sidebar */
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <head>
+    <div class="container-storage">
+      <div class="row">
+       <div class="col-2">
+      <aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-2 position-fixed overflow-auto">
+       <!-- Sidebar -->
+       <div class="sidebar">
+         <!-- Sidebar user (optional) -->
+         <div class="user-panel mt-3 pb-3 mb-3 d-flex border-bottom border-white">
+           <h1 class="d-flex"> <i class="bi bi-person-circle"></i><a href="/" class="nav-link text-white" >ADMIN</a></h1>
+          </div>
+         <!-- Sidebar Menu -->
+         <nav class="mt-2 ">
+           <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
+              <li class="nav-item"></li>
+                <a href="/cousier" class="nav-link text-white">
+                  <p><i class="bi bi-people-fill"></i>ODER</p>
+                </a>
+              </li>
+              <li class="nav-item"></li>
+                <a href="/cousier/commited" class="nav-link text-white">
+                  <p><i class="bi bi-people-fill"></i>ODER-COMFIRM</p>
+                </a>
+              </li>
+              <li class="nav-item"></li>
+                <a href="/cousier/completed" class="nav-link text-white">
+                  <p><i class="bi bi-people-fill"></i>ODER-COMPLETED</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                  <a href="/logout" class="nav-link text-white">
+                    <p><i class="bi bi-box-arrow-left"></i> LOGOUT</p>
+                  </a>
+                </li>
+              </div>
+           <!-- /.sidebar -->
+         </aside>
+       </div>
+        <!--main-content-->
+    </div>
+    
+  </head>
+    <div class="main-content ml-2 col-10">
+      <div class="row text-center">
+        <h1> ODER </h1>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 border border-dark rounded p-3 ">
+          <div class="row">
+            <aside>
+              <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                <table class="table">
+                  <thead class="thead-dark" style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                  <tr>
+                  <th>STT</th>
+                  <th>Name Account</th>
+                  <th>Product quantity</th>
+                  <th>Total value</th>
+                  <th>Comfirm</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for( var i=0; i< data.length ; i++){%>
+                  <tr>
+                    <td>
+                      <%= i %>
+                    </td>
+                    <td>
+                    <p><%= data[i].address.name %> | <%= data[i].address.phone %></p>
+                    <p><%= data[i].address.address %></p>
+                    </td>
+                    <td>
+                      <%for(var j=0; j< data[i].product.length; j++){%>
+                              <p> <%=data[i].product[j].product.name%>,SL:<%=data[i].product[j].quantity%> </p>
+                        <%}%>
+                    </td>
+                    <td>
+                      <% var sum=0 %>
+                      <% for(var j=0; j< data[i].product.length; j++){%>
+                        <% sum =sum + parseInt(data[i].product[j].quantity)*parseInt(data[i].product[j].product.price) %>
+                        <%}%>
+                        <%= sum%>
+                    </td>
+                    <td><a href="/cousier/comfirm/<%= data[i].id %>"
+                      class="nav-link text-dark">Comfirm</a></td>
+                  </tr>
+                  <%}%>
+              </tbody>
+            </table>
+          </div>
+        </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

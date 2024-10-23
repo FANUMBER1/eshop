@@ -765,7 +765,12 @@ Version:1.0
 	color: #fff;
 	background: transparent;
 	position: relative;
-	background: #f7941d;
+	background: #333;
+	;
+}
+.header.shop .all-category:active {
+	background:#F7941D;
+
 }
 .header.shop .all-category h3{
 	padding: 20px 25px;

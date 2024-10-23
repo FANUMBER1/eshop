@@ -16,7 +16,7 @@ module.exports={
         }
         var check=1;
         const classfys=await classfy.classfy()
-        res.render('page/register',{check,carts:carts,classfys:classfys})
+        res.render('page/register',{check,carts:carts,classfys:classfys,k1:'',k2:'',k3:'',k4:'',k5:''})
     },
     postregister:async(req,res)=>{
         const name= req.body.name;
@@ -36,7 +36,8 @@ module.exports={
         const anh=req.file;
         const img= adminModel.checkImg(anh,data)
         const role=2;
-        const crea= user.create(name,email,pas,img,firstname,lastname,phone,country,state,
+        console.log(img)
+        const crea=await user.create(name,email,pas,img,firstname,lastname,phone,country,state,
             address1,address2,code,company,role);
         res.redirect('/login')
     }

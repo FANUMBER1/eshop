@@ -22,7 +22,9 @@ module.exports={
         const dataproduct= await product.getedit(idproduct)
         const dis=await product.increase(idproduct)
         const classfys=await classfy.classfy()
-        res.render('page/product',{data:dataproduct,carts:carts,products:products,topsale:topsale,topview:topview,classfys:classfys})
+        res.render('page/product',{data:dataproduct,carts:carts,products:products,topsale:topsale,topview:topview,classfys:classfys
+            ,k1:'active',k2:'',k3:'',k4:'',k5:''
+        })
     },
     product_shop:async(req,res)=>{
         const iduser=parseInt(req.session.userId)
@@ -44,7 +46,9 @@ module.exports={
            const page=(idpage-1)*6
         const data= await product.pageproduct(page);
         const classfys=await classfy.classfy()
-        res.render('page/product-shop',{data:data,carts:carts,products:products,topsale:topsale,topview:topview,number:numberpage,page:idpage,classfys:classfys})
+        res.render('page/product-shop',{data:data,carts:carts,products:products,topsale:topsale,topview:topview,number:numberpage,page:idpage,classfys:classfys
+            ,k1:'active',k2:'',k3:'',k4:'',k5:'',check:1
+        })
     },
     review:async(req,res)=>{
         const idproduct=parseInt(req.params.ID);
@@ -68,7 +72,7 @@ module.exports={
         }
         const data=await user.getLikeProduct(iduser)
         const classfys=await classfy.classfy()
-        res.render('page/likeproduct',{data:data,carts:carts,classfys:classfys})
+        res.render('page/likeproduct',{data:data,carts:carts,classfys:classfys ,k1:'active',k2:'',k3:'',k4:'',k5:''})
     },
     deleteLikeProduct:async(req,res)=>{
         const idproduct=parseInt(req.params.ID);

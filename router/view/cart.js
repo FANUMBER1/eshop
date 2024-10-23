@@ -14,6 +14,10 @@ const storage = multer.diskStorage({
  const upload = multer({ storage: storage }); 
 
  router.get('/',controler.cart)
+ router.get('/oder-comfirm',middlewea.requireLogin,controler.oderComfirm)
+ router.get('/oder-delivery',middlewea.requireLogin,controler.oderDelivery)
+ router.get('/oder-transit',middlewea.requireLogin,controler.oderTransit)
+ router.get('/oder-completed',middlewea.requireLogin,controler.oderCompleted)
  router.post('/:ID',middlewea.requireLogin,controler.creat_cart)
  router.get('/:ID',middlewea.requireLogin,controler.creat_cart)
  router.get('/delete/:ID',controler.remove)

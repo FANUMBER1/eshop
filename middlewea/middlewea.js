@@ -43,7 +43,7 @@ module.exports = {
     var check=1;
     if(data.length > 0){
        check=0;
-       res.render('page/register',{check,carts:carts})
+       res.render('page/register',{check,carts:carts,k1:'',k2:'',k3:'',k4:'',k5:''})
     }else{
       next();
     }
@@ -58,11 +58,19 @@ module.exports = {
     const comfirmpass = req.body.comfirmpass;
     var check=3
     if(pass !== comfirmpass){
-      res.render('page/register',{check,carts:carts})
+      res.render('page/register',{check,carts:carts,k1:'',k2:'',k3:'',k4:'',k5:''})
     }else{
       next();
     }
 
   },
-  
+  checkCousier:async(req,res,next)=>{
+    const id = parseInt(req.session.userId);
+    const data= await users.getedit(id)
+    if (data.role.position != 'Cousier') {
+      res.redirect('/login')
+    } else {
+      next();
+    }
+  }
 }

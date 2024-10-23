@@ -78,7 +78,15 @@ module.exports={
            userid:iduser,
            productid:idproduct
           }
-        })      }
+        })      
+      }else{
+        const crea=await prisma.like_product.deleteMany({
+          where:{
+           userid:iduser,
+           productid:idproduct
+          }
+        })
+      }
       
     },
     getLikeProduct:async(id)=>{

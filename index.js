@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 const session = require('express-session');
 const viewRouter=require('./router/view/view')
 const adminRouter=require('./router/admin/admin')
+const cousier=require('./router/cousier/cousier')
 const middlewea=require('./middlewea/middlewea')
 //router
 const storage = multer.diskStorage({
@@ -38,6 +39,7 @@ app.use(session({
 ///ROUTER
 app.use('/',viewRouter)
 app.use('/admin',adminRouter)
+app.use('/cousier',middlewea.requireLogin,middlewea.checkCousier,cousier)
 // ,middlewea.requireLogin,middlewea.checkAdmin
 ///////////
 app.listen(port,()=> {

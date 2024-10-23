@@ -42,6 +42,9 @@ function removeOption(element, value) {
     updateSelectedOptions();
 }
 
+
+
+
 function toggleDropdowncolor() {
     const dropdownContent = document.getElementById("dropdown_content");
     dropdownContent.classList.toggle("showcolor");
@@ -119,10 +122,14 @@ $(document).ready(function() {
     });
 });
 
-var pathParts = window.location.pathname.split('/'); 
+var pathParts = window.location.pathname.split('/');
+console.log(pathParts)
 const numberPage=document.querySelector('#page')
 const number=numberPage.value;
 function prev() {
+    if(pathParts[3] == 'NaN'){
+        pathParts[3]=1
+    }
         if(parseInt(pathParts[3])==1){
             var link = document.getElementById('prev'); 
             link.href = '/product/page/1'; 
@@ -138,6 +145,9 @@ function prev() {
 };
 
 function next() {
+    if(pathParts[3] == 'NaN'){
+        pathParts[3]=2
+    }
         if(parseInt(pathParts[3])==number){
             var link = document.getElementById('prev'); 
             link.href = '/product/page/'+ (parseInt(pathParts[3])-1); 

@@ -27,4 +27,11 @@ module.exports={
         const data= await prisma.classfy.findMany({where:{name:name}})
         return data
       }
+      ,
+    classfyid:async(req,res)=>{
+        const data= await prisma.classfy.findMany({select:{
+            id:true,
+        }})
+        return data;
+      }
 }

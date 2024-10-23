@@ -203,17 +203,23 @@ background-color: #f0f0f0; /* Thay đổi màu nền khi hover vào mục dropdo
                                 <div class="navbar-collapse">	
                                     <div class="nav-inner">	
                                         <ul class="nav main-menu menu navbar-nav">
-                                            <li class="active"><a href="/">Home</a></li>
-                                            <li><a href="/product">Product</a>
+                                            <li><a href="/">Home</a></li>
+                                            <li class="<%=k1 %>"><a href="/product">Product</a>
                                                 
                                             </li>												
-                                            <li><a href="/service">Service</a></li>
-                                            <li><a href="/cart">Shopping cart</a>
+                                            <li class="<%=k2 %>"><a href="/service">Service</a></li>
+                                            <li class="<%=k3 %>"><a href="/cart">Shopping cart</a>
+                                                <ul class="dropdown">
+                                                    <% if(carts != undefined ){%>
+                                                    <li><a href="/cart/oder-comfirm">Oder-comfirm</a></li>
+                                                    <%}%>
+                                                    <li><a href="/cart">Cart</a></li>
+                                                </ul>
                                             </li>
                                                                                        
-                                            <li><a href="/blog">Blog</i></a>
+                                            <li class="<%=k4 %>"><a href="/blog">Blog</i></a>
                                             </li>
-                                            <li><a href="/contact">Contact Us</a></li>
+                                            <li class="<%=k5 %>"><a href="/contact">Contact Us</a></li>
                                         </ul>
                                     </div>
                                 </div>

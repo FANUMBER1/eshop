@@ -53,7 +53,7 @@
 	<!-- End Breadcrumbs -->
    		
 	<!-- Shopping Cart -->
-	<% if(carts != undefined ){%>
+	<% if(carts != undefined && carts.length > 0 ){%>
 	<form action="/checkout" method="post">
 	<div class="shopping-cart section">
 		<div class="container">
@@ -75,33 +75,45 @@
 						<tbody>
 							<% if(carts != undefined ){%>
 								<% for(var i=0; i< carts.length ; i++){%>
-							<tr>
-								<td> <input name="products" id="<%= carts[i].product.id%>" type="checkbox" value="<%= carts[i].product.id%>"></option></td>
-								<td class="image" data-title="No"><img src="<%= carts[i].product.img[0] %>" alt="#"></td>
-								<td class="product-des" data-title="Description">
-									<p class="product-name"><a href="#"><%= carts[i].product.name %></a></p>
-									<p class="product-des"><%= carts[i].product.userclass.name %></p>
-								</td>
-								<td class="price" data-title="Price"><span>$<%= carts[i].product.price %>.00 </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant<%= carts[i].product.id%>">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant<%= carts[i].product.id%>" class="input-number"  data-min="1" data-max="100" value="<%= carts[i].quantity%>">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant<%= carts[i].product.id%>">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-									<!--/ End Input Order -->
-								</td>
-								<td class="total-amount" data-title="Total"><span>$<%= parseInt(carts[i].quantity)*parseInt(carts[i].product.price) %>.00</span></td>
-								<td class="action" data-title="Remove"><a href="/cart/delete/<%= carts[i].product.id %>"><i class="ti-trash remove-icon"></i></a></td>
-							</tr>
+									<tr id="<%= carts[i].product.id %>">
+										<td> 
+											<input name="products" id="<%= carts[i].product.id %>" type="checkbox" value="<%= carts[i].product.id %>" onchange="updateCheckedRows()">
+										</td>
+										<td class="image" data-title="No"><img src="<%= carts[i].product.img[0] %>" alt="#"></td>
+										<td class="product-des" data-title="Description">
+											<p class="product-name"><a href="#"><%= carts[i].product.name %></a></p>
+											<p class="product-des"><%= carts[i].product.userclass.name %>
+												<%if(parseInt(carts[i].product.discount.name)!=0){%>
+													/Giảm giá <%= carts[i].product.discount.name %>%
+													<%}%>
+											</p>
+										</td>
+										<td class="price" data-title="Price">$
+											<%if(parseInt(carts[i].product.discount.name)!=0){%>
+										<span>
+											<%=carts[i].product.price- parseInt(carts[i].product.discount.name)*carts[i].product.price/100 %></span>  / $ <s><%=carts[i].product.price%> </s>
+											<%}else{%>
+												<span><%=carts[i].product.price%></span>
+												<%}%>
+										</td>
+										<td class="qty" data-title="Qty">
+											<div class="input-group">
+												<div class="button minus">
+													<button type="button" class="btn btn-primary btn-number" data-type="minus" id="<%= carts[i].product.id %>" data-field="quant<%= carts[i].product.id %>" onclick="changes(this)">
+														<i class="ti-minus"></i>
+													</button>
+												</div>
+												<input type="text" name="quant<%= carts[i].product.id %>"  id="<%= carts[i].product.id %>"  class="input-number"   data-min="1" data-max="100" value="<%= carts[i].quantity%>">
+												<div class="button plus">
+													<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant<%= carts[i].product.id %>" id="<%= carts[i].product.id %>"  onclick="changes(this)">
+														<i class="ti-plus"></i>
+													</button>
+												</div>
+											</div>
+										</td>
+										<td class="total-amount" data-title="Total">$<span><%= parseInt(carts[i].quantity)*(carts[i].product.price- parseInt(carts[i].product.discount.name)*carts[i].product.price/100) %></span></td>
+										<td class="action" data-title="Remove"><a href="/cart/delete/<%= carts[i].product.id %>"><i class="ti-trash remove-icon"></i></a></td>
+									</tr>
 							    <%}%>
 							<%}%>
 						</tbody>
@@ -109,6 +121,8 @@
 					<!--/ End Shopping Summery -->
 				</div>
 			</div>
+			
+			
 			<div class="row">
 				<div class="col-12">
 					<!-- Total Amount -->
@@ -116,33 +130,15 @@
 						<div class="row">
 							<div class="col-lg-7 col-md-5 col-12">
 								<div class="left">
-									<div class="coupon">
-										<form action="#" target="_blank">
-											<input name="Coupon" placeholder="Enter Your Coupon">
-											<button class="btn">Apply</button>
-										</form>
-									</div>
-									<div class="checkbox">
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
-									</div>
+									
 								</div>
 							</div>
 							<div class="col-lg-5 col-md-7 col-12">
 								<div class="right">
 									<ul>
 										<% if(carts.length > 0 ){%>
-										<li>Cart Subtotal<span>$
-											<% var sum=0 %>
-											<% var address %>
-											<% for(var i=0; i< carts.length ; i++){%>
-												  <% sum=sum + parseInt(carts[i].quantity)*parseInt(carts[i].product.price)%>
-												  <% address=carts[i].user.address1 %>
-											<%}%>
-											<%=sum%>.00
-										</span></li>
-										<li>Shipping<span>Free</span></li>
-										<li>You Save<span>$20.00</span></li>
-										<li class="last">You Pay<span>$<%= sum %>.00</span></li>
+										<li class="last">You Pay <span class="total-oder1">$0.00</span></li>
+										
 									</ul>
 									<%}%>
 									<div class="button5">
@@ -248,212 +244,75 @@
 	
 	
 	<!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row no-gutters">
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <!-- Product Slider -->
-									<div class="product-gallery">
-										<div class="quickview-slider-active">
-											<div class="single-slider">
-												<img src="images/modal1.jpg" alt="#">
-											</div>
-											<div class="single-slider">
-												<img src="images/modal2.jpg" alt="#">
-											</div>
-											<div class="single-slider">
-												<img src="images/modal3.jpg" alt="#">
-											</div>
-											<div class="single-slider">
-												<img src="images/modal4.jpg" alt="#">
-											</div>
-										</div>
-									</div>
-								<!-- End Product slider -->
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <div class="quickview-content">
-                                    <h2>Flared Shift Dress</h2>
-                                    <div class="quickview-ratting-review">
-                                        <div class="quickview-ratting-wrap">
-                                            <div class="quickview-ratting">
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="yellow fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <a href="#"> (1 customer review)</a>
-                                        </div>
-                                        <div class="quickview-stock">
-                                            <span><i class="fa fa-check-circle-o"></i> in stock</span>
-                                        </div>
-                                    </div>
-                                    <h3>$29.00</h3>
-                                    <div class="quickview-peragraph">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam.</p>
-                                    </div>
-									<div class="size">
-										<div class="row">
-											<div class="col-lg-6 col-12">
-												<h5 class="title">Size</h5>
-												<select>
-													<option selected="selected">s</option>
-													<option>m</option>
-													<option>l</option>
-													<option>xl</option>
-												</select>
-											</div>
-											<div class="col-lg-6 col-12">
-												<h5 class="title">Color</h5>
-												<select>
-													<option selected="selected">orange</option>
-													<option>purple</option>
-													<option>black</option>
-													<option>pink</option>
-												</select>
-											</div>
-										</div>
-									</div>
-                                    <div class="quantity">
-										<!-- Input Order -->
-										<div class="input-group">
-											<div class="button minus">
-												<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-													<i class="ti-minus"></i>
-												</button>
-											</div>
-											<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
-											<div class="button plus">
-												<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-													<i class="ti-plus"></i>
-												</button>
-											</div>
-										</div>
-										<!--/ End Input Order -->
-									</div>
-									<div class="add-to-cart">
-										<a href="#" class="btn">Add to cart</a>
-										<a href="#" class="btn min"><i class="ti-heart"></i></a>
-										<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-									</div>
-                                    <div class="default-social">
-										<h4 class="share-now">Share:</h4>
-                                        <ul>
-                                            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                                            <li><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- Modal end -->
 	
 	<!-- Start Footer Area -->
-	<footer class="footer">
-		<!-- Footer Top -->
-		<div class="footer-top section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-5 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer about">
-							<div class="logo">
-								<a href="index.html"><img src="images/logo2.png" alt="#"></a>
-							</div>
-							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer links">
-							<h4>Information</h4>
-							<ul>
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Faq</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Help</a></li>
-							</ul>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer links">
-							<h4>Customer Service</h4>
-							<ul>
-								<li><a href="#">Payment Methods</a></li>
-								<li><a href="#">Money-back</a></li>
-								<li><a href="#">Returns</a></li>
-								<li><a href="#">Shipping</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-							</ul>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer social">
-							<h4>Get In Tuch</h4>
-							<!-- Single Widget -->
-							<div class="contact">
-								<ul>
-									<li>NO. 342 - London Oxford Street.</li>
-									<li>012 United Kingdom.</li>
-									<li>info@eshop.com</li>
-									<li>+032 3456 7890</li>
-								</ul>
-							</div>
-							<!-- End Single Widget -->
-							<ul>
-								<li><a href="#"><i class="ti-facebook"></i></a></li>
-								<li><a href="#"><i class="ti-twitter"></i></a></li>
-								<li><a href="#"><i class="ti-flickr"></i></a></li>
-								<li><a href="#"><i class="ti-instagram"></i></a></li>
-							</ul>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Footer Top -->
-		<div class="copyright">
-			<div class="container">
-				<div class="inner">
-					<div class="row">
-						<div class="col-lg-6 col-12">
-							<div class="left">
-								<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="right">
-								<img src="images/payments.png" alt="#">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<%- include('../common/view/footer.ejs') %>
+
 	<!-- /End Footer Area -->
 	
 	<%- include('../common/view/js.ejs') %>
+	<!-- <script src="/assets/js/carts.js"></script> -->
+	<script>
+	
+	function changes(button) {
+    const productId = button.id
+	const row = document.getElementById(productId);
+    const input =row.querySelector('.input-number'); // Lấy ô input tương ứng
+	const p = button.getAttribute('data-type');
+	var quantity=0
+    
+	if(p == 'plus'){
+		console.log(1)
+	quantity = parseInt(input.value) +1 || 0;
+	row.querySelector('.input-number').value = quantity;
 
+	}else{
+		if(parseInt(input.value) > 1){
+			quantity = parseInt(input.value)-1 || 0; // Kiểm tra nếu nhập không phải số thì mặc định là 0
+		}else{
+			quantity=1
+		}
+		row.querySelector('.input-number').value = quantity;
+
+	}
+	console.log(parseInt(row.querySelector('.input-number').value))
+	const quantityLast = parseInt(row.querySelector('.input-number').value); // Lấy ô input tương ứng
+    console.log(quantityLast)
+	console.log(parseInt(row.querySelector('.input-number').value))
+    const price = parseFloat(row.querySelector('.price span').textContent);
+    const totalAmount = (quantityLast) * price;
+    row.querySelector('.total-amount span').textContent = totalAmount;
+	updateCheckedRows()
+}
+
+function updateCheckedRows() {
+     // Lấy tất cả các thẻ <tr>
+		const rows = document.querySelectorAll('tr');
+    const checkedRows = [];
+
+    var total=0;
+    rows.forEach(row => {
+        // Tìm checkbox trong <tr>
+        const checkbox = row.querySelector('input[type="checkbox"]');
+        if (checkbox && checkbox.checked) {
+            const productId = row.id; 
+            const productName = row.querySelector('.product-name a').textContent; 
+            const price = parseFloat(row.querySelector('.price span').textContent); 
+            const quantityInput = row.querySelector('.input-number'); 
+            const quantity = parseInt(quantityInput.value) || 1; 
+            total=total+price*(quantity)           
+        }
+    });
+		 document.querySelector('.total-oder1').textContent= '$'+total.toFixed(2)
+
+    // Nếu không có <tr> nào được chọn
+    if (checkedRows.length === 0) {
+        console.log('No products selected.');
+    }
+}
+	</script>
+	
 </body>
 </html>

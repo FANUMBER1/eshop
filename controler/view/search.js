@@ -34,25 +34,8 @@ module.exports={
         var numberpage
         const classfys=await classfy.classfy()
 
-        res.render('page/product-shop',{data:result,carts:carts,number:numberpage,products:products,topsale:topsale,topview:topview,classfys:classfys})
+        res.render('page/product-shop',{data:result,carts:carts,number:numberpage,products:products,topsale:topsale,topview:topview,classfys:classfys,k1:'active',k2:'',k3:'',k4:'',k5:'',check:0})
     },
-    // searchclassfy:async(req,res)=>{
-    //     const name=parseInt(req.params.ID)
-    //     const products= await product.product()
-    //     const topsale=await product.topsale()
-    //     const topview=await product.topview()
-    //     const value= req.query.timkiem
-    //     const iduser=parseInt(req.session.userId)
-    //     var carts
-    //     if(iduser>=0){
-    //         carts= await cart.getcart(iduser)
-    //     }      
-    //     var numberpage
-    //     const result= await product.productclassfy(name)
-    //     const classfys=await classfy.classfy()
-
-    //     res.render('page/product-shop',{data:result,carts:carts,number:numberpage,products:products,topsale:topsale,topview:topview,classfys:classfys})
-    // },
     searchuserclass:async(req,res)=>{
         const name=parseInt(req.params.ID)
         const products= await product.product()
@@ -68,7 +51,7 @@ module.exports={
         const result= await product.productUserclass(name)
         const classfys=await classfy.classfy()
 
-        res.render('page/product-shop',{data:result,carts:carts,number:numberpage,products:products,topsale:topsale,topview:topview,classfys:classfys})
+        res.render('page/product-shop',{data:result,carts:carts,number:numberpage,products:products,topsale:topsale,topview:topview,classfys:classfys,k1:'active',k2:'',k3:'',k4:'',k5:'',check:0})
     },
     searchblog:async(req,res)=>{
         const value= parseInt(req.params.ID)
@@ -96,7 +79,7 @@ module.exports={
         var numberpage;
         const classfys=await classfy.classfy()
 
-        res.render('page/my-blog',{data:result,carts:carts,number:numberpage,classfys:classfys})
+        res.render('page/my-blog',{data:result,carts:carts,number:numberpage,classfys:classfys,k1:'',k2:'',k3:'',k4:'active',k5:''})
     },
     searchh:async(req,res)=>{
         const value= req.query.timkiem
@@ -112,6 +95,6 @@ module.exports={
         const idpage=parseInt(req.params.ID)||1
         var numberpage;
         const classfys=await classfy.classfy()
-        res.render('page/my-blog',{data:result,carts:carts,number:numberpage,classfys:classfys})
+        res.render('page/my-blog',{data:result,carts:carts,number:numberpage,classfys:classfys,k1:'',k2:'',k3:'',k4:'active',k5:''})
     }
 }

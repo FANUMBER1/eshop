@@ -13,7 +13,7 @@ contact:async(req,res)=>{
         carts= await cart.getcart(iduser)
     }       
     const classfys=await classfy.classfy()
-     res.render('page/contact',{carts:carts,classfys:classfys})
+     res.render('page/contact',{carts:carts,classfys:classfys,k1:'',k2:'',k3:'',k4:'',k5:'active'})
    },
 postcontact:async(req,res)=>{
     const name=req.body.name;
@@ -27,6 +27,6 @@ postcontact:async(req,res)=>{
 getcontact:async(req,res)=>{
     const id=parseInt(req.params.ID)
     const data= await contact.getcontact(id)
-    res.render('edit/fullcontact',{data:data})
+    res.render('edit/fullcontact',{data:data,k1:'',k2:'',k3:'',k4:'',k5:'active'})
 }
 }

@@ -82,7 +82,7 @@ model classfy{
   id Int  @id @default(autoincrement())
   name String?
   product product[]
-
+  coupon coupon_classfy[]
 }
 
 model service{
@@ -126,6 +126,7 @@ model user{
     product user_product[]
     like like_product[]
     addressOder user_address[]
+    coupon coupon_user[]
 }
 
 model user_address{
@@ -175,6 +176,8 @@ model product{
     review review[]
     user user_product[]
     like like_product[]
+    coupon coupon_product[]
+
 }
 
 model user_product{
@@ -215,6 +218,7 @@ model oder{
   address user_address @relation(fields: [addressid], references: [id])
   addressid Int
   product oder_product[]
+  coupon coupon_oder[]
 }
 
 model oder_product{
@@ -306,4 +310,53 @@ product product @relation(fields: [productid], references: [id])
 productid Int
 user user @relation(fields: [userid], references: [id])
 userid Int
+}
+
+model coupon_classfy{
+    id Int  @id @default(autoincrement())
+    classfy classfy @relation(fields: [classfyid], references: [id])
+    classfyid Int
+    coupon coupon @relation(fields: [couponid], references: [id])
+    couponid Int
+}
+
+model coupon_user{
+    id Int  @id @default(autoincrement())
+    user user @relation(fields: [userid], references: [id])
+    userid Int
+    coupon coupon @relation(fields: [couponid], references: [id])
+    couponid Int
+    quantity Int
+}
+
+model coupon_product{
+    id Int  @id @default(autoincrement())
+    product product @relation(fields: [productid], references: [id])
+    productid Int
+    coupon coupon @relation(fields: [couponid], references: [id])
+    couponid Int
+}
+ 
+model coupon_oder{
+id Int  @id @default(autoincrement())
+    oder oder @relation(fields: [oderid], references: [id])
+    oderid Int
+    coupon coupon @relation(fields: [couponid], references: [id])
+    couponid Int
+}
+
+model coupon{
+ id Int  @id @default(autoincrement())
+ name String?
+ discountpercent String?
+ discountprice String?
+ classfy coupon_classfy[]
+ user coupon_user[]
+ coupon String?
+ quantity String?
+ pricemin String?
+ buymin Int
+ action Int
+ product coupon_product[]
+ oder coupon_oder[]
 }

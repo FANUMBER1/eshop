@@ -56,6 +56,12 @@ tbody tr:nth-child(even) {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng để làm nổi bật form */
     }
 	  </style>
+	  <script>
+        // Kiểm tra nếu có thông báo lỗi và hiển thị alert
+        <%if (errorMessage != undefined) { %>
+            alert('<%= errorMessage %>');
+        <% } %>
+    </script>
 </head>
 <body class="js">
 	
@@ -91,11 +97,13 @@ tbody tr:nth-child(even) {
 						<div class="content">
 						<a class="nav-link"  href="/my-account">My account</a>
 						<a class="nav-link"  href="/oder">Lich su don hang</a>							
-						<a class="nav-link"  href="/address-user">Dia chi giao hang</a>
+						<a class="nav-link"  href="/my-account/address">Dia chi giao hang</a>
+						<a class="nav-link" href="/my-account/coupon">Ma giam gia</a>
+
 						  </div>
 					</div>
 					<div class="col-10">
-						<% if(data != undefined ){%>
+						<% if(data.length != undefined ){%>
 						<div class="shopping-cart section">
 							<div class="container">
 								<div class="row">
