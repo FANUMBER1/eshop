@@ -48,6 +48,7 @@
                   <tr>
                   <th>STT</th>
                   <th>Name Account</th>
+                  <th>Coupon</th>
                   <th>Product quantity</th>
                   <th>Total value</th>
                   <th>Comfirm</th>
@@ -64,9 +65,14 @@
                       <%= data.user[i].name %>
                     </td>
                     <td>
+                      <% if(data.oderids[i].coupon.length != 0){%>
+                        <%= data.oderids[i].coupon[0].coupon.coupon%>
+                        <%}%>
+                    </td>
+                    <td>
                       <%for(var j=0; j< data.data1.length; j++){%>
                         <% if(data.data1[j].oderid == data.oderids[i].id){%>
-                         <p> <%=data.data1[j].product.name%>,SL:<%=data.data1[j].quantity%> </p>
+                         <p> <%=data.data1[j].product.name%> | SL:<%=data.data1[j].quantity%> | $<%=data.data1[j].product.price %> | Giảm: <%=data.data1[j].product.discount.name %>% </p>
                          <%}%>
                    <%}%>
                     </td>
@@ -74,11 +80,15 @@
                       <% var sum=0 %>
                       <% for(var j=0; j< data.data1.length; j++){%>
                         <% if(data.data1[j].oderid == data.oderids[i].id){%>
-                        <% sum =sum + parseInt(data.data1[j].quantity)*parseInt(data.data1[j].product.price) %>
+                        <% sum =sum + parseInt(data.data1[j].quantity)*parseInt(data.data1[j].product.price) - parseInt(data.data1[j].quantity)*parseInt(data.data1[j].product.price)*parseInt(data.data1[j].product.discount.name)/100%>
                         <%}%>
                         <%}%>
-                        <%= sum%>
-                    </td>
+                        <%if(sum <= datasave[i] ){%>
+                          <%= 0%>
+                          <%}else{%>
+                            <%=sum - datasave[i]%>
+                            <%}%>                  
+                            </td>
                     <td>
                       <a href="/admin/oder/comfirm/<%=data.oderids[i].id %>"
                         class="nav-link text-dark">Comfirm</a>

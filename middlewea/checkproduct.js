@@ -14,6 +14,7 @@ const userclass=require('../model/admin/userclass')
 const oder=require('../model/admin/oder')
 const cart=require('../model/admin/cart')
 const addressUser=require('../model/admin/user_address')
+const user=require('../model/admin/user')
 module.exports = {
       checkName:async(req,res,next)=>{
         const name=req.body.name;

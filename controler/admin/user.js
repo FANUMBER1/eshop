@@ -4,6 +4,7 @@ app.set('view engine', 'ejs');
 const model=require('../../model/admin/user')
 const modelrole=require('../../model/admin/role')
 const modelimg=require('../../model/admin/admin')
+const modeltyper=require('../../model/admin/typeruser')
 module.exports={
 
     user:async(req,res)=>{
@@ -15,7 +16,8 @@ module.exports={
         const id=parseInt(req.params.ID);
         const role= await modelrole.role()
         const data= await model.getedit(id)
-        res.render('edit/inforUser',{data:data,datarole:role})
+        const typer= await modeltyper.typeruser()
+        res.render('edit/inforUser',{data:data,datarole:role,typer:typer})
     },
     postedit:async(req,res)=>{
         const id=parseInt(req.params.ID);
@@ -23,7 +25,8 @@ module.exports={
         const anh=req.file
         const img=await modelimg.checkImg(anh,data)
         const position=parseInt(req.body.position);
-        const up= await model.postedit(id,position,img)
+        const typer=req.body.typer
+        const up= await model.postedit(id,position,img,typer)
         res.redirect('/admin/inforuser')
     },
     delete:async(req,res)=>{

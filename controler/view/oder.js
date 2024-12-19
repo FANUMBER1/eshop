@@ -7,6 +7,7 @@ const classfy=require('../../model/admin/classfy')
 const user=require('../../model/admin/user')
 const oder=require('../../model/admin/oder')
 const cart=require('../../model/admin/cart')
+const coupon=require('../../model/admin/coupon')
 app.set('view engine', 'ejs');
 module.exports={
     oder:async(req,res)=>{

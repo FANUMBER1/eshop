@@ -200,7 +200,7 @@
 																	<%= data[i].product.name%>
 																</a></p>
 															<p class="product-des">
-																<%= data[i].size%>,<%= data[i].color%>
+																<%=data[i].product.classfy.name%> <%= data[i].size%>,<%= data[i].color%>
 															</p>
 														</td>
 														<td class="price" data-title="Price">$
@@ -221,7 +221,9 @@
 																<%= data[i].quantity%>
 															</span></td>
 														<td class="total-amount" data-title="Total"><span>$<%=
-																sum%>
+															(parseInt(data[i].quantity)*parseInt(data[i].product.price)
+																			-parseInt(data[i].quantity)*(parseInt(data[i].product.price)*parseInt(data[i].product.discount.name)/100)
+																			)%>
 															</span></td>
 													</tr>
 													<%}%>
@@ -235,38 +237,33 @@
 									<!-- Total Amount -->
 									<div class="total-amount">
 										<div class="row">
-											<div class="col-lg-8 col-md-5 col-12">
+											<div class="col-lg-6 col-md-5 col-12">
 												<div class="left">
 													<a class="btn btn-primary" id="showFormBtn1" style="color:white">Add
 														Coupon</a>
 
 												</div>
 											</div>
-											<div class="col-lg-4 col-md-7 col-12">
+											<div class="col-lg-6 col-md-7 col-12">
 												<div class="right">
 													<ul>
 														<li>Cart Subtotal<span>$
-																<% var sum=0 %>
-																	<% for(var i=0; i< data.length ; i++){%>
-																		<% sum=sum +
-																			(parseInt(data[i].quantity)*parseInt(data[i].product.price)
-																			-parseInt(data[i].quantity)*(parseInt(data[i].product.price)*parseInt(data[i].product.discount.name)/100)
-																			)%>
-																			<%}%>
-																				<%=sum%>.00
-																					<%}%>
+																
+																				<%=sum %>
+																<%}%>
 															</span></li>
-															<% var sumlast=sum %>
-															<% if(couponoder.length > 0){%>
+															<% if(parseInt(save) > 0){%>
 																<li>Coupon<span><%=couponoder[0].coupon.name %></span></li>
 														<li>You Save<span>
-															<% if(parseInt(couponoder[0].coupon.discountprice)>0){%>
-																 <%= parseInt(couponoder[0].coupon.discountprice)%>
-																 <%sumlast=sum-parseInt(couponoder[0].coupon.discountprice)%>
-																<%}%>
+																 <%= save%>
 														</span></li>
 														<%}%>
-														<li class="last">You Pay<span>$<%=sumlast%>.00</span></li>
+														<li class="last">You Pay<span>$
+															<%if(sum <=save ){%>
+																<%= 0%>
+																<%}else{%>
+																	<%=sum - save%>
+																	<%}%>.00</span></li>
 													</ul>
 													<div class="button5">
 														<div class="content">
@@ -287,10 +284,16 @@
 					<tbody>
 						<%for(var i=0; i< coupon.length;i++){%>
 							<tr>
-								<td style="padding:10px"><input type="radio" name="coupon" value="<%= coupon[i].coupon.id %>">
+								<td style="padding:10px">
+									<%if(save > 0 && coupon[i].id == couponoder[0].couponid){%>
+									<input type="radio" name="coupon" value="<%= coupon[i].id %>" checked>
+									<%}else{%>
+										<input type="radio" name="coupon" value="<%= coupon[i].id %>">
+										<%}%>
+									
 								</td>
 								<td style="padding:10px">
-									<%= coupon[i].coupon.name %>
+									<%= coupon[i].name %>
 								</td>
 							</tr>
 							<%}%>

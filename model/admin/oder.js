@@ -73,6 +73,36 @@ module.exports={
         return data;
     },
     oder:async(iduser,idoder,address)=>{
+      const datacoupon=await prisma.coupon_oder.findMany({
+        where:{
+            oder:{
+                id:idoder,
+                active:0,
+             }
+        },
+        include:{
+          oder:{
+            include:{
+              user:{
+                include:{
+                  coupon:true,
+                }
+              }
+            }
+          }
+        }
+      })
+      const quantityCoupon=await prisma.coupon.findMany({where:{ id:datacoupon[0].couponid,
+        }})
+      const dle=await prisma.coupon.updateMany({
+        where:{
+           id:datacoupon[0].couponid,
+           
+          },
+           data:{
+            quantity:String(parseInt(quantityCoupon[0].quantity)-1)
+           }
+       })
         const up=await prisma.oder.updateMany({
             where:{userid:iduser,active:0,id:idoder},
             data:{
@@ -99,7 +129,9 @@ module.exports={
         var oderids=0
         if(idoder !== undefined){
               oderids=await prisma.oder.findMany({
-                where:{id:idoder,active:1}})
+                where:{id:idoder,active:1},include:{coupon:{
+                  include:{coupon:true,}
+                }}})
                       data=await prisma.oder_product.findMany({
                         where:{oderid:oderids[0].id},
                         include: {
@@ -116,7 +148,15 @@ module.exports={
                 
         }else{
             oderids=await prisma.oder.findMany({
-                where:{active:1}})
+                where:{active:1},
+                include:{
+                  coupon:{
+                    include:{
+                      coupon:true,
+                    }
+                  },
+                }
+              })
         }    
             
         for(var i=0; i< oderids.length;i++){
@@ -138,6 +178,9 @@ module.exports={
             const data1 = await prisma.oder_product.findMany({
                 include: {
                   product: {
+                    include:{
+                      discount:true,
+                    }
                   },
                   oder: { 
                     include: {
@@ -147,6 +190,7 @@ module.exports={
                   }
                 }
               });
+
             return {data1,user,oderids,data}
     },
     useroder:async(iduser,id)=>{
@@ -168,6 +212,32 @@ module.exports={
       });
       return data
     },
+    // useroder:async(iduser,id)=>{
+    //   const data= await prisma.oder.findMany({
+    //     where: {
+    //         userid: iduser,  // Điều kiện theo userid
+    //         active:id,        // Trạng thái đơn hàng đã được gửi 
+    //     },
+    //     include: {
+    //           address:{
+    //             include:{
+    //             }
+    //           },
+    //           product:{
+    //             include:{
+    //               product:true,
+    //             }
+    //           },
+    //           coupon:{
+    //             include:{
+                  
+    //             }
+    //           }
+
+    //     }
+    //   });
+    //   return data
+    // },
     checkoutOder:async(iduser)=>{
       const data= await prisma.oder_product.findMany({
         where: {
@@ -181,6 +251,7 @@ module.exports={
           product:{
             include:{
               discount:true,
+              classfy:true,
             }
           }  // Lấy thông tin của bảng 'product'
         }
@@ -231,5 +302,47 @@ module.exports={
             active:4,
         }
     });
-    }
+    },
+
+    checked:async(iduser,idoder)=>{
+      const data= await prisma.oder_product.findMany({
+        where: {
+          oder: {
+            userid: iduser,  
+            active:1,   
+            id:idoder     
+          }
+        },
+        include: {
+          oder: true,  // Lấy thông tin của bảng 'oder'
+          product:{
+            include:{
+              discount:true,
+              classfy:true,
+            }
+          }  // Lấy thông tin của bảng 'product'
+        }
+      });
+      return data
+    },
+
+    getConponoder:async(idoder)=>{
+      const data=await prisma.coupon_oder.findMany({
+        where:{
+          oder:{
+            active:1,
+            id:idoder,
+          },
+        },
+        include:{
+          coupon:{
+            include:{
+              classfy:true,
+              product:true,
+            }
+          }
+        }
+      })
+      return data
+    },
 }

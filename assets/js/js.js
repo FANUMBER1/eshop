@@ -63,7 +63,7 @@ function updateSelectedOptionscolor() {
         }
     });
 
-    const outputcolor = document.getElementById("outputcolor");
+    const outputcolor = document.getElementById("output");
     outputcolor.innerHTML = '';
 
     if (selectedOptionscolor.length > 0) {
@@ -202,3 +202,81 @@ function next1() {
     }
     return 0;
 };
+
+function toggleButtons() {
+    const selectElement = document.getElementById("inputGroupSelect01");
+    const dropdownButton = document.getElementById("dropdownbtn");
+    const btn1 = document.getElementById("btn1");
+    const btnall=document.getElementById("btnall");
+
+    if (selectElement.value === "1") {
+        console.log(1)
+        btnall.style.display = "none" 
+        dropdownButton.style.display =  "none";
+        btn1.style.display = btn1.style.display === "none" ? "inline-block" : "none";
+        } else if (selectElement.value === "2") {
+            console.log(2)
+            dropdownButton.style.display = dropdownButton.style.display === "none" ? "inline-block" : "none";
+            btn1.style.display =  "none" 
+            btnall.style.display =  "none";
+
+    } else {
+        console.log(0)
+        dropdownButton.style.display =  "none";
+        btn1.style.display =  "none";
+        btnall.style.display = btnall.style.display === "none" ? "inline-block" : "none";
+    }
+}
+
+
+
+function toggleDropdown1() {
+    const dropdownContent = document.getElementById("dropdown-content1");
+    dropdownContent.classList.toggle("show1");
+}
+
+// function updateSelectedOptions1() {
+//     const checkboxes = document.querySelectorAll('#dropdown-content1 input[type="checkbox"]');
+//     let selectedOptions = [];
+
+//     checkboxes.forEach(checkbox => {
+//         if (checkbox.checked) {
+//             selectedOptions.push({
+//                 value: checkbox.value,
+//                 text: checkbox.nextSibling.textContent.trim()
+//             });
+//         }
+//     });
+
+//     const output = document.getElementById("output1");
+//     output.innerHTML = '';
+
+//     if (selectedOptions.length > 0) {
+//         selectedOptions.forEach(option => {
+//             const optionDiv = document.createElement("div");
+//             optionDiv.className = 'option-div1';
+//             optionDiv.innerHTML = option.text + ' <span class="remove-btn1" onclick="removeOption1(this, \'' + option.value + '\')">x</span>';
+//             output.appendChild(optionDiv);
+//         });
+//     }
+// }
+
+// function removeOption1(element, value) {
+//     element.parentElement.remove();
+
+//     const checkboxes = document.querySelectorAll('#dropdown-content1 input[type="checkbox"]');
+//     checkboxes.forEach(checkbox => {
+//         if (checkbox.value === value) {
+//             checkbox.checked = false;
+//         }
+//     });
+
+//     updateSelectedOptions1();
+// }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     document.querySelectorAll('#dropdown-content1 input[type="checkbox"]').forEach(checkbox => {
+//         checkbox.addEventListener('change', updateSelectedOptions1);
+//     });
+//     updateSelectedOptions1();     
+// });

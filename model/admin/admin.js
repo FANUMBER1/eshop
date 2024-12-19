@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 module.exports={
  ///////checkimg
  checkImg:async(anh,data)=>{
-     var img='';
+     var img
      if(anh==undefined){
         if(data.img!= undefined){
             img= data.img
@@ -12,7 +12,8 @@ module.exports={
         }
      }else{
         img= '/assets/upload/'+anh.filename
-     }
-     return img;
+     } 
+
+     return img
  }
 }

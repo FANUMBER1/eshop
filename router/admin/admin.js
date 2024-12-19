@@ -25,6 +25,7 @@ const marketing=require('./marketing')
 const coupon=require('../admin/coupon')
 const search=require('./search')
 const view=require('../view/view')
+const typeruser=require('../admin/typeruser')
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -75,4 +76,5 @@ router.use('/marketing',marketing)
 router.use('/review',review)
 router.use('/oder',oder)
 router.use('/coupon',coupon)
+router.use('/typeruser',typeruser)
 module.exports=router;

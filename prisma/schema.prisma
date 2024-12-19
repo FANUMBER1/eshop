@@ -127,6 +127,7 @@ model user{
     like like_product[]
     addressOder user_address[]
     coupon coupon_user[]
+    typer  typer_user[]
 }
 
 model user_address{
@@ -326,7 +327,6 @@ model coupon_user{
     userid Int
     coupon coupon @relation(fields: [couponid], references: [id])
     couponid Int
-    quantity Int
 }
 
 model coupon_product{
@@ -338,11 +338,34 @@ model coupon_product{
 }
  
 model coupon_oder{
-id Int  @id @default(autoincrement())
+    id Int  @id @default(autoincrement())
     oder oder @relation(fields: [oderid], references: [id])
     oderid Int
     coupon coupon @relation(fields: [couponid], references: [id])
     couponid Int
+}
+
+model typer_user{
+    id Int  @id @default(autoincrement())
+    user user @relation(fields: [userid], references: [id])
+    userid Int
+    typer typer @relation(fields: [typerid], references: [id])
+    typerid Int
+}
+
+model typer{
+    id Int  @id @default(autoincrement())
+    name String?
+    user typer_user[]
+    coupon coupon_typer[]
+}
+
+model coupon_typer{
+ id Int  @id @default(autoincrement())
+ typer typer @relation(fields: [typerid], references: [id])
+ typerid Int
+ coupon coupon @relation(fields: [couponid], references: [id])
+ couponid Int
 }
 
 model coupon{
@@ -354,9 +377,11 @@ model coupon{
  user coupon_user[]
  coupon String?
  quantity String?
+ quantityuser Int
  pricemin String?
  buymin Int
  action Int
  product coupon_product[]
  oder coupon_oder[]
+ typer coupon_typer[]
 }

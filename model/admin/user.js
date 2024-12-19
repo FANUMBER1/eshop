@@ -25,17 +25,37 @@ module.exports={
                   position: true, 
                 },
               },
+              typer:{
+                include:{
+                  typer:true,
+                }
+              }
             },
           });
         return data;
     },
-    postedit:async(id,role,img)=>{
+    postedit:async(id,role,img,typer)=>{
         const creat= await prisma.user.update({
             where:{id:id},
             data:{
                 img:`${img}`,roleid:role
             }
         })
+        const del1= await prisma.typer_user.deleteMany({
+          where:{userid:id}
+        })
+        if(typer.length > 0){
+          for(var i=0; i< typer.length ; i++){
+            await prisma.typer_user.create({
+              data:{userid:id,typerid:parseInt(typer[i])}
+            })
+          }
+        }else{
+          await prisma.typer_user.create({
+            data:{userid:id,typerid:parseInt(typer)}
+          })
+      }
+        
 
     },
     changeAccount:async(id,name,phone,address1,email)=>{

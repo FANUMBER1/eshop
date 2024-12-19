@@ -1,0 +1,317 @@
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .container-fluid {
+        height: 100%;
+    }
+
+    .row {
+        height: 100%;
+    }
+
+    .position-fixed {
+        height: 100vh;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        /* Điều chỉnh theo chiều rộng của sidebar */
+        padding: 20px;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    #dropdownbtn {
+        position: absolute;
+        background-color: #000000;
+        color: white;
+        padding: 0px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        height: 37px;
+        margin-left: -29px;
+        margin-top: -19px;
+        width: 96px;
+        z-index: 9999;
+    }
+
+
+    #dropdown-btn:hover {
+        background-color: #000000;
+    }
+
+    .dropdown-content {
+        margin-left: -137px;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 205px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        z-index: 9999999;
+        border-radius: 4px;
+        max-height: 126px;
+        overflow-y: auto;
+        margin-top: 20px;
+      }
+    .dropdown-content label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .dropdown-content input {
+        margin-right: 10px;
+    }
+
+    .show {
+        display: block;
+    }
+
+    #output {
+        min-height: 37px;
+        border: 1px solid rgb(139, 139, 139);
+        padding: 5px;
+        border-radius: 5px;
+        margin-left: 0px;
+        margin-top: 0px;
+        transition: height 0.3s ease;
+        background:white;
+        max-height: 70px;
+        max-width:290px;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+    .option-div {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin: 5px;
+        display: inline-block;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    .remove-btn {
+        color: red;
+        cursor: pointer;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+
+
+
+    .dropdownform {
+        position: relative;
+        display: inline-block;
+    }
+     
+    #btn1{
+        position: absolute;
+        background-color: #000000;
+        color: white;
+        padding: 0px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        height: 37px;
+        margin-left: -24px;
+        margin-top: -19px;
+        width: 96px;
+        z-index: 9999;
+    }
+    #btn1:hover {
+        background-color: #000000;
+    }
+
+    .content1 {
+        margin-top: 18px;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 225px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        z-index: 9999999;
+        border-radius: 4px;
+        max-height: 150px;
+        /* Chiều cao tối đa cho dropdown */
+        overflow-y: auto;
+        margin-left: -134px;
+        /* Kích hoạt cuộn dọc khi chiều cao vượt quá giới hạn */
+    }
+
+
+
+    .content1 label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .content1 input {
+        margin-right: 10px;
+    }
+
+    .showcolor {
+        display: block;
+    }
+
+    #outputcolor {
+        min-height: 37px;
+        height: auto;
+        border: 1px solid #000000;
+        /* Đường viền màu xanh dương */
+        padding: 5px;
+        /* Thêm khoảng cách bên trong */
+        border-radius: 5px;
+        /* Tạo góc bo tròn */
+        margin-top: 0px;
+        transition: height 0.3s ease;
+        /* Thêm hiệu ứng mở rộng mượt */
+        /* Tạo khoảng cách giữa label và output */
+    }
+
+    .option-divcolor {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin: 5px;
+        display: inline-block;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    .remove-btncolor {
+        color: red;
+        cursor: pointer;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    #btnall{
+        position: absolute;
+        background-color: #000000;
+        color: white;
+        padding: 0px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        height: 37px;
+        margin-left: -29px;
+        margin-top: 0px;
+        width: 96px;
+        z-index: 9999;
+    }
+    .dropdown1 {
+        position: relative;
+        display: inline-block;
+    }
+
+    #dropdown-btn1 {
+        position: absolute;
+        background-color: #000000;
+        color: white;
+        padding: 0px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        height: 37px;
+        margin-left: -29px;
+        margin-top: -19px;
+        width: 100px;
+        z-index: 9999;
+    }
+
+
+    #dropdown-btn1:hover {
+        background-color: #000000;
+    }
+
+    .dropdown-content1 {
+        margin-left: -137px;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 245px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        z-index: 9999999;
+        border-radius: 4px;
+        max-height: 126px;
+        overflow-y: auto;
+        margin-top: 20px;
+      }
+    .dropdown-content1 label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .dropdown-content1 input {
+        margin-right: 10px;
+    }
+
+    .show1 {
+        display: block;
+    }
+
+    #output1 {
+        min-height: 37px;
+        height: auto;
+        border: 1px solid rgb(139, 139, 139);
+        /* Đường viền màu xanh dương */
+        padding: 5px;
+        /* Thêm khoảng cách bên trong */
+        border-radius: 5px;
+        /* Tạo góc bo tròn */
+        margin-left: 0px;
+        margin-top: 0px;
+        transition: height 0.3s ease;
+        background:white
+        /* Thêm hiệu ứng mở rộng mượt */
+        /* Tạo khoảng cách giữa label và output */
+    }
+
+    .option-div1 {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin: 5px;
+        display: inline-block;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    .remove-btn1 {
+        color: red;
+        cursor: pointer;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    #hiddenForm {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: white;
+    padding: 20px;
+    margin-right: 72px;
+    width: 608px;
+    height: 651px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+</style>

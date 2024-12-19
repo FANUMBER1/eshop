@@ -98,19 +98,19 @@ tbody tr:nth-child(even) {
 											<tbody>
 												<% if(data != undefined ){%>
 													<% for(var i=0; i< data.length ; i++){%>
-														<% if(data[i].coupon.action !=0 ){%>
+														<% if(data[i].action !=0 ){%>
 												<tr>
 													<td>
-														<p class=""><a href="#"><%= data[i].coupon.name %></a></p>
+														<p class=""><a href="#"><%= data[i].name %></a></p>
 													</td>
 													<td class="product-des" data-title="Description">
-														<p class="product-des">Giam gia cho don tu <%= data[i].coupon.buymin%> </p>
+														<p class="product-des">Giam gia cho don tu <%= data[i].buymin%> </p>
 													</td>
-													<td class="price" data-title="Price"><span><%= data[i].coupon.coupon %></span></td>
-													<td class="price" data-title="Price"><%if(parseInt(data[i].coupon.discountpercent) > 0){%>
-													</span><%= data[i].coupon.discountpercent %> % </span></td>
+													<td class="price" data-title="Price"><span><%= data[i].coupon %></span></td>
+													<td class="price" data-title="Price"><%if(parseInt(data[i].discountpercent) > 0){%>
+													</span><%= data[i].discountpercent %> % </span></td>
 													<%}else{%>
-													<span>$<%= data[i].coupon.discountprice %> </span></td>
+													<span>$<%= data[i].discountprice %> </span></td>
 														<%}%>
 													<td class="price" data-title="Price"><span><%= data[i].quantity %> </span></td>
 												</tr>

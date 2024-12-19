@@ -6,6 +6,7 @@ const classfy=require('../../model/admin/classfy')
 const user=require('../../model/admin/user')
 const cart=require('../../model/admin/cart')
 const coupons=require('../../model/admin/coupon')
+const checkcoupon=require('../../model/admin/checkout')
 app.set('view engine', 'ejs');
 module.exports={
     account:async(req,res)=>{
